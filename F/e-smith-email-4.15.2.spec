@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.2
-%define release 20
+%define release 20sme01
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -25,6 +25,7 @@ Patch12: e-smith-email-4.15.2-16.mitel_patch
 Patch13: e-smith-email-4.15.2-17.mitel_patch
 Patch14: e-smith-email-4.15.2-18.mitel_patch
 Patch15: e-smith-email-4.15.2-19.mitel_patch
+Patch16: e-smith-email-4.15.2-SF139732.patch2
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -49,6 +50,10 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Fri Jul 1 2005 Gordon Rowell <gordonr@gormand.com.au>
+- [4.15.2-20sme01]
+- French L10N Merci - Didier. [ SF:1227389 ] 
+
 * Tue Jun 14 2005 Charlie Brady <charlieb@e-smith.com>
 - [4.15.2-20]
 - Add Obsoletes headers for a number of email addon packages.
@@ -1073,6 +1078,7 @@ mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
 %patch13 -p1
 %patch14 -p1
 %patch15 -p1
+%patch16 -p1
 
 %build
 perl createlinks

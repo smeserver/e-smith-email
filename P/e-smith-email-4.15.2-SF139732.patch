@@ -1,0 +1,995 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/emailsettings mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/emailsettings
+--- e-smith-email-4.15.2/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/emailsettings	2005-03-09 18:41:09.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/emailsettings	2005-06-30 01:23:01.658924080 -0600
+@@ -1,416 +1,575 @@
+-<lexicon lang="fr" params="getExtraParams()">
+-    <!-- vim: ft=xml:
+-    -->
+-    <entry>
+-        <base>FORM_TITLE</base>
+-        <trans>Courrier électronique</trans>
+-    </entry>
+-    <entry>
+-        <base>DESCRIPTION</base>
+-        <trans> </trans>
+-    </entry>
+-    <entry>
+-        <base>SUCCESS</base>
+-        <trans>Les nouveaux paramètres de courrier électronique ont été
+-            enregistrés.</trans>
+-    </entry>
+-    <entry>
+-        <base>ERROR_UPDATING</base>
+-        <trans>Erreur pendant la mise à jour de la configuration du
+-            système.</trans>
+-    </entry>
+-    <entry>
+-        <base>NEVER</base>
+-        <trans>pas du tout</trans>
+-    </entry>
+-    <entry>
+-        <base>EVERY5MIN</base>
+-        <trans>Toutes les 5 minutes</trans>
+-    </entry>
+-    <entry>
+-        <base>EVERY15MIN</base>
+-        <trans>Toutes les 15 minutes</trans>
+-    </entry>
+-    <entry>
+-        <base>EVERY30MIN</base>
+-        <trans>Toutes les 30 minutes</trans>
+-    </entry>
+-    <entry>
+-        <base>EVERYHOUR</base>
+-        <trans>Toutes les heures</trans>
+-    </entry>
+-    <entry>
+-        <base>EVERY2HRS</base>
+-        <trans>Toutes les 2 heures</trans>
+-    </entry>
+-    <entry>
+-        <base>STANDARD</base>
+-        <trans>Standard (SMTP)</trans>
+-    </entry>
+-    <entry>
+-        <base>ETRN</base>
+-        <trans>ETRN (SMTP avec requête client)</trans>
+-    </entry>
+-    <entry>
+-        <base>DEFAULT</base>
+-        <trans>Par défaut</trans>
+-    </entry>
+-    <entry>
+-        <base>SPECIFY_BELOW</base>
+-        <trans>Spécifier ci-dessous</trans>
+-    </entry>
+-    <entry>
+-        <base>MULTIDROP</base>
+-        <trans>multipoint</trans>
+-    </entry>
+-    <entry>
+-        <base>LABEL_MODE</base>
+-        <trans>Mode de récupération du courrier électronique</trans>
+-    </entry>
+-    <entry>
+-        <base>DESC_MODE</base>
+-        <trans> 
+-            <![CDATA[
+-            <h2>Paramètres généraux</h2>
+-            Le mode de récupération du courrier électronique peut être réglé à
+-            standard (pour les connexions Internet spécialisées), ETRN
+-            (recommandé pour les connexions par ligne téléphonique commutée)
+-            ou multipoint (pour les connexions par ligne téléphonique commutée
+-            si ETRN n'est pas pris en charge par votre fournisseur d'accès
+-            Internet). Prenez note que le mode multipoint est la seule option
+-            disponible lorsque le serveur est configuré en mode serveur privé
+-            et passerelle. 
+-            ]]>
+-        </trans>
+-    </entry>
+-    <entry>
+-        <base>LABEL_DELEGATE</base>
+-        <trans>Adresse du serveur de courrier interne</trans>
+-    </entry>
+-    <entry>
+-        <base>DESC_DELEGATE</base>
+-        <trans> 
+-            <![CDATA[
+-            <hr class="sectionbar" /><h2>Serveurs de courrier électronique
+-                délégués</h2> Votre serveur inclut un serveur de courrier
+-            électronique complet et dotés de toutes les fonctions. Cependant,
+-            si pour une quelconque raison, vous voulez déléguer le traitement
+-            du courrier électronique à un autre système, indiquez ici
+-            l'adresse IP du système délégué. Pour une opération normale,
+-            laissez ce champ vide. 
+-            ]]>
+-        </trans>
+-    </entry>
+-    <entry>
+-        <base>LABEL_SECONDARY</base>
+-        <trans>Serveur de courrier électronique secondaire</trans>
+-    </entry>
+-    <entry>
+-        <base>DESC_SECONDARY</base>
+-        <trans>
+-            <![CDATA[
+-            <hr class="sectionbar" /><h2>Paramètres ETRN ou multipoint</h2>
+-            Pour le mode de récupération ETRN ou multipoint, indiquez le nom
+-            de l'hôte ou l'adresse IP de votre serveur de courrier
+-            électronique secondaire. (Si vous utilisez une configuration
+-            standard pour le courrier électronique, vous pouvez laisser ce
+-            champ vide.) 
+-            ]]>
+-        </trans>
+-    </entry>
+-    <entry>
+-        <base>DESC_FETCH_PERIOD</base>
+-        <trans>
+-            Pour le mode de récupération ETRN ou multipoint, vous pouvez
+-            contrôler la fréquence à laquelle ce serveur contacte votre
+-            serveur de courrier électronique secondaire pour aller chercher
+-            les courriels. Des connexions plus fréquentes signifient que vous
+-            recevez votre courrier électronique plus rapidement. Toutefois,
+-            comme cela va de pair avec des envois plus fréquents de requêtes
+-            Internet, vos frais de téléphone et d'Internet risquent d'être
+-            plus élevés.
+-        </trans>
+-    </entry>
+-    <entry>
+-        <base>LABEL_FETCH_PERIOD</base>
+-        <trans>Pendant les heures de bureau (8 h à 18 h) des jours de la
+-            semaine</trans>
+-    </entry>
+-    <entry>
+-        <base>LABEL_FETCH_PERIOD_NIGHTS</base>
+-        <trans>En dehors des heures de bureau (18 h à 8 h) des jours de
+-            semaine</trans>
+-    </entry>
+-    <entry>
+-        <base>LABEL_FETCH_PERIOD_WEEKENDS</base>
+-        <trans>Pendant la fin de semaine</trans>
+-    </entry>
+-    <entry>
+-        <base>DESC_POP_ACCOUNT</base>
+-        <trans> Pour la récupération multipoint du courrier électronique,
+-            indiquez le compte d'usager POP et le mot de passe. (Si vous avez
+-            recours au mode de récupération standard ou ETRN, vous pouvez
+-            laisser ces champs vides.) Également, pour récupérer le courrier
+-            électronique en mode multipoint, vous pouvez utiliser le mode de
+-            tri par défaut du serveur ou bien, vous pouvez spécifier un
+-            en-tête de message particulier qui sera utilisé pour trier le
+-            courrier. </trans>
+-    </entry>
+-    <entry>
+-        <base>LABEL_POP_PASS</base>
+-        <trans>Mot de passe d'usager POP (pour le mode multipoint)</trans>
+-    </entry> 
+-    <entry>
+-        <base>LABEL_POP_ACCOUNT</base>
+-        <trans>Compte d'usager POP (pour le mode multipoint)</trans>
+-    </entry> 
+-    <entry>
+-        <base>LABEL_SORT_METHOD</base>
+-        <trans>Sélectionnez la méthode de tri (pour le mode multipoint)</trans>
+-    </entry> 
+-    <entry>
+-        <base>LABEL_SORT_HEADER</base>
+-        <trans>Sélectionnez l'en-tête de tri (pour le mode multipoint)</trans>
+-    </entry> 
+-    <entry>
+-        <base>Configuration</base>
+-        <trans>Configuration</trans>
+-    </entry>
+-    <entry>
+-        <base>E-mail</base>
+-        <trans>Courrier électronique</trans>
+-    </entry>
+-    <entry>
+-        <base>SAVE</base>
+-        <trans>Enregistrer</trans>
+-    </entry>
+-    <entry>
+-        <base>FORM_TITLE</base>
+-        <trans>Paramètres de courrier électronique</trans>
+-    </entry>
+-    <entry>
+-        <base>SUCCESS</base>
+-        <trans>Les nouveaux paramètres de courrier électronique ont été
+-            enregistrés.</trans>
+-    </entry>
+-    <entry>
+-        <base>ENABLED</base>
+-        <trans>Activé</trans>
+-    </entry>
+-    <entry>
+-        <base>DISABLED</base>
+-        <trans>Désactivé</trans>
+-    </entry>
+-    <entry>
+-        <base>ENABLED_BOTH</base>
+-        <trans>Activé (HTTP ou HTTPS)</trans>
+-    </entry>
+-    <entry>
+-        <base>ENABLED_SECURE_ONLY</base>
+-        <trans>Activé (accès HTTPS sécurisé seulement - recommandé)</trans>
+-    </entry>
+-    <entry>
+-        <base>PUBLIC</base>
+-        <trans>Permettre l'accès public (tout Internet)</trans>
+-    </entry>
+-    <entry>
+-        <base>PRIVATE</base>
+-        <trans>Ne permettre l'accès qu'à partir de réseaux locaux</trans>
+-    </entry>
+-    <entry>
+-        <base>INSECURE_POP3</base>
+-        <trans>Autorise POP3 et POP3S</trans>
+-    </entry>
+-    <entry>
+-        <base>SECURE_POP3</base>
+-        <trans>Autorise uniquement POP3S (securisé)</trans>
+-    </entry>
+-    <entry>
+-        <base>INSECURE_IMAP</base>
+-        <trans>Autorise IMAP et IMAPS</trans>
+-    </entry>
+-    <entry>
+-        <base>SECURE_IMAP</base>
+-        <trans>Autorise uniquement IMAPS (securisé)</trans>
+-    </entry>
+-    <entry>
+-        <base>INSECURE_SMTP</base>
+-        <trans>Autorise SMTP et SSMTP</trans>
+-    </entry>
+-    <entry>
+-        <base>SECURE_SMTP</base>
+-        <trans>Autorise uniquement SSMTP (securisé)</trans>
+-    </entry>
+-    <entry>
+-        <base>LABEL_POP_ACCESS_CONTROL</base>
+-        <trans>Accès public au serveur POP3</trans>
+-    </entry>
+-    <entry>
+-        <base>LABEL_IMAP_ACCESS_CONTROL</base>
+-        <trans>Accès public au serveur IMAP</trans>
+-    </entry>
+-    <entry>
+-        <base>LABEL_SMTP_AUTH_CONTROL</base>
+-        <trans>Authentication SMTP</trans>
+-    </entry>
+-    <entry>
+-        <base>LABEL_ACCESS_CONTROL</base>
+-        <trans>Accès serveurs POP et IMAP</trans>
+-    </entry>
+-    <entry>
+-        <base>FORWARD_TO_ADMIN</base>
+-        <trans>Envoyer à l'administrateur</trans>
+-    </entry>
+-    <entry>
+-        <base>FORWARD_TO</base>
+-        <trans>Envoyer à l'</trans>
+-    </entry>
+-    <entry>
+-        <base>RETURN_TO_SENDER</base>
+-        <trans>Retourner à l'expéditeur</trans>
+-    </entry>
+-    <entry>
+-        <base>LABEL_UNKNOWN</base>
+-        <trans>Courrier électronique destiné à des usagers inconnus</trans>
+-    </entry>
+-    <entry>
+-        <base>LABEL_ADDRESS</base>
+-        <trans>Adresse de renvoi pour les avis administratifs</trans>
+-    </entry>
+-    <entry>
+-        <base>DESC_ADDRESS</base>
+-        <trans><![CDATA[
+-            Les avis administratifs générés par le serveur sont normalement
+-            envoyés par courrier électronique au compte <B>admin</B>. Si vous
+-            voulez qu'ils soient envoyés à une autre adresse de courrier
+-            électronique, entrez-la ci-dessous. Sinon, laissez ce champ vide.
+-            ]]></trans>
+-    </entry>
+-    <entry>
+-        <base>DESC_UNKNOWN</base>
+-        <trans>
+-            Chaque fois que le serveur reçoit un message destiné à un usager
+-            inconnu, il peut le retourner à l'expéditeur avec un message
+-            d'erreur (pratique recommandée) ou l'envoyer à une auntre adresse.
+-        </trans>
+-    </entry>
+-    <entry>
+-        <base>LABEL_SMARTHOST</base>
+-        <trans>Adresse du serveur de courrier du fournisseur de services
+-            Internet</trans>
+-    </entry>
+-    <entry>
+-        <base>DESC_SMARTHOST</base>
+-        <trans>
+-            Le serveur peut transmettre des messages sortants directement
+-            jusqu'à leur destination (recommandé dans la plupart des cas) ou
+-            bien, il peut les transmettre en passant par le serveur SMTP de
+-            votre fournisseur d'accès (recommandé si votre connexion Internet
+-            n'est pas fiable ou si vous utilisez un service Internet
+-            résidentiel). S'il passe par le serveur SMTP de votre fournisseur
+-            d'accès, précisez son nom d'hôte ou son adresse IP ci-dessous.
+-            Sinon, laissez ce champ vide.
+-        </trans>
+-    </entry>
+-    <entry>
+-        <base>INVALID_SMARTHOST</base>
+-        <trans>Le nom d'hôte intelligent que vous avez entré n'est pas un nom
+-            de domaine valide et ce champ ne doit pas être laissé
+-            vide.</trans>
+-    </entry>
+-    <entry>
+-        <base>DESC_ACCESS_CONTROL</base>
+-        <trans> Vous pouvez contrôler l'accès à vos serveurs POP et IMAP. Le
+-            paramètre Confidentiel ne permet l'accès qu'à partir de votre ou
+-            vos réseaux locaux et le paramètre Public permet l'accès à partir
+-            de n'importe quel point sur Internet. </trans>
+-    </entry>
+-    <entry>
+-        <base>DESC_POP_ACCESS_CONTROL</base>
+-        <trans><![CDATA[
+-            Vous pouvez contrôler les accès publics au serveur POP3.
+-            Le réglage POP3S (recommandé quand disponible) peut être utilisé
+-            pour fournir un accès externe crypté à votre serveur POP3.
+-            L'accès POP3 est toujours disponible en local.
+-            Nous vous recommandons de laisser ce réglage &quot;Désactivé&quot; à moins
+-            que vous n'ayez une raison particulière de procéder différemment.
+-            ]]>
+-        </trans>
+-    </entry>
+-    <entry>
+-        <base>DESC_IMAP_ACCESS_CONTROL</base>
+-        <trans><![CDATA[
+-            Vous pouvez contrôler les accès publics au serveur IMAP.
+-            Le réglage IMAPS (recommandé quand disponible) peut être utilisé
+-            pour fournir un accès externe crypté à votre serveur IMAP3.
+-            L'accès IMAP3 est toujours disponible en local.
+-            Nous vous recommandons de laisser ce réglage &quot;Désactivé&quot; à moins
+-            que vous n'ayez une raison particulière de procéder différemment.
+-            ]]>
+-        </trans>
+-    </entry>
+-    <entry>
+-        <base>DESC_SMTP_AUTH_CONTROL</base>
+-        <trans><![CDATA[
+-            Vous pouvez contrôler les accès publics au serveur SMTP.
+-            Le réglage SSMTP (recommandé quand disponible) peut être utilisé
+-            pour fournir un accès externe crypté à votre serveur SMTP.
+-            L'accès SMTP est toujours disponible en local.
+-            Nous vous recommandons de laisser ce réglage &quot;Désactivé&quot; à moins
+-            que vous n'ayez une raison particulière de procéder différemment.
+-            ]]>
+-        </trans>
+-    </entry>
+-    <entry>
+-        <base>DESC_WEBMAIL</base>
+-        <trans>Vous pouvez activer ou désactiver la messagerie Web sur ce
+-            système. La messagerie Web permet aux usagers d'accéder à leur
+-            courrier à l'aide d'un navigateur Web ordinaire. Pour cela, il
+-            leur suffit de pointer vers l'adresse {$FQDN}/webmail et de se
+-            connecter à leur compte.</trans>
+-    </entry>
+-    <entry>
+-        <base>LABEL_WEBMAIL</base>
+-        <trans>Activer/désactiver la messagerie Web</trans>
+-    </entry>
+-    <entry>
+-        <base>Configuration</base>
+-        <trans>Configuration</trans>
+-    </entry>
+-    <entry>
+-        <base>Other e-mail settings</base>
+-        <trans>Autres paramètres de courrier électronique</trans>
+-    </entry>
+-    <entry>
+-        <base>SAVE</base>
+-        <trans>Enregistrer</trans>
+-    </entry>
+-    <entry>
+-        <base>NO</base>
+-        <trans>Non</trans>
+-    </entry>
+-    <entry>
+-        <base>YES</base>
+-        <trans>Oui</trans>
+-    </entry>
+-     <entry>
+-        <base>LABEL_BLOCK_EXECUTABLE_CONTENT</base>
+-        <trans>Blocage des contenus actifs</trans>
+-     </entry>
+-     <entry>
+-        <base>DESC_BLOCK_EXECUTABLE_CONTENT</base>
+-        <trans>
+-            Vous pouvez bloquer les contenus actifs dans les fichiers 
+-            attachés aux email en sélectionnant les types de contenus 
+-            actifs attachés que vous désirez bloquer. Les emails contenant
+-            ce type de fichiers attachés seront automatiquement
+-            renvoyés à l'expéditeur.
+-        </trans>
+-    </entry>
+-    <entry>
+-        <base>UNACCEPTABLE_CHARS</base>
+-        <trans>Ce champ ne doit contenir que des lettres, des chiffres, des
+-            points, des traits d'union et des traits de soulignement. Il doit
+-            débuter par une lettre.</trans>
+-    </entry>
+-</lexicon>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
