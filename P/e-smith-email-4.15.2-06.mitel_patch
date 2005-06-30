@@ -1,0 +1,675 @@
+Index: e-smith-email/e-smith-email.spec
+diff -u e-smith-email/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings:1.19 e-smith-email/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings:1.20
+--- e-smith-email/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings:1.19	Thu Mar 24 11:18:49 2005
++++ e-smith-email/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings	Sun Apr 10 20:46:58 2005
+@@ -60,14 +60,12 @@
+     <entry>
+         <base>DESC_MODE</base>
+         <trans>
+-            <![CDATA[
+-            <h2>General settings</h2> The e-mail retrieval mode can be set to
++            The e-mail retrieval mode can be set to
+             standard (for dedicated Internet connections), ETRN (recommended
+             for dialup connections), or multi-drop (for dialup connections if
+             ETRN is not supported by your Internet provider). Note that
+             multi-drop mode is the only option available when the server is
+             configured in private server and gateway mode.
+-            ]]>
+         </trans>
+     </entry>
+     <entry>
+@@ -375,15 +373,22 @@
+      </entry>
+      <entry>
+         <base>LABEL_BLOCK_EXECUTABLE_CONTENT</base>
+-        <trans>Block executable content</trans>
++        <trans>Executable content blocking</trans>
++     </entry>
++     <entry>
++        <base>LABEL_CONTENT_TO_BLOCK</base>
++        <trans>Content to block</trans>
+      </entry>
+      <entry>
+         <base>DESC_BLOCK_EXECUTABLE_CONTENT</base>
+         <trans>
++            <![CDATA[
++            <h2>Executable content blocking</h2>
+             You can block executable content in e-mail attachments
+             by highlighting the executable attachment types you wish to
+             block. E-mail containing these attachment types will 
+             be automatically returned to the sender.
++	    ]]>
+         </trans>
+     </entry>
+     <entry>
+Index: e-smith-email/root/etc/e-smith/web/functions/emailsettings
+diff -u e-smith-email/root/etc/e-smith/web/functions/emailsettings:1.7 e-smith-email/root/etc/e-smith/web/functions/emailsettings:1.8
+--- e-smith-email/root/etc/e-smith/web/functions/emailsettings:1.7	Thu Mar 24 11:18:49 2005
++++ e-smith-email/root/etc/e-smith/web/functions/emailsettings	Sun Apr 10 20:46:58 2005
+@@ -161,21 +161,21 @@
+         <field 
+             type="literal" 
+             id="state_POPAccess" 
+-            value="get_current_pop3_access()">
++            value="get_current_pop3_access('localise')">
+             <label>LABEL_POP_ACCESS_CONTROL</label>
+         </field>
+ 
+         <field 
+             type="literal" 
+             id="state_IMAPAccess" 
+-            value="get_current_imap_access()">
++            value="get_current_imap_access('localise')">
+             <label>LABEL_IMAP_ACCESS_CONTROL</label>
+         </field>
+ 
+         <field 
+             type="literal" 
+             id="state_WebMail" 
+-            value="get_current_webmail_status()">
++            value="get_current_webmail_status('localise')">
+             <label>LABEL_WEBMAIL</label>
+         </field>
+ 
+@@ -188,7 +188,7 @@
+ 
+         <field type="literal"
+             id="state_mode"
+-            value="get_prop('fetchmail', 'Method')">
++            value="get_current_retrieval('localise')">
+             <label>LABEL_MODE</label>
+             <description>DESC_SECTIONBAR</description>
+         </field>
+@@ -196,14 +196,14 @@
+         <field 
+             type="literal" 
+             id="state_smtpauth"
+-            value="get_current_smtp_auth()">
++            value="get_current_smtp_auth('localise')">
+             <label>LABEL_SMTP_AUTH_CONTROL</label>
+         </field>
+ 
+         <field 
+             type="literal"
+             id="state_Patterns"
+-            value="get_prop('smtpfront-qmail', 'Patterns')">
++            value="get_patterns_status('localise')">
+             <label>LABEL_BLOCK_EXECUTABLE_CONTENT</label>
+         </field>
+ 
+@@ -225,7 +225,7 @@
+         <field
+             type="literal" 
+             id="state_EmailUnknownUser" 
+-            value="get_value('EmailUnknownUser')">
++            value="get_emailunknownuser_status('localise')">
+             <label>LABEL_UNKNOWN</label>
+         </field>
+     
+@@ -256,8 +256,8 @@
+         post-event="change_settings_reception()">
+          <field type="select" 
+             id="FetchmailMethod" 
+-            options="get_options()"
+-            value="get_prop('fetchmail', 'Method')">
++            options="get_retrieval_options()"
++            value="get_current_retrieval()">
+             <label>LABEL_MODE</label>
+             <description>DESC_MODE</description>
+         </field>
+@@ -265,7 +265,7 @@
+         <field 
+             type="select" 
+             id="SMTPAuth" 
+-            options="    'disabled' => 'DISABLED', 'publicSSL'  => 'SECURE_SMTP', 'public'  => 'INSECURE_SMTP'" 
++            options="get_smtp_auth_options()"
+             value="get_current_smtp_auth()">
+             <label>LABEL_SMTP_AUTH_CONTROL</label>
+             <description>DESC_SMTP_AUTH_CONTROL</description>
+@@ -274,6 +274,7 @@
+         <field 
+             type="text" 
+             id="SecondaryMailServer" 
++            display="display_multidrop()"
+             value="get_prop('fetchmail','SecondaryMailServer')">
+             <label>LABEL_SECONDARY</label>
+             <description>DESC_SECONDARY</description>
+@@ -282,21 +283,26 @@
+         <field 
+             type="select" 
+             id="FreqOffice" 
++            display="display_multidrop()"
+             options="fetchmail_frequencies()"
+             value="get_prop('fetchmail', 'FreqOffice')">
+             <label>LABEL_FETCH_PERIOD</label>
+             <description>DESC_FETCH_PERIOD</description>
+         </field>
++
+         <field 
+             type="select" 
+             id="FreqOutside" 
++            display="display_multidrop()"
+             options="fetchmail_frequencies()"
+             value="get_prop('fetchmail', 'FreqOutside')">
+             <label>LABEL_FETCH_PERIOD_NIGHTS</label>
+         </field>
++
+         <field 
+             type="select" 
+             id="FreqWeekend" 
++            display="display_multidrop()"
+             options="fetchmail_frequencies()"
+             value="get_prop('fetchmail', 'FreqWeekend')">
+             <label>LABEL_FETCH_PERIOD_WEEKENDS</label>
+@@ -305,12 +311,15 @@
+         <field 
+             type="text" 
+             id="SecondaryMailAccount" 
++            display="display_multidrop()"
+             value="get_prop('fetchmail','SecondaryMailAccount')">
+             <label>LABEL_POP_ACCOUNT</label>
+         </field>
++
+         <field 
+             type="password" 
+             id="SecondaryMailPassword" 
++            display="display_multidrop()"
+             value="get_prop('fetchmail','SecondaryMailPassword')">
+             <label>LABEL_POP_PASS</label>
+         </field>
+@@ -318,6 +327,7 @@
+         <field 
+             type="select" 
+             id="SpecifyHeader" 
++            display="display_multidrop()"
+             options="'off'=> 'DEFAULT', 'on' => 'SPECIFY_BELOW'"
+             value="get_secondary_mail_use_envelope()">
+             <label>LABEL_SORT_METHOD</label>
+@@ -326,11 +336,34 @@
+         <field 
+             type="text" 
+             id="SecondaryMailEnvelope" 
++            display="display_multidrop()"
+             validation=""
+             value="get_prop('fetchmail','SecondaryMailEnvelope')">
+             <label>LABEL_SORT_HEADER</label>
+         </field>
+ 
++        <field type="literal"
++            id="block_section"
++            value="">
++            <description>DESC_SECTIONBAR</description>
++        </field>
++
++        <field type="select"
++            id="PatternStatus"
++            options="'enabled' => 'ENABLED', 'disabled' => 'DISABLED'"
++            value="get_patterns_status()">
++            <label>LABEL_BLOCK_EXECUTABLE_CONTENT</label>
++            <description>DESC_BLOCK_EXECUTABLE_CONTENT</description>
++        </field>
++
++        <field
++            type="select" multiple="1"
++            id="BlockExecutableContent"
++            options="get_patterns_options()"
++            value="get_patterns_current_options()">
++            <label>LABEL_CONTENT_TO_BLOCK</label>
++        </field>
++
+         <subroutine src="print_button('SAVE')" />
+     </page>
+ 
+@@ -349,8 +382,8 @@
+         <field
+             type="select" 
+             id="EmailUnknownUser" 
+-            options="existing_accounts_and_return()" 
+-            value="get_value('EmailUnknownUser')">
++            options="get_emailunknownuser_options()"
++            value="get_emailunknownuser_status()">
+             <label>LABEL_UNKNOWN</label>
+             <description>DESC_UNKNOWN</description>
+         </field>
+@@ -382,7 +415,7 @@
+         <field 
+             type="select" 
+             id="POPAccess" 
+-            options="    'private' => 'DISABLED', 'publicSSL'  => 'SECURE_POP3', 'public'  => 'INSECURE_POP3'" 
++            options="get_pop_options()"
+             value="get_current_pop3_access()">
+             <label>LABEL_POP_ACCESS_CONTROL</label>
+             <description>DESC_POP_ACCESS_CONTROL</description>
+@@ -391,18 +424,16 @@
+         <field 
+             type="select" 
+             id="IMAPAccess" 
+-            options="    'private' => 'DISABLED', 'publicSSL'  => 'SECURE_IMAP', 'public'  => 'INSECURE_IMAP'" 
++            options="get_imap_options()"
+             value="get_current_imap_access()">
+             <label>LABEL_IMAP_ACCESS_CONTROL</label>
+             <description>DESC_IMAP_ACCESS_CONTROL</description>
+         </field>
+ 
+-        <subroutine src="show_mailpatterns_section()"/>
+-
+         <field 
+             type="select" 
+             id="WebMail" 
+-            options="'disabled'   => 'DISABLED', 'enabledSSL' => 'ENABLED_SECURE_ONLY', 'enabled'    => 'ENABLED_BOTH'"
++            options="get_webmail_options()"
+             value="get_current_webmail_status()">
+             <label>LABEL_WEBMAIL</label>
+             <description>DESC_WEBMAIL</description>
+@@ -410,7 +441,6 @@
+ 
+         <subroutine src="print_button('SAVE')" />
+     </page>
+-
+ 
+     <page 
+         name="Done" 
+Index: e-smith-email/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm
+diff -u e-smith-email/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm:1.7 e-smith-email/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm:1.8
+--- e-smith-email/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm:1.7	Thu Mar 24 11:18:49 2005
++++ e-smith-email/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm	Sun Apr 10 20:46:58 2005
+@@ -1,7 +1,7 @@
+ #!/usr/bin/perl -w 
+ 
+ #
+-# $Id: emailsettings.pm,v 1.2 2005/03/24 08:35:01 root Exp root $
++# $Id: emailsettings.pm,v 1.7 2005/03/24 16:18:49 charlieb Exp $
+ #
+ 
+ package    esmith::FormMagick::Panel::emailsettings;
+@@ -19,13 +19,13 @@
+ 
+ our @EXPORT = qw( fetchmail_frequencies get_secondary_mail_use_envelope
+   change_settings_access change_settings_delivery change_settings_reception
+-      blank_or_ip_number get_options existing_accounts_and_return
++  blank_or_ip_number
+   get_current_webmail_status validate_smarthost getExtraParams
+   get_current_pop3_access get_current_imap_access get_current_smtp_auth
+-  get_prop get_value show_mailpatterns_section validate_admin_email
++  get_prop get_value validate_admin_email
+ );
+ 
+-our $VERSION = sprintf '%d.%03d', q$Revision: 1.2 $ =~ /: (\d+).(\d+)/;
++our $VERSION = sprintf '%d.%03d', q$Revision: 1.7 $ =~ /: (\d+).(\d+)/;
+ 
+ our $db = esmith::ConfigDB->open;
+ our $pattern_db = esmith::ConfigDB->open("/home/e-smith/mailpatterns");
+@@ -106,15 +106,15 @@
+     return $db->get_value($item) || '';
+ }
+ 
+-=head2 existing_accounts_and_return
++=head2 get_emailunknownuser_options
+ 
+ Return a hash of existing system accounts and returntosender
+ 
+ =cut
+ 
+-sub existing_accounts_and_return {
++sub get_emailunknownuser_options {
+     my $fm = shift;
+-    my $accounts = esmith::AccountsDB->open();
++    my $accounts = esmith::AccountsDB->open_ro();
+     my %existingAccounts = ('admin' => $fm->localise("FORWARD_TO_ADMIN"), 
+             'returntosender' => $fm->localise("RETURN_TO_SENDER") );
+ 
+@@ -127,6 +127,17 @@
+     return(\%existingAccounts); 
+ }
+ 
++sub get_emailunknownuser_status
++{
++    my ($fm, $localise) = @_;
++
++    my $options = $fm->get_emailunknownuser_options();
++
++    my $val = $db->get_value('EmailUnknownUser') || "returntosender";
++
++    return $localise ? $fm->localise($options->{$val}) : $val;
++}
++
+ =head2 get_secondary_mail_use_envelope
+ 
+ Returns on or off, based on whether or not the fetchmail "SecondaryMailEnvelope" 
+@@ -167,7 +178,7 @@
+ 
+ =head1 ACTION
+ 
+-=head2 change_settings
++=head2 change_settings_reception
+ 
+ 	If everything has been validated, properly, go ahead and set the new settings
+ 
+@@ -372,13 +383,13 @@
+ 
+ =pod
+ 
+-=head2 get_options
++=head2 get_retrieval_options
+ 
+ Returns the options values for the retrieval mode select box. In private
+ S&G mode, we only support multidrop.
+ 
+ =cut
+-sub get_options
++sub get_retrieval_options
+ {
+     return $db->get("SystemMode")->value eq "servergateway-private"
+          ? {'multidrop' => 'MULTIDROP'}
+@@ -387,6 +398,17 @@
+             'multidrop' => 'MULTIDROP'};
+ }
+ 
++sub get_current_retrieval
++{
++    my ($fm, $localise) = @_;
++
++    my $method = $db->get_prop('fetchmail', 'Method');
++
++    my $options = get_retrieval_options();
++
++    return $localise ? $fm->localise($options->{$method}) : $method;
++}
++
+ =head2 get_current_pop3_access
+ 
+ returns "private", "public" or "publicSSL", depending on whether
+@@ -395,6 +417,8 @@
+ =cut
+ 
+ sub get_current_pop3_access {
++    my ($fm, $localise) = @_;
++
+     my $pop3Record = $db->get('popd');
+     my $pop3Status = $pop3Record->prop('status') || 'enabled';
+     my $pop3Access = $pop3Record->prop('access') || 'private';
+@@ -403,15 +427,17 @@
+     my $pop3sStatus = $pop3sRecord->prop('status') || 'enabled';
+     my $pop3sAccess = $pop3sRecord->prop('access') || 'private';
+ 
++    my $options = get_pop_options();
++
+     if ($pop3Status eq 'enabled' && $pop3Access eq 'public')
+     {
+-        return 'public';
++        return $localise ? $fm->localise($options->{public}) : 'public';
+     }
+     elsif ($pop3sStatus eq 'enabled' && $pop3sAccess eq 'public')
+     {
+-        return 'publicSSL';
++        return $localise ? $fm->localise($options->{publicSSL}) : 'publicSSL';
+     }
+-    return 'private';
++    return $localise ? $fm->localise($options->{private}) : 'private';
+ }
+ 
+ =head2 get_current_imap_access
+@@ -422,6 +448,8 @@
+ =cut
+ 
+ sub get_current_imap_access {
++    my ($fm, $localise) = @_;
++
+     my $imapRecord = $db->get('imap');
+     my $imapStatus = $imapRecord->prop('status') || 'enabled';
+     my $imapAccess = $imapRecord->prop('access') || 'private';
+@@ -430,15 +458,17 @@
+     my $imapsStatus = $imapsRecord->prop('status') || 'enabled';
+     my $imapsAccess = $imapsRecord->prop('access') || 'private';
+ 
++    my $options = get_imap_options();
++
+     if ($imapStatus eq 'enabled' && $imapAccess eq 'public')
+     {
+-        return 'public';
++        return $localise ? $fm->localise($options->{public}) : 'public';
+     }
+     elsif ($imapsStatus eq 'enabled' && $imapsAccess eq 'public')
+     {
+-        return 'publicSSL';
++        return $localise ? $fm->localise($options->{publicSSL}) : 'publicSSL';
+     }
+-    return 'private';
++    return $localise ? $fm->localise($options->{private}) : 'private';
+ }
+ 
+ =head2 get_current_smtp_auth
+@@ -449,6 +479,9 @@
+ =cut
+ 
+ sub get_current_smtp_auth {
++
++    my ($fm, $localise) = @_;
++
+     my $smtpfront = $db->get('smtpfront-qmail');
+     my $smtpStatus = $smtpfront->prop('status') || 'enabled';
+     my $smtpAuth = $smtpfront->prop('authentication') || 'disabled';
+@@ -457,15 +490,17 @@
+     my $smtpsStatus = $ssmtpfront->prop('status') || 'enabled';
+     my $smtpsAuth = $ssmtpfront->prop('authentication') || 'disabled';
+ 
++    my $options = get_smtp_auth_options();
++
+     if ($smtpStatus eq 'enabled' && $smtpAuth eq 'enabled')
+     {
+-        return 'public';
++        return $localise ? $fm->localise($options->{public}) : 'public';
+     }
+     elsif ($smtpsStatus eq 'enabled' && $smtpsAuth eq 'enabled')
+     {
+-        return 'publicSSL';
++        return $localise ? $fm->localise($options->{publicSSL}) : 'publicSSL';
+     }
+-    return 'disabled';
++    return $localise ? $fm->localise($options->{disabled}) : 'disabled';
+ }
+ 
+ =head2 get_current_webmail_status
+@@ -477,29 +512,19 @@
+ 
+ sub get_current_webmail_status {
+ 
++  my ($fm, $localise) = @_;
++
+   # determine status of webmail
+   my $WebmailStatus = "disabled";
+ 
+-  # This is evil and unsafe. Do NOT expect get() to return a valid result!
+-  # If the record doesn't exist, you are calling methods on undef!
+-  #my $IMPStatus     = $db->get('imp')->prop("status") || "disabled";
+-  #my $SSLonly       = $db->get('imp')->prop("access") || "disabled";
+-  #my $HordeStatus   = $db->get('horde')->prop("status" ) || "disabled";
+-  #my $MysqlStatus   = $db->get('mysqld')->prop("status" ) || "disabled";
+-  #my $PHPStatus     = $db->get('php')->prop("status" ) || "disabled";
+-  
+-  my $impRecord = $db->get('imp');
+-  my $IMPStatus = $impRecord->prop('status') || 'disabled';
+-  my $SSLonly = $impRecord->prop('access') || 'disabled';
++  my $IMPStatus = $db->get_prop('imp', 'status') || 'disabled';
++  my $SSLonly = $db->get_prop('imp', 'access') || 'disabled';
+ 
+-  my $hordeRecord = $db->get('horde');
+-  my $HordeStatus = $hordeRecord->prop('status') || 'disabled';
++  my $HordeStatus = $db->get_prop('horde', 'status') || 'disabled';
+ 
+-  my $mysqlRecord = $db->get('mysqld');
+-  my $MysqlStatus = $mysqlRecord->prop('status') || 'disabled';
++  my $MysqlStatus = $db->get_prop('mysqld', 'status') || 'disabled';
+ 
+-  my $phpRecord = $db->get('php');
+-  my $PHPStatus = $phpRecord->prop('status') || 'disabled';
++  my $PHPStatus = $db->get_prop('php', 'status') || 'disabled';
+ 
+   # all four components must be on for webmail to be working
+   if ( ( $IMPStatus eq "enabled" )
+@@ -509,7 +534,11 @@
+     {
+       $WebmailStatus = ( $SSLonly eq "SSL" ) ? "enabledSSL" : "enabled";
+     }
+-  return($WebmailStatus);
++
++  my $options = get_webmail_options();
++
++  return $localise ? $fm->localise($options->{$WebmailStatus}) 
++                   : $WebmailStatus;
+   
+ }
+ 
+@@ -592,51 +621,20 @@
+ 	return (FQDN => join('.', ($systemName, $domainName)));
+ }
+ 
+-sub show_mailpatterns_section
++sub get_patterns_status
+ {
+-    my $fm = shift;
+-    my $q = $fm->cgi;
+-
+-    my $smtpfront = $db->get('smtpfront-qmail');
+-    my $ssmtpfront = $db->get('ssmtpfront-qmail');
++    my ($fm, $localise) = @_;
+ 
+-    return '' unless ($smtpfront->prop('Patterns') eq 'enabled' || $ssmtpfront->prop('Patterns') eq 'enabled');
++    my $status = 'disabled';
+ 
+-    my %options;
+-
+-    my @selected;
+-
+-    foreach my $pattern ( $pattern_db->get_all_by_prop( type => "pattern" ) )
++    for ( qw(smtpfront-qmail ssmtpfront-qmail) )
+     {
+-        my %props = $pattern->props;
+-
+-        $options{$pattern->key} = $props{'Description'};
+-
+-        push @selected, $pattern->key if ($props{'Status'} eq 'enabled');
++        $status = 'enabled' if ($db->get_prop($_, 'Patterns') eq 'enabled');
+     }
+ 
+-    return $q->Tr(
+-      $q->td( {-colspan => 2},
+-      $q->p(
+-          $q->Tr(
+-            $q->td({-colspan => 2, -class => "sme-noborders"},
+-                $fm->localise('DESC_BLOCK_EXECUTABLE_CONTENT'))),
+-          $q->Tr(
+-            $q->td({-class => "sme-noborders-label"},
+-              $fm->localise('LABEL_BLOCK_EXECUTABLE_CONTENT')),
+-            $q->td({-class => "sme-noborders-content"},
+-              $q->hidden (-name => 'HaveBlockExeContent', -override => 1, 
+-                        -default => 'yes'),
+-              $q->scrolling_list(
+-                        -name     => 'BlockExecutableContent',
+-                        -values   => [ sort keys %options ],
+-                        -labels   => \%options,
+-                        -size     => 4,
+-                        -multiple => 'true',
+-                        -linebreak => 'true',
+-                        -default  => \@selected,
+-               )
+-    ))))); 
++    return $status unless $localise;
++
++    return $fm->localise($status eq 'enabled' ? 'ENABLED' : 'DISABLED');
+ }
+ 
+ sub adjust_patterns
+@@ -644,9 +642,6 @@
+     my $fm = shift;
+     my $q = $fm->{'cgi'};
+ 
+-    my $p = $q->param('HaveBlockExeContent') || 'no';
+-    return unless ($p eq 'yes');
+-
+     my @selected;
+     
+     push @selected, $q->param('BlockExecutableContent');
+@@ -661,5 +656,81 @@
+     $pattern_db->reload;
+ }
+ 
+-1;
++sub get_patterns_options
++{
++    my $self = shift;
+ 
++    my %options;
++
++    foreach my $pattern ( $pattern_db->get_all_by_prop( type => "pattern" ) )
++    {
++        my %props = $pattern->props;
++
++        $options{$pattern->key} = $props{'Description'};
++    }
++
++    return \%options;
++}
++
++sub get_patterns_current_options
++{
++    my $self = shift;
++
++    my @selected;
++
++    foreach my $pattern ( $pattern_db->get_all_by_prop( type => "pattern" ) )
++    {
++        my %props = $pattern->props;
++
++        push @selected, $pattern->key if ($props{'Status'} eq 'enabled');
++    }
++
++    return \@selected;
++}
++
++sub get_smtp_auth_options
++{
++    return { disabled => 'DISABLED', 
++            publicSSL  => 'SECURE_SMTP',
++            public  => 'INSECURE_SMTP'
++        };
++}
++
++sub get_pop_options
++{
++    return { private => 'DISABLED', 
++            publicSSL  => 'SECURE_POP3', 
++            public  => 'INSECURE_POP3'
++        };
++}
++
++sub get_imap_options
++{
++    return { private => 'DISABLED', 
++            publicSSL  => 'SECURE_IMAP',
++            public  => 'INSECURE_IMAP'
++        };
++}
++
++sub get_webmail_options
++{
++    return { disabled   => 'DISABLED',
++             enabledSSL => 'ENABLED_SECURE_ONLY',
++             enabled    => 'ENABLED_BOTH'
++         };
++}
++
++sub display_multidrop
++{
++    my $status = $db->get_prop('fetchmail', 'status') || 'disabled';
++
++    # XXX FIXME - WIP 
++    # Only display ETRN/multidrop settings if relevant
++    # To do this, we need an "Show ETRN/multidrop settings" button
++    # in standard mode.
++
++    # return ($status eq 'enabled');
++    return 1;	
++}
++
++1;

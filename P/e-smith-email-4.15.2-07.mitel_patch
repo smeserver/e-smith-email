@@ -1,0 +1,22 @@
+Index: e-smith-email/createlinks
+diff -u e-smith-email/createlinks:1.35 e-smith-email/createlinks:1.36
+--- e-smith-email/createlinks:1.35	Thu Mar 31 18:34:56 2005
++++ e-smith-email/createlinks	Tue Apr 19 15:01:40 2005
+@@ -100,6 +100,8 @@
+ event_link("email-update-group", $event, "20");
+ event_link("update-user-pseudonyms", $event, "25");
+ event_link("email-update-user", $event, "55");
++# NB: sigusr1 isn't used here because qmail isn't running yet, so supervise will
++# drop the "signal".
+ safe_symlink("/service/qmail/control/1", "root/etc/e-smith/events/$event/S55email-assign");
+ 
+ #--------------------------------------------------
+@@ -107,7 +109,6 @@
+ # rewrite config files and restart server
+ #--------------------------------------------------
+ $event = "domain-create";
+-
+ 
+ # If qmail-send is running, it will receive the SIGHUP and ignore the
+ # start command. If it is not running then the signal will be ignored
+Index: e-smith-email/e-smith-email.spec

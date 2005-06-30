@@ -1,0 +1,499 @@
+Index: e-smith-email/e-smith-email.spec
+diff -u e-smith-email/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings:1.18 e-smith-email/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings:1.19
+--- e-smith-email/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings:1.18	Wed Mar  9 20:41:09 2005
++++ e-smith-email/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings	Thu Mar 24 11:18:49 2005
+@@ -393,4 +393,70 @@
+             underscores and start with a letter
+         </trans>
+     </entry>
++
++    <entry>
++        <base>DESC_STATE_ACCESS</base>
++        <trans>
++            <![CDATA[
++            <h2>E-mail access</h2>
++                ]]>
++        </trans>
++    </entry>
++
++    <entry>
++        <base>DESC_STATE_ACCESS_BUTTON</base>
++        <trans>
++            <![CDATA[
++            <a class="button-like"
++                href="emailsettings?page=0&page_stack=&Next=Next&wherenext=EMAIL_PAGE_ACCESS">Change e-mail access settings</a>
++                ]]>
++        </trans>
++    </entry>
++
++    <entry>
++        <base>DESC_STATE_RECEPTION</base>
++        <trans>
++            <![CDATA[
++            <hr class="sectionbar" /><h2>E-mail reception</h2>
++                ]]>
++        </trans>
++    </entry>
++
++    <entry>
++        <base>DESC_STATE_RECEPTION_BUTTON</base>
++        <trans>
++            <![CDATA[
++            <a class="button-like"
++                href="emailsettings?page=0&page_stack=&Next=Next&wherenext=EMAIL_PAGE_RECEPTION">Change e-mail reception settings</a>
++                ]]>
++        </trans>
++    </entry>
++
++    <entry>
++        <base>DESC_STATE_DELIVERY</base>
++        <trans>
++            <![CDATA[
++            <hr class="sectionbar" /><h2>E-mail delivery</h2>
++                ]]>
++        </trans>
++    </entry>
++
++    <entry>
++        <base>DESC_STATE_DELIVERY_BUTTON</base>
++        <trans>
++            <![CDATA[
++            <a class="button-like"
++                href="emailsettings?page=0&page_stack=&Next=Next&wherenext=EMAIL_PAGE_DELIVERY">Change e-mail delivery settings</a>
++                ]]>
++        </trans>
++    </entry>
++
++    <entry>
++        <base>DESC_SECTIONBAR</base>
++        <trans>
++            <![CDATA[
++            <hr class="sectionbar"/>
++            ]]>
++        </trans>
++    </entry>
+ </lexicon>
+Index: e-smith-email/root/etc/e-smith/web/functions/emailsettings
+diff -u e-smith-email/root/etc/e-smith/web/functions/emailsettings:1.6 e-smith-email/root/etc/e-smith/web/functions/emailsettings:1.7
+--- e-smith-email/root/etc/e-smith/web/functions/emailsettings:1.6	Wed Mar  9 20:41:10 2005
++++ e-smith-email/root/etc/e-smith/web/functions/emailsettings	Thu Mar 24 11:18:49 2005
+@@ -155,88 +155,120 @@
+     title="FORM_TITLE"
+     header="/etc/e-smith/web/common/head.tmpl"
+     footer="/etc/e-smith/web/common/foot.tmpl">
+-    <page name="First"  post-event="change_settings()" 
+-        pre-event="print_status_message()">
+-        <field type="select" 
+-            id="FetchmailMethod" 
+-            options="get_options()"
+-            value="get_prop('fetchmail', 'Method')">
+-            <label>LABEL_MODE</label>
+-            <description>DESC_MODE</description>
+-        </field>
+ 
+-        <field
+-            type="text"
+-            id="AdminEmail"
+-            validation="validate_admin_email()"
+-            value="get_value('AdminEmail')">
+-            <label>LABEL_ADDRESS</label>
+-            <description>DESC_ADDRESS</description>
+-        </field>
+-
+-        <field
+-            type="select" 
+-            id="EmailUnknownUser" 
+-            options="existing_accounts_and_return()" 
+-            value="get_value('EmailUnknownUser')">
+-            <label>LABEL_UNKNOWN</label>
+-            <description>DESC_UNKNOWN</description>
+-        </field>
++    <page name="First" pre-event="print_status_message()">
+ 
+         <field 
+-            type="select" 
+-            id="POPAccess" 
+-            options="    'private' => 'DISABLED', 'publicSSL'  => 'SECURE_POP3', 'public'  => 'INSECURE_POP3'" 
++            type="literal" 
++            id="state_POPAccess" 
+             value="get_current_pop3_access()">
+             <label>LABEL_POP_ACCESS_CONTROL</label>
+-            <description>DESC_POP_ACCESS_CONTROL</description>
+         </field>
+ 
+         <field 
+-            type="select" 
+-            id="IMAPAccess" 
+-            options="    'private' => 'DISABLED', 'publicSSL'  => 'SECURE_IMAP', 'public'  => 'INSECURE_IMAP'" 
++            type="literal" 
++            id="state_IMAPAccess" 
+             value="get_current_imap_access()">
+             <label>LABEL_IMAP_ACCESS_CONTROL</label>
+-            <description>DESC_IMAP_ACCESS_CONTROL</description>
+         </field>
+ 
+         <field 
+-            type="select" 
+-            id="SMTPAuth" 
+-            options="    'disabled' => 'DISABLED', 'publicSSL'  => 'SECURE_SMTP', 'public'  => 'INSECURE_SMTP'" 
++            type="literal" 
++            id="state_WebMail" 
++            value="get_current_webmail_status()">
++            <label>LABEL_WEBMAIL</label>
++        </field>
++
++        <field
++            type="literal"
++            id="button_access"
++            value="">
++            <description>DESC_STATE_ACCESS_BUTTON</description>
++        </field>
++
++        <field type="literal"
++            id="state_mode"
++            value="get_prop('fetchmail', 'Method')">
++            <label>LABEL_MODE</label>
++            <description>DESC_SECTIONBAR</description>
++        </field>
++
++        <field 
++            type="literal" 
++            id="state_smtpauth"
+             value="get_current_smtp_auth()">
+             <label>LABEL_SMTP_AUTH_CONTROL</label>
+-            <description>DESC_SMTP_AUTH_CONTROL</description>
+         </field>
+ 
+-        <subroutine src="show_mailpatterns_section()"/>
+-
+         <field 
+-            type="select" 
+-            id="WebMail" 
+-            options="'disabled'   => 'DISABLED', 'enabledSSL' => 'ENABLED_SECURE_ONLY', 'enabled'    => 'ENABLED_BOTH'"
+-            value="get_current_webmail_status()">
+-            <label>LABEL_WEBMAIL</label>
+-            <description>DESC_WEBMAIL</description>
++            type="literal"
++            id="state_Patterns"
++            value="get_prop('smtpfront-qmail', 'Patterns')">
++            <label>LABEL_BLOCK_EXECUTABLE_CONTENT</label>
++        </field>
++
++        <field
++            type="literal"
++            id="button_reception"
++            value="">
++            <description>DESC_STATE_RECEPTION_BUTTON</description>
++        </field>
++
++        <field
++            type="literal"
++            id="state_AdminEmail"
++            value="get_value('AdminEmail')">
++            <label>LABEL_ADDRESS</label>
++            <description>DESC_SECTIONBAR</description>
+         </field>
+ 
++        <field
++            type="literal" 
++            id="state_EmailUnknownUser" 
++            value="get_value('EmailUnknownUser')">
++            <label>LABEL_UNKNOWN</label>
++        </field>
++    
+         <field 
+-            type="text" 
+-            id="DelegateMailServer" 
+-            validation="blank_or_ip_number()" 
++            type="literal" 
++            id="state_DelegateMailServer" 
+             value="get_value('DelegateMailServer')">
+             <label>LABEL_DELEGATE</label>
+-            <description>DESC_DELEGATE</description>
+         </field>
+ 
+         <field 
+-            type="text" 
+-            id="SMTPSmartHost" 
+-            validation="validate_smarthost()"
++            type="literal" 
++            id="state_SMTPSmartHost" 
+             value="get_value('SMTPSmartHost')">
+             <label>LABEL_SMARTHOST</label>
+-            <description>DESC_SMARTHOST</description>
++        </field>
++
++        <field
++            type="literal"
++            id="button_delivery"
++            value="">
++            <description>DESC_STATE_DELIVERY_BUTTON</description>
++        </field>
++    </page>
++
++    <page name="EMAIL_PAGE_RECEPTION"
++        pre-event="turn_off_buttons"
++        post-event="change_settings_reception()">
++         <field type="select" 
++            id="FetchmailMethod" 
++            options="get_options()"
++            value="get_prop('fetchmail', 'Method')">
++            <label>LABEL_MODE</label>
++            <description>DESC_MODE</description>
++        </field>
++
++        <field 
++            type="select" 
++            id="SMTPAuth" 
++            options="    'disabled' => 'DISABLED', 'publicSSL'  => 'SECURE_SMTP', 'public'  => 'INSECURE_SMTP'" 
++            value="get_current_smtp_auth()">
++            <label>LABEL_SMTP_AUTH_CONTROL</label>
++            <description>DESC_SMTP_AUTH_CONTROL</description>
+         </field>
+ 
+         <field 
+@@ -298,8 +330,87 @@
+             value="get_prop('fetchmail','SecondaryMailEnvelope')">
+             <label>LABEL_SORT_HEADER</label>
+         </field>
++
++        <subroutine src="print_button('SAVE')" />
++    </page>
++
++    <page name="EMAIL_PAGE_DELIVERY" 
++        pre-event="turn_off_buttons"
++        post-event="change_settings_delivery()">
++        <field
++            type="text"
++            id="AdminEmail"
++            validation="validate_admin_email()"
++            value="get_value('AdminEmail')">
++            <label>LABEL_ADDRESS</label>
++            <description>DESC_ADDRESS</description>
++        </field>
++
++        <field
++            type="select" 
++            id="EmailUnknownUser" 
++            options="existing_accounts_and_return()" 
++            value="get_value('EmailUnknownUser')">
++            <label>LABEL_UNKNOWN</label>
++            <description>DESC_UNKNOWN</description>
++        </field>
++
++        <field 
++            type="text" 
++            id="DelegateMailServer" 
++            validation="blank_or_ip_number()" 
++            value="get_value('DelegateMailServer')">
++            <label>LABEL_DELEGATE</label>
++            <description>DESC_DELEGATE</description>
++        </field>
++
++        <field 
++            type="text" 
++            id="SMTPSmartHost" 
++            validation="validate_smarthost()"
++            value="get_value('SMTPSmartHost')">
++            <label>LABEL_SMARTHOST</label>
++            <description>DESC_SMARTHOST</description>
++        </field>
++
++        <subroutine src="print_button('SAVE')" />
++    </page>
++
++    <page name="EMAIL_PAGE_ACCESS" 
++        pre-event="turn_off_buttons"
++        post-event="change_settings_access()">
++        <field 
++            type="select" 
++            id="POPAccess" 
++            options="    'private' => 'DISABLED', 'publicSSL'  => 'SECURE_POP3', 'public'  => 'INSECURE_POP3'" 
++            value="get_current_pop3_access()">
++            <label>LABEL_POP_ACCESS_CONTROL</label>
++            <description>DESC_POP_ACCESS_CONTROL</description>
++        </field>
++
++        <field 
++            type="select" 
++            id="IMAPAccess" 
++            options="    'private' => 'DISABLED', 'publicSSL'  => 'SECURE_IMAP', 'public'  => 'INSECURE_IMAP'" 
++            value="get_current_imap_access()">
++            <label>LABEL_IMAP_ACCESS_CONTROL</label>
++            <description>DESC_IMAP_ACCESS_CONTROL</description>
++        </field>
++
++        <subroutine src="show_mailpatterns_section()"/>
++
++        <field 
++            type="select" 
++            id="WebMail" 
++            options="'disabled'   => 'DISABLED', 'enabledSSL' => 'ENABLED_SECURE_ONLY', 'enabled'    => 'ENABLED_BOTH'"
++            value="get_current_webmail_status()">
++            <label>LABEL_WEBMAIL</label>
++            <description>DESC_WEBMAIL</description>
++        </field>
++
+         <subroutine src="print_button('SAVE')" />
+     </page>
++
+ 
+     <page 
+         name="Done" 
+Index: e-smith-email/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm
+diff -u e-smith-email/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm:1.6 e-smith-email/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm:1.7
+--- e-smith-email/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm:1.6	Fri Mar 18 20:58:08 2005
++++ e-smith-email/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm	Thu Mar 24 11:18:49 2005
+@@ -1,7 +1,7 @@
+ #!/usr/bin/perl -w 
+ 
+ #
+-# $Id: emailsettings.pm,v 1.5 2005/03/14 23:19:34 charlieb Exp $
++# $Id: emailsettings.pm,v 1.2 2005/03/24 08:35:01 root Exp root $
+ #
+ 
+ package    esmith::FormMagick::Panel::emailsettings;
+@@ -18,13 +18,14 @@
+ our @ISA = qw(esmith::FormMagick Exporter);
+ 
+ our @EXPORT = qw( fetchmail_frequencies get_secondary_mail_use_envelope
+-  change_settings blank_or_ip_number get_options existing_accounts_and_return
++  change_settings_access change_settings_delivery change_settings_reception
++      blank_or_ip_number get_options existing_accounts_and_return
+   get_current_webmail_status validate_smarthost getExtraParams
+   get_current_pop3_access get_current_imap_access get_current_smtp_auth
+   get_prop get_value show_mailpatterns_section validate_admin_email
+ );
+ 
+-our $VERSION = sprintf '%d.%03d', q$Revision: 1.5 $ =~ /: (\d+).(\d+)/;
++our $VERSION = sprintf '%d.%03d', q$Revision: 1.2 $ =~ /: (\d+).(\d+)/;
+ 
+ our $db = esmith::ConfigDB->open;
+ our $pattern_db = esmith::ConfigDB->open("/home/e-smith/mailpatterns");
+@@ -172,11 +173,9 @@
+ 
+ =cut
+ 
+-sub change_settings {
++sub change_settings_reception
++{
+     my ($fm) = @_;
+-
+-    my %conf;
+-
+     my $q = $fm->{'cgi'};
+ 
+     my $FetchmailMethod = ( $q->param('FetchmailMethod') || 'standard' );
+@@ -186,23 +185,7 @@
+     my $FetchmailFreqOutside = ( $q->param('FreqOutside')   || 'everyhour' );
+     my $FetchmailFreqWeekend = ( $q->param('FreqWeekend')   || 'everyhour' );
+     my $SpecifyHeader        = ( $q->param('SpecifyHeader') || 'off' );
+-    my $DelegateMailServer =  $q->param('DelegateMailServer');
+ 
+-    #------------------------------------------------------------
+-    # Looks good; go ahead and save the settings.
+-    #------------------------------------------------------------
+-
+-    if ($DelegateMailServer)
+-    {
+-        my $d = $db->get('DelegateMailServer') ||
+-		    $db->new_record('DelegateMailServer');
+-        $d->set_value($DelegateMailServer);
+-    }
+-    else
+-    {
+-	my $d = $db->get('DelegateMailServer');
+-	$d->delete() if $d;
+-    }
+ 
+     $db->get('fetchmail')->set_prop( "service", { status => "disabled" } )
+       unless ( $db->get("fetchmail") );
+@@ -241,13 +224,66 @@
+         }
+     }
+ 
+-    my $EmailUnknownUser = ($q->param('EmailUnknownUser') || 'returntosender');
++    my $smtpAuth = ($q->param('SMTPAuth') || 'disabled');
++    if ($smtpAuth eq 'public') {
++        $db->get('smtpfront-qmail')->set_prop("authentication", "enabled" );
++        $db->get('ssmtpfront-qmail')->set_prop("authentication", "enabled" );
++    } elsif ($smtpAuth eq 'publicSSL') {
++        $db->get('smtpfront-qmail')->set_prop("authentication", "disabled" );
++        $db->get('ssmtpfront-qmail')->set_prop("authentication", "enabled" );
++    } else {
++        $db->get('smtpfront-qmail')->set_prop("authentication", "disabled" );
++        $db->get('ssmtpfront-qmail')->set_prop("authentication", "disabled" );
++    }
+ 
++    $fm->adjust_patterns();
++
++    unless ( system( "/sbin/e-smith/signal-event", "email-update" ) == 0 )
++    {
++	$fm->error('ERROR_UPDATING');
++	return undef;
++    }
++    $fm->success('SUCCESS');
++}
++
++sub change_settings_delivery
++{
++    my ($fm) = @_;
++    my $q = $fm->{'cgi'};
++
++    my $DelegateMailServer =  $q->param('DelegateMailServer');
++
++    if ($DelegateMailServer)
++    {
++        my $d = $db->get('DelegateMailServer') ||
++		    $db->new_record('DelegateMailServer');
++        $d->set_value($DelegateMailServer);
++    }
++    else
++    {
++	my $d = $db->get('DelegateMailServer');
++	$d->delete() if $d;
++    }
++
++    my $EmailUnknownUser = ($q->param('EmailUnknownUser') || 'returntosender');
+ 
+     $db->get('SMTPSmartHost')->set_value($q->param('SMTPSmartHost'));
+     $db->get('EmailUnknownUser')->set_value($EmailUnknownUser);
+     $db->get('AdminEmail')->set_value($q->param('AdminEmail'));
+ 
++    unless ( system( "/sbin/e-smith/signal-event", "email-update" ) == 0 )
++    {
++	$fm->error('ERROR_UPDATING');
++	return undef;
++    }
++    $fm->success('SUCCESS');
++}
++
++sub change_settings_access
++{
++    my ($fm) = @_;
++    my $q = $fm->{'cgi'};
++
+     my $pop3Access = ($q->param('POPAccess') || 'private');
+     if ($pop3Access eq 'public') {
+         $db->get('popd')->set_prop("access", "public" );
+@@ -271,20 +307,6 @@
+         $db->get('imap')->set_prop("access", "private" );
+         $db->get('imaps')->set_prop("access", "private" );
+     }
+-
+-    my $smtpAuth = ($q->param('SMTPAuth') || 'disabled');
+-    if ($smtpAuth eq 'public') {
+-        $db->get('smtpfront-qmail')->set_prop("authentication", "enabled" );
+-        $db->get('ssmtpfront-qmail')->set_prop("authentication", "enabled" );
+-    } elsif ($smtpAuth eq 'publicSSL') {
+-        $db->get('smtpfront-qmail')->set_prop("authentication", "disabled" );
+-        $db->get('ssmtpfront-qmail')->set_prop("authentication", "enabled" );
+-    } else {
+-        $db->get('smtpfront-qmail')->set_prop("authentication", "disabled" );
+-        $db->get('ssmtpfront-qmail')->set_prop("authentication", "disabled" );
+-    }
+-
+-    $fm->adjust_patterns();
+ 
+     #------------------------------------------------------------
+     # Set webmail state in configuration database, and access

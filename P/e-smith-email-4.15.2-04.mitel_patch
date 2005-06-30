@@ -1,0 +1,60 @@
+Index: e-smith-email/createlinks
+diff -u e-smith-email/createlinks:1.32 e-smith-email/createlinks:1.34
+--- e-smith-email/createlinks:1.32	Fri Mar 18 19:28:19 2005
++++ e-smith-email/createlinks	Tue Mar 29 12:18:28 2005
+@@ -100,7 +100,7 @@
+ event_link("email-update-group", $event, "20");
+ event_link("update-user-pseudonyms", $event, "25");
+ event_link("email-update-user", $event, "55");
+-safe_symlink("sigusr1", "root/etc/e-smith/events/$event/services2adjust/qmail");
++safe_symlink("/service/qmail/control/1", "root/etc/e-smith/events/$event/S55email-assign");
+ 
+ #--------------------------------------------------
+ # actions for domain-create event:
+@@ -218,14 +218,14 @@
+ 
+ foreach my $event (qw(bootstrap-console-save network-delete network-create))
+ {
+-    foreach (qw(0 local))
+-    {
+-	templates2events("/var/service/popd/peers/$_", $event);
+-    }
+-    foreach (qw(0 local))
++    foreach (qw(popd/peers/0 popd/peers/local pop3s/peers/0 pop3s/peers/local))
+     {
+-	templates2events("/var/service/pop3s/peers/$_", $event);
++	templates2events("/var/service/$_", $event);
+     }
++}
++
++foreach my $event (qw(network-delete network-create))
++{
+     safe_symlink("sigusr1", "root/etc/e-smith/events/$event/services2adjust/popd");
+ }
+ 
+Index: e-smith-email/e-smith-email.spec
+diff -u e-smith-email/root/var/service/pop3s/run:1.4 e-smith-email/root/var/service/pop3s/run:1.5
+--- e-smith-email/root/var/service/pop3s/run:1.4	Fri Mar 18 15:44:36 2005
++++ e-smith-email/root/var/service/pop3s/run	Tue Mar 29 12:16:24 2005
+@@ -5,6 +5,8 @@
+ fqdn="$hostname.$domain"
+ 
+ exec 2>&1
++# Generate ACL files in ./peers
++./control/1
+ exec /usr/local/bin/softlimit -m 5000000 \
+     tcpsvd \
+ 	-v \
+Index: e-smith-email/root/var/service/popd/run
+diff -u e-smith-email/root/var/service/popd/run:1.6 e-smith-email/root/var/service/popd/run:1.7
+--- e-smith-email/root/var/service/popd/run:1.6	Fri Mar 18 18:22:32 2005
++++ e-smith-email/root/var/service/popd/run	Tue Mar 29 12:16:24 2005
+@@ -5,6 +5,8 @@
+ fqdn="$hostname.$domain"
+ 
+ exec 2>&1
++# Generate ACL files in ./peers
++./control/1
+ exec /usr/local/bin/softlimit -m 5000000 \
+     tcpsvd \
+ 	-v \

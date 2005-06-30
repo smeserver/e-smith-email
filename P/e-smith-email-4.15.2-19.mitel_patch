@@ -1,0 +1,180 @@
+Index: e-smith-email/e-smith-email.spec
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhIYW5k/Body:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhIYW5k/Body	Thu Jun  9 12:08:07 2005
+@@ -0,0 +1 @@
++AHhIYW5k
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhIYW5k/Description
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhIYW5k/Description:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhIYW5k/Description	Thu Jun  9 12:08:07 2005
+@@ -0,0 +1 @@
++PIF file (AHhIYW5k)
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhIYW5k/Glob
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhIYW5k/Glob:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhIYW5k/Glob	Thu Jun  9 12:08:07 2005
+@@ -0,0 +1 @@
++yes
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhIYW5k/LineStart
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhIYW5k/LineStart:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhIYW5k/LineStart	Thu Jun  9 12:08:07 2005
+@@ -0,0 +1 @@
++yes
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhIYW5k/Status
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhIYW5k/Status:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhIYW5k/Status	Thu Jun  9 12:08:07 2005
+@@ -0,0 +1 @@
++disabled
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhIYW5k/type
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhIYW5k/type:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhIYW5k/type	Thu Jun  9 12:08:07 2005
+@@ -0,0 +1 @@
++pattern
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhUYXgg/Body
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhUYXgg/Body:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhUYXgg/Body	Thu Jun  9 12:08:08 2005
+@@ -0,0 +1 @@
++AHhUYXgg
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhUYXgg/Description
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhUYXgg/Description:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhUYXgg/Description	Thu Jun  9 12:08:08 2005
+@@ -0,0 +1 @@
++PIF file (AHhUYXgg)
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhUYXgg/Glob
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhUYXgg/Glob:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhUYXgg/Glob	Thu Jun  9 12:08:08 2005
+@@ -0,0 +1 @@
++yes
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhUYXgg/LineStart
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhUYXgg/LineStart:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhUYXgg/LineStart	Thu Jun  9 12:08:08 2005
+@@ -0,0 +1 @@
++yes
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhUYXgg/Status
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhUYXgg/Status:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhUYXgg/Status	Thu Jun  9 12:08:08 2005
+@@ -0,0 +1 @@
++disabled
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhUYXgg/type
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhUYXgg/type:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AHhUYXgg/type	Thu Jun  9 12:08:08 2005
+@@ -0,0 +1 @@
++pattern
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMkgICAg/Body
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMkgICAg/Body:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMkgICAg/Body	Thu Jun  9 12:08:08 2005
+@@ -0,0 +1 @@
++AMkgICAg
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMkgICAg/Description
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMkgICAg/Description:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMkgICAg/Description	Thu Jun  9 12:08:08 2005
+@@ -0,0 +1 @@
++PIF file (AMkgICAg)
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMkgICAg/Glob
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMkgICAg/Glob:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMkgICAg/Glob	Thu Jun  9 12:08:08 2005
+@@ -0,0 +1 @@
++yes
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMkgICAg/LineStart
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMkgICAg/LineStart:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMkgICAg/LineStart	Thu Jun  9 12:08:08 2005
+@@ -0,0 +1 @@
++yes
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMkgICAg/Status
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMkgICAg/Status:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMkgICAg/Status	Thu Jun  9 12:08:08 2005
+@@ -0,0 +1 @@
++disabled
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMkgICAg/type
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMkgICAg/type:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMkgICAg/type	Thu Jun  9 12:08:08 2005
+@@ -0,0 +1 @@
++pattern
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMlIbDk5Lm/Body
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMlIbDk5Lm/Body:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMlIbDk5Lm/Body	Thu Jun  9 12:08:08 2005
+@@ -0,0 +1 @@
++AMlIbDk5Lm
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMlIbDk5Lm/Description
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMlIbDk5Lm/Description:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMlIbDk5Lm/Description	Thu Jun  9 12:08:08 2005
+@@ -0,0 +1 @@
++PIF file (AMlIbDk5Lm)
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMlIbDk5Lm/Glob
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMlIbDk5Lm/Glob:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMlIbDk5Lm/Glob	Thu Jun  9 12:08:08 2005
+@@ -0,0 +1 @@
++yes
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMlIbDk5Lm/LineStart
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMlIbDk5Lm/LineStart:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMlIbDk5Lm/LineStart	Thu Jun  9 12:08:08 2005
+@@ -0,0 +1 @@
++yes
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMlIbDk5Lm/Status
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMlIbDk5Lm/Status:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMlIbDk5Lm/Status	Thu Jun  9 12:08:08 2005
+@@ -0,0 +1 @@
++disabled
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMlIbDk5Lm/type
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMlIbDk5Lm/type:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/AMlIbDk5Lm/type	Thu Jun  9 12:08:08 2005
+@@ -0,0 +1 @@
++pattern
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/TVoAACoAG/Body
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/TVoAACoAG/Body:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/TVoAACoAG/Body	Thu Jun  9 12:08:08 2005
+@@ -0,0 +1 @@
++TVoAACoAG
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/TVoAACoAG/Description
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/TVoAACoAG/Description:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/TVoAACoAG/Description	Thu Jun  9 12:08:08 2005
+@@ -0,0 +1 @@
++PC executables (TVoAACoAG)
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/TVoAACoAG/Glob
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/TVoAACoAG/Glob:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/TVoAACoAG/Glob	Thu Jun  9 12:08:08 2005
+@@ -0,0 +1 @@
++yes
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/TVoAACoAG/LineStart
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/TVoAACoAG/LineStart:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/TVoAACoAG/LineStart	Thu Jun  9 12:08:08 2005
+@@ -0,0 +1 @@
++yes
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/TVoAACoAG/Status
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/TVoAACoAG/Status:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/TVoAACoAG/Status	Thu Jun  9 12:08:08 2005
+@@ -0,0 +1 @@
++disabled
+Index: e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/TVoAACoAG/type
+diff -u /dev/null e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/TVoAACoAG/type:1.1
+--- /dev/null	Thu Jun  9 12:10:00 2005
++++ e-smith-email/root/etc/e-smith/db/mailpatterns/defaults/TVoAACoAG/type	Thu Jun  9 12:08:08 2005
+@@ -0,0 +1 @@
++pattern

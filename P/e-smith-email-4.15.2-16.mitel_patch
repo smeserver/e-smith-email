@@ -1,0 +1,22 @@
+Index: e-smith-email/e-smith-email.spec
+diff -u e-smith-email/root/var/service/pop3s/run:1.5 e-smith-email/root/var/service/pop3s/run:1.6
+--- e-smith-email/root/var/service/pop3s/run:1.5	Tue Mar 29 12:16:24 2005
++++ e-smith-email/root/var/service/pop3s/run	Tue May 24 15:03:03 2005
+@@ -5,8 +5,6 @@
+ fqdn="$hostname.$domain"
+ 
+ exec 2>&1
+-# Generate ACL files in ./peers
+-./control/1
+ exec /usr/local/bin/softlimit -m 5000000 \
+     tcpsvd \
+ 	-v \
+@@ -17,6 +15,5 @@
+ 	${LISTENIP:-0} \
+ 	${PORT:-pop3s} \
+ 	    sslio -vv -/ /service/imap/ssl -u stunnel -C imapd.pem \
+-		    /var/qmail/bin/qmail-popup \
+-			-- /var/qmail/bin/qmail-popup $fqdn \
+-			   /bin/checkpassword /var/qmail/bin/qmail-pop3d Maildir
++		    /var/qmail/bin/qmail-popup $fqdn \
++			/bin/checkpassword /var/qmail/bin/qmail-pop3d Maildir

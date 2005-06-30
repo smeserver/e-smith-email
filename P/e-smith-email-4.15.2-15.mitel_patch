@@ -1,0 +1,25 @@
+Index: e-smith-email/createlinks
+diff -u e-smith-email/createlinks:1.38 e-smith-email/createlinks:1.39
+--- e-smith-email/createlinks:1.38	Fri May 13 15:10:11 2005
++++ e-smith-email/createlinks	Wed May 18 15:59:24 2005
+@@ -139,6 +139,7 @@
+ #--------------------------------------------------
+ $event = "email-update";
+ 
++event_link("email-update-user", $event, "20");
+ 
+ # If qmail-send is running, it will receive the SIGHUP and ignore the
+ # start command. If it is not running then the signal will be ignored
+Index: e-smith-email/e-smith-email.spec
+diff -u e-smith-email/root/etc/e-smith/web/functions/emailsettings:1.11 e-smith-email/root/etc/e-smith/web/functions/emailsettings:1.12
+--- e-smith-email/root/etc/e-smith/web/functions/emailsettings:1.11	Sun May  1 12:38:54 2005
++++ e-smith-email/root/etc/e-smith/web/functions/emailsettings	Wed May 18 15:59:24 2005
+@@ -416,7 +416,7 @@
+             type="select"
+             id="SpamSortSpam"
+             options=" 'enabled'=>'ENABLED', 'disabled'=>'DISABLED' "
+-            value="get_prop('spamassassin','sortspam','enabled')">
++            value="get_prop('spamassassin','SortSpam','enabled')">
+             <label>LABEL_SORTSPAM</label>
+         </field>
+ 

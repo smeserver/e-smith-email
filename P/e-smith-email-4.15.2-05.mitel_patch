@@ -1,0 +1,14 @@
+Index: e-smith-email/createlinks
+diff -u e-smith-email/createlinks:1.34 e-smith-email/createlinks:1.35
+--- e-smith-email/createlinks:1.34	Tue Mar 29 12:18:28 2005
++++ e-smith-email/createlinks	Thu Mar 31 18:34:56 2005
+@@ -216,7 +216,7 @@
+     safe_symlink("sigusr1", "root/etc/e-smith/events/$event/services2adjust/qmail");
+ }
+ 
+-foreach my $event (qw(bootstrap-console-save network-delete network-create))
++foreach my $event (qw(bootstrap-console-save network-delete network-create email-update))
+ {
+     foreach (qw(popd/peers/0 popd/peers/local pop3s/peers/0 pop3s/peers/local))
+     {
+Index: e-smith-email/e-smith-email.spec
