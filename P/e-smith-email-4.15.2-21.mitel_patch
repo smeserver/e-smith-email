@@ -1,0 +1,183 @@
+Index: e-smith-email/e-smith-email.spec
+diff -u e-smith-email/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/emailsettings:1.14 e-smith-email/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/emailsettings:1.15
+--- e-smith-email/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/emailsettings:1.14	Wed Mar  9 20:41:09 2005
++++ e-smith-email/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/emailsettings	Tue Jul 12 14:07:31 2005
+@@ -398,11 +398,15 @@
+         <trans>Blocage des contenus actifs</trans>
+      </entry>
+      <entry>
++        <base>LABEL_CONTENT_TO_BLOCK</base>
++        <trans>Contenu à bloquer</trans>
++     </entry>
++     <entry>
+         <base>DESC_BLOCK_EXECUTABLE_CONTENT</base>
+         <trans>
+             Vous pouvez bloquer les contenus actifs dans les fichiers 
+-            attachés aux email en sélectionnant les types de contenus 
+-            actifs attachés que vous désirez bloquer. Les emails contenant
++            attachés aux messages en sélectionnant les types de contenus 
++            actifs attachés que vous désirez bloquer. Les messages contenant
+             ce type de fichiers attachés seront automatiquement
+             renvoyés à l'expéditeur.
+         </trans>
+@@ -412,5 +416,160 @@
+         <trans>Ce champ ne doit contenir que des lettres, des chiffres, des
+             points, des traits d'union et des traits de soulignement. Il doit
+             débuter par une lettre.</trans>
++    </entry>
++<entry>
++        <base>DESC_STATE_ACCESS</base>
++        <trans>
++            <![CDATA[
++            <h2>Adresse de courrier &eacute;lectronique</h2>
++                ]]>
++        </trans>
++    </entry>
++
++    <entry>
++        <base>DESC_STATE_ACCESS_BUTTON</base>
++        <trans>
++            <![CDATA[
++            <a class="button-like"
++                href="emailsettings?page=0&page_stack=&Next=Next&wherenext=EMAIL_PAGE_ACCESS">Changer les param&egrave;tres d'acc&egrave;s de messagerie</a>
++                ]]>
++        </trans>
++    </entry>
++   <entry>
++        <base>DESC_STATE_RECEPTION</base>
++        <trans>
++            <![CDATA[
++            <hr class="sectionbar" /><h2>R&eacute;ception de messages</h2>
++                ]]>
++        </trans>
++    </entry>
++
++    <entry>
++        <base>DESC_STATE_RECEPTION_BUTTON</base>
++        <trans>
++            <![CDATA[
++            <a class="button-like"
++                href="emailsettings?page=0&page_stack=&Next=Next&wherenext=EMAIL_PAGE_RECEPTION">Changer les param&egrave;tres de r&eacute;ception de la messagerie</a>
++                ]]>
++        </trans>
++    </entry>
++
++    <entry>
++        <base>DESC_STATE_DELIVERY</base>
++   <trans>
++            <![CDATA[
++            <hr class="sectionbar" /><h2>R&eacute;ception des messages</h2>
++                ]]>
++        </trans>
++    </entry>
++
++    <entry>
++        <base>DESC_STATE_DELIVERY_BUTTON</base>
++        <trans>
++            <![CDATA[
++            <a class="button-like"
++                href="emailsettings?page=0&page_stack=&Next=Next&wherenext=EMAIL_PAGE_DELIVERY">Changer les param&egrave;tres de r&eacute;ception des messages</a>
++                ]]>
++        </trans>
++    </entry>
++
++    <entry>
++        <base>DESC_STATE_FILTERING_BUTTON</base>
++        <trans>
++            <![CDATA[
++      <a class="button-like"
++                href="emailsettings?page=0&page_stack=&Next=Next&wherenext=EMAIL_PAGE_FILTERING">Changer les param&egrave;tres de filtrage de la messagerie</a>
++                ]]>
++        </trans>
++    </entry>
++
++    <entry>
++        <base>DESC_SECTIONBAR</base>
++        <trans>
++            <![CDATA[
++            <hr class="sectionbar"/>
++            ]]>
++        </trans>
++    </entry>
++
++    <entry>
++    <base>LABEL_VIRUS_SCAN</base>
++    <trans>Détection des virus</trans>
++    </entry>
++   <entry>
++    <base>DESC_VIRUS_SCAN</base>
++    <trans>
++        Vous pouvez détecter les virus dans les messages et soit les rejeter
++        soit les mettre en quarantaine.
++    </trans>
++    </entry>
++
++    <entry>
++    <base>LABEL_SPAM_SCAN</base>
++    <trans>Filtre de pourriel</trans>
++    </entry>
++
++    <entry>
++    <base>DESC_SPAM_SCAN</base>
++    <trans>
++        Vous pouvez filtrer les pourriels. Si le filtre de pourriel est
++        activé, un entête X-Spam-Status: est ajouté à chaque
++        message, qui peut être utilisé pour filtrer les pourriels.
++
++        Vous pouvez ajuster la sensibilité du processus de filtrage
++        des pourriels, la valeur par défaut est moyen. Pour un contrôle
++        plus fin, vous pouvez adapter la sensibilité et choisir
++        un niveau de marquage personnalisé et éventuellement
++        un niveau où les messages doivent être rejetés.
++    </trans>
++    </entry>
++
++   <entry>
++        <base>LABEL_SPAM_SENSITIVITY</base>
++        <trans>Sensibilité du filtre</trans>
++    </entry>
++   <entry>
++        <base>LABEL_SPAM_TAGLEVEL</base>
++        <trans>Personnaliser le niveau de marquage du filtre</trans>
++    </entry>
++    <entry>
++        <base>LABEL_SPAM_REJECTLEVEL</base>
++        <trans>Personnaliser le niveau de rejet des pourriels</trans>
++    </entry>
++    <entry>
++        <base>LABEL_SPAM_SUBJECTTAG</base>
++        <trans>Modifier le sujet des pourriels</trans>
++    </entry>
++ <entry>
++        <base>LABEL_SORTSPAM</base>
++        <trans>Envoyer les pourriels dans le dossier Corbeille</trans>
++    </entry>
++    <entry>
++        <base>VERYHIGH</base>
++        <trans>Très haut</trans>
++    </entry>
++    <entry>
++        <base>HIGH</base>
++        <trans>Haut</trans>
++    </entry>
++    <entry>
++        <base>MEDIUM</base>
++        <trans>Moyen</trans>
++    </entry>
++    <entry>
++        <base>LOW</base>
++        <trans>Bas</trans>
++    </entry>
++    <entry>
++        <base>VERYLOW</base>
++      <trans>Très bas</trans>
++    </entry>
++    <entry>
++        <base>CUSTOM</base>
++      <trans>Personnalisé</trans>
++    </entry>
++    <entry>
++        <base>SAVE</base>
++        <trans>Enregistrer</trans>
+     </entry>
+ </lexicon>  
