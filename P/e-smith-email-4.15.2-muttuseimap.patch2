@@ -1,0 +1,15 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/createlinks mezzanine_patched_e-smith-email-4.15.2/createlinks
+--- e-smith-email-4.15.2/createlinks	2005-07-14 02:09:44.743020112 -0600
++++ mezzanine_patched_e-smith-email-4.15.2/createlinks	2005-07-14 02:09:33.504728592 -0600
+@@ -67,7 +67,10 @@
+ 
+ # pine-conf
+ 
+-templates2events("/etc/pine.conf", qw(console-save bootstrap-console-save email-update));
++for ( qw(/etc/pine.conf /etc/Muttrc) )
++{
++    templates2events($_, qw(console-save bootstrap-console-save email-update));
++}
+ 
+ templates2events("/var/qmail/alias/.qmail-shared" , qw(bootstrap-console-save user-create user-modify user-delete));
+ 
