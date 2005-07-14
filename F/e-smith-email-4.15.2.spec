@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.2
-%define release 20sme01
+%define release 21
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -25,12 +25,16 @@ Patch12: e-smith-email-4.15.2-16.mitel_patch
 Patch13: e-smith-email-4.15.2-17.mitel_patch
 Patch14: e-smith-email-4.15.2-18.mitel_patch
 Patch15: e-smith-email-4.15.2-19.mitel_patch
-Patch16: e-smith-email-4.15.2-SF139732.patch2
+Patch16: e-smith-email-4.15.2-21.mitel_patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-smtpd
 Requires: qmail
+Requires: dot-forward
+Requires: checkpassword
+Requires: fastforward
+Requires: ipsvd
 Requires: e-smith-lib >= 1.15.1-19
 Requires: perl(Net::Server::Fork)
 Requires: perl(Net::SMTP)
@@ -50,9 +54,10 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
-* Fri Jul 1 2005 Gordon Rowell <gordonr@gormand.com.au>
-- [4.15.2-20sme01]
+* Tue Jul 12 2005 Charlie Brady <charlieb@e-smith.com>
+- [4.15.2-21]
 - French L10N Merci - Didier. [ SF:1227389 ] 
+- Add some missing Requires: headers. [SF: 1217914]
 
 * Tue Jun 14 2005 Charlie Brady <charlieb@e-smith.com>
 - [4.15.2-20]
