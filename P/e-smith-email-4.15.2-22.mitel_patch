@@ -1,6 +1,23 @@
-diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates/etc/Muttrc/10Muttrc.proto mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/etc/Muttrc/10Muttrc.proto
---- e-smith-email-4.15.2/root/etc/e-smith/templates/etc/Muttrc/10Muttrc.proto	1969-12-31 17:00:00.000000000 -0700
-+++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/etc/Muttrc/10Muttrc.proto	2005-07-14 02:04:57.495884568 -0600
+Index: e-smith-email/createlinks
+diff -u e-smith-email/createlinks:1.39 e-smith-email/createlinks:1.40
+--- e-smith-email/createlinks:1.39	Wed May 18 15:59:24 2005
++++ e-smith-email/createlinks	Thu Jul 14 18:05:08 2005
+@@ -67,7 +67,10 @@
+ 
+ # pine-conf
+ 
+-templates2events("/etc/pine.conf", qw(console-save bootstrap-console-save email-update));
++for ( qw(/etc/pine.conf /etc/Muttrc) )
++{
++    templates2events($_, qw(console-save bootstrap-console-save email-update));
++}
+ 
+ templates2events("/var/qmail/alias/.qmail-shared" , qw(bootstrap-console-save user-create user-modify user-delete));
+ 
+Index: e-smith-email/e-smith-email.spec
+diff -u /dev/null e-smith-email/root/etc/e-smith/templates/etc/Muttrc/10Muttrc.proto:1.1
+--- /dev/null	Thu Jul 14 18:06:19 2005
++++ e-smith-email/root/etc/e-smith/templates/etc/Muttrc/10Muttrc.proto	Thu Jul 14 18:05:08 2005
 @@ -0,0 +1,3493 @@
 +#
 +# System configuration file for Mutt
@@ -3495,8 +3512,9 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates
 +# use aspell
 +set ispell="/usr/bin/aspell --mode=email check"
 +
-diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates/etc/Muttrc/50spoolfile mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/etc/Muttrc/50spoolfile
---- e-smith-email-4.15.2/root/etc/e-smith/templates/etc/Muttrc/50spoolfile	1969-12-31 17:00:00.000000000 -0700
-+++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/etc/Muttrc/50spoolfile	2005-07-14 02:05:31.841041520 -0600
+Index: e-smith-email/root/etc/e-smith/templates/etc/Muttrc/50spoolfile
+diff -u /dev/null e-smith-email/root/etc/e-smith/templates/etc/Muttrc/50spoolfile:1.1
+--- /dev/null	Thu Jul 14 18:06:19 2005
++++ e-smith-email/root/etc/e-smith/templates/etc/Muttrc/50spoolfile	Thu Jul 14 18:05:08 2005
 @@ -0,0 +1 @@
 +set spoolfile={localhost}INBOX
