@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.2
-%define release 21sme01
+%define release 21sme02
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -28,6 +28,7 @@ Patch15: e-smith-email-4.15.2-19.mitel_patch
 Patch16: e-smith-email-4.15.2-21.mitel_patch
 Patch17: e-smith-email-4.15.2-muttuseimap.patch
 Patch18: e-smith-email-4.15.2-muttuseimap.patch2
+Patch19: e-smith-email-4.15.2-muttuseimap.patch3
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -56,6 +57,13 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Sat Jul 16 2005 Gordon Rowell <gordonr@gormand.com.au>
+- [4.15.2-21sme02]
+- And configure mutt "folder" to use IMAP as well, so we see all IMAP
+  folders [SF: 1235454]
+- Change Muttrc to use URLs instead of PINE style folder names, and
+  use imaps directly
+
 * Thu Jul 14 2005 Gordon Rowell <gordonr@gormand.com.au>
 - [4.15.2-21sme01]
 - Configure /etc/Muttrc to use IMAP [SF: 1235454]
@@ -1093,6 +1101,7 @@ mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
 %patch16 -p1
 %patch17 -p1
 %patch18 -p1
+%patch19 -p1
 
 %build
 perl createlinks

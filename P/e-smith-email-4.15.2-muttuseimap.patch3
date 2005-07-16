@@ -1,0 +1,11 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates/etc/Muttrc/50folder mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/etc/Muttrc/50folder
+--- e-smith-email-4.15.2/root/etc/e-smith/templates/etc/Muttrc/50folder	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/etc/Muttrc/50folder	2005-07-15 20:03:43.753301168 -0600
+@@ -0,0 +1 @@
++set folder=imaps://localhost/
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates/etc/Muttrc/50spoolfile mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/etc/Muttrc/50spoolfile
+--- e-smith-email-4.15.2/root/etc/e-smith/templates/etc/Muttrc/50spoolfile	2005-07-15 20:04:57.006348360 -0600
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/etc/Muttrc/50spoolfile	2005-07-15 20:04:20.319843912 -0600
+@@ -1 +1 @@
+-set spoolfile={localhost}INBOX
++set spoolfile=imaps://localhost/INBOX
