@@ -1,0 +1,63 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates/etc/Muttrc/10Muttrc.proto mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/etc/Muttrc/10Muttrc.proto
+--- e-smith-email-4.15.2/root/etc/e-smith/templates/etc/Muttrc/10Muttrc.proto	2005-07-17 09:52:23.053794864 -0600
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/etc/Muttrc/10Muttrc.proto	2005-07-17 09:50:52.525153824 -0600
+@@ -1140,11 +1140,11 @@
+ # change this value, as it tends to agitate the more fanatical netizens.
+ # 
+ # 
+-# set index_format="%4C %Z %{%b %d} %-15.15L (%4l) %s"
++# set index_format="%4C %Z %\{%b %d\} %-15.15L (%4l) %s"
+ #
+ # Name: index_format
+ # Type: string
+-# Default: "%4C %Z %{%b %d} %-15.15L (%4l) %s"
++# Default: "%4C %Z %\{%b %d\} %-15.15L (%4l) %s"
+ # 
+ # 
+ # This variable allows you to customize the message index display to
+@@ -1189,7 +1189,7 @@
+ #         (2) at the top of a thread, or (3) `x-label' is different from
+ #         preceding message's `x-label'.
+ # %Z      message status flags
+-# %{fmt}  the date and time of the message is converted to sender's
++# %\{fmt\}  the date and time of the message is converted to sender's
+ #         time zone, and ``fmt'' is expanded by the library function
+ #         ``strftime''; a leading bang disables locales
+ # %[fmt]  the date and time of the message is converted to the local
+@@ -2313,7 +2313,7 @@
+ # sleep 20 < /dev/null > /dev/null"
+ # 
+ # Mailbox 'foo' on mailhost.net can now be reached
+-# as '{localhost:1234}foo'.
++# as '\{localhost:1234\}foo'.
+ # 
+ # NOTE: For this example to work, you must be able to log in to the
+ # remote machine without having to enter a password.
+@@ -2413,11 +2413,11 @@
+ # prompted for confirmation when you try to quit.
+ # 
+ # 
+-# set quote_regexp="^([ \t]*[|>:}#])+"
++# set quote_regexp="^([ \t]*[|>:\}#])+"
+ #
+ # Name: quote_regexp
+ # Type: regular expression
+-# Default: "^([ \t]*[|>:}#])+"
++# Default: "^([ \t]*[|>:\}#])+"
+ # 
+ # 
+ # A regular expression used in the internal-pager to determine quoted
+@@ -2854,11 +2854,11 @@
+ # ``$markers'' variable.
+ # 
+ # 
+-# set smileys="(>From )|(:[-^]?[][)(><}{|/DP])"
++# set smileys="(>From )|(:[-^]?[][)(><\}\{|/DP])"
+ #
+ # Name: smileys
+ # Type: regular expression
+-# Default: "(>From )|(:[-^]?[][)(><}{|/DP])"
++# Default: "(>From )|(:[-^]?[][)(><\}\{|/DP])"
+ # 
+ # 
+ # The pager uses this variable to catch some common false

@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.2
-%define release 22sme01
+%define release 22sme02
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -28,6 +28,8 @@ Patch15: e-smith-email-4.15.2-19.mitel_patch
 Patch16: e-smith-email-4.15.2-21.mitel_patch
 Patch17: e-smith-email-4.15.2-22.mitel_patch
 Patch18: e-smith-email-4.15.2-muttfolder.patch
+Patch19: e-smith-email-4.15.2-checkpassword.patch
+Patch20: e-smith-email-4.15.2-muttbracket.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -56,6 +58,11 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Sun Jul 17 2005 Shad L. Lords <slords@mail.com>
+- [4.15.2-22sme02]
+- Adjust paths to checkpassword for popd and pop3s run scripts
+- Fix braces in Muttrc template
+
 * Sat Jul 16 2005 Shad L. Lords <slords@mail.com>
 - [4.15.2-22sme01]
 - And configure mutt "folder" to use IMAP as well, so we see all IMAP
@@ -1101,6 +1108,8 @@ mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
 %patch16 -p1
 %patch17 -p1
 %patch18 -p1
+%patch19 -p1
+%patch20 -p1
 
 %build
 perl createlinks
