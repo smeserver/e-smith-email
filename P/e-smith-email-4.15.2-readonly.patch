@@ -1,0 +1,12 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/events/actions/update-user-pseudonyms mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/events/actions/update-user-pseudonyms
+--- e-smith-email-4.15.2/root/etc/e-smith/events/actions/update-user-pseudonyms	2005-07-18 13:44:58.759437440 -0600
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/events/actions/update-user-pseudonyms	2005-07-18 13:43:38.823170184 -0600
+@@ -33,7 +33,7 @@
+ tie %conf, 'esmith::config';
+ 
+ use esmith::AccountsDB;
+-my $adb = esmith::AccountsDB->open_ro();
++my $adb = esmith::AccountsDB->open();
+ 
+ #------------------------------------------------------------
+ # This program should be called by the post-upgrade or post-restore
