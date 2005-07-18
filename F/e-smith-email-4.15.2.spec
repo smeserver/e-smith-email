@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.2
-%define release 22sme02
+%define release 22sme03
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -30,6 +30,7 @@ Patch17: e-smith-email-4.15.2-22.mitel_patch
 Patch18: e-smith-email-4.15.2-muttfolder.patch
 Patch19: e-smith-email-4.15.2-checkpassword.patch
 Patch20: e-smith-email-4.15.2-muttbracket.patch
+Patch21: e-smith-email-4.15.2-dbmoved.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -58,6 +59,10 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Sun Jul 17 2005 Shad L. Lords <slords@mail.com>
+- [4.15.2-22sme03]
+- Update for moving db
+
 * Sun Jul 17 2005 Shad L. Lords <slords@mail.com>
 - [4.15.2-22sme02]
 - Adjust paths to checkpassword for popd and pop3s run scripts
@@ -1110,6 +1115,7 @@ mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
 %patch18 -p1
 %patch19 -p1
 %patch20 -p1
+%patch21 -p1
 
 %build
 perl createlinks

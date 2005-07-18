@@ -1,0 +1,527 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/events/actions/email-delete-group mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/events/actions/email-delete-group
+--- e-smith-email-4.15.2/root/etc/e-smith/events/actions/email-delete-group	2002-03-15 15:08:20.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/events/actions/email-delete-group	2005-07-17 23:17:45.571812184 -0600
+@@ -32,9 +32,6 @@
+ my %conf;
+ tie %conf, 'esmith::config';
+ 
+-my %accounts;
+-tie %accounts, 'esmith::config', '/home/e-smith/accounts';
+-
+ my $event = $ARGV [0];
+ my $groupName = $ARGV [1];
+ 
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/events/actions/update-user-pseudonyms mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/events/actions/update-user-pseudonyms
+--- e-smith-email-4.15.2/root/etc/e-smith/events/actions/update-user-pseudonyms	2002-03-15 15:08:20.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/events/actions/update-user-pseudonyms	2005-07-17 23:27:54.112296192 -0600
+@@ -32,8 +32,8 @@
+ my %conf;
+ tie %conf, 'esmith::config';
+ 
+-my %accounts;
+-tie %accounts, 'esmith::config', '/home/e-smith/accounts';
++use esmith::AccountsDB;
++my $adb = esmith::AccountsDB->open_ro();
+ 
+ #------------------------------------------------------------
+ # This program should be called by the post-upgrade or post-restore
+@@ -44,7 +44,7 @@
+ 
+ sub byUid
+ {
+-    db_get_prop(\%accounts, $a, 'Uid') <=> db_get_prop(\%accounts, $b, 'Uid');
++    $a->prop('Uid') <=> $b->prop('Uid');
+ }
+ 
+ sub makePseudonyms ($$)
+@@ -77,55 +77,39 @@
+ 
+ my %users;
+ 
+-foreach my $account (keys %accounts)
++foreach my $account ( sort byUid $adb->users )
+ {
+-    my $type = db_get_type(\%accounts, $account);
+-
+-    next unless ($type =~ /^user$/);
+-
+-    ++$users{$account};
+-}
+-
+-foreach my $account (sort byUid keys %users)
+-{
+-    my $firstName = db_get_prop(\%accounts, $account, 'FirstName');
+-    my $lastName = db_get_prop(\%accounts, $account, 'LastName');
++    my $firstName = $account->prop('FirstName');
++    my $lastName = $account->prop('LastName');
+ 
+     my ($dot_pseudonym, $underbar_pseudonym)
+ 	= makePseudonyms($firstName, $lastName);
+-    
+-    if (defined db_get(\%accounts, $dot_pseudonym))
++
++    my $a = $adb->get($dot_pseudonym);
++    if (defined $a)
+     {
+-	my $user = db_get_prop(\%accounts, $dot_pseudonym, 'Account');
++	my $user = $a->prop('Account');
+ 
+-	if ($user ne $account)
+-	{
+-	    warn "$dot_pseudonym pseudonym is assigned to $user"
+-		. " instead of $account.\n";
+-	}
++	warn "$dot_pseudonym pseudonym is assigned to $user instead of " . 
++	     $account->key . ".\n" if ($user ne $account->key)
+     }
+     else
+     {
+-	db_set(\%accounts, $dot_pseudonym, 'pseudonym');
+-	db_set_prop(\%accounts, $dot_pseudonym, 'Account', $account);
++	$adb->new_record($dot_pseudonym, { type => 'pseudonym', Account => $account->key });
+     }
+-    
+-    if (defined db_get(\%accounts, $underbar_pseudonym))
++
++    $a = $adb->get($underbar_pseudonym);
++    if (defined $a)
+     {
+-	my $user = db_get_prop(\%accounts, $underbar_pseudonym, 'Account');
++	my $user = $a->prop('Account');
+ 
+-	if ($user ne $account)
+-	{
+-	    warn "$underbar_pseudonym pseudonym is assigned to $user"
+-		. " instead of $account.\n";
+-	}
++	warn "$underbar_pseudonym pseudonym is assigned to $user instead of " . 
++	     $account->key . ".\n" if ($user ne $account->key)
+     }
+     else
+     {
+-	db_set(\%accounts, $underbar_pseudonym, 'pseudonym');
+-	db_set_prop(\%accounts, $underbar_pseudonym, 'Account', $account);
++	$adb->new_record($underbar_pseudonym, { type => 'pseudonym', Account => $account->key });
+     }
+-
+ }
+ 
+ exit (0);
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates/etc/fetchmail/50multi-drop mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/etc/fetchmail/50multi-drop
+--- e-smith-email-4.15.2/root/etc/e-smith/templates/etc/fetchmail/50multi-drop	2005-03-09 18:41:09.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/etc/fetchmail/50multi-drop	2005-07-17 23:31:27.837144680 -0600
+@@ -35,11 +35,10 @@
+ 	my $ssl = db_get_prop($confref, "fetchmail", "SSL")
+ 		    || "disabled";
+ 
+- 	local %domains;
+- 	tie %domains, 'esmith::config', '/home/e-smith/domains';
++	use esmith::DomainsDB;
++	my $ddb = esmith::DomainsDB->open_ro();
+ 
+- 	my $locals = join ' ', grep {db_get_type(\%domains, $_) eq 'domain'}
+-					keys %domains;
++ 	my $locals = join ' ', map { $_->key } $ddb->domains;
+ 
+ 	$OUT .= "# multi-drop configuration; fetchmail ";
+ 	$OUT .= "retrieves all mail from a remote POP mailbox:\n";
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates/home/e-smith/.qmail mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/home/e-smith/.qmail
+--- e-smith-email-4.15.2/root/etc/e-smith/templates/home/e-smith/.qmail	2004-05-10 12:29:56.000000000 -0600
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/home/e-smith/.qmail	2005-07-17 23:41:45.061072824 -0600
+@@ -70,14 +70,13 @@
+         $user_component = pop @addr;
+     }
+ 
+-    my %accounts;
+-    tie %accounts, 'esmith::config', '/home/e-smith/accounts';
++    use esmith::AccountsDB;
++    my $adb = esmith::AccountsDB->open_ro();
+ 
+     # Is the user component a system account?
+ 
+-    my $account = db_get_type(\%accounts, $user_component);
+-
+-    if (defined $account && $account eq "system")
++    my $account = $adb->get($user_component);
++    if (defined $account && $account->prop('type') eq "system")
+     {
+         # User component is a system account. Does it match one of
+         # our domains?
+@@ -98,42 +97,38 @@
+ 
+         # Loop through the domains and hosts
+ 
+-        my %domains;
+-        tie %domains, 'esmith::config', '/home/e-smith/domains';
+-
+-        my %hosts;
+-        tie %hosts, 'esmith::config', '/home/e-smith/hosts';
++	use esmith::DomainsDB;
++	my $ddb = esmith::DomainsDB->open_ro();
+ 
+         my $host;
+         my $domain;
+ 
+         # Handle each defined virtual domain
+ 
+-        foreach $domain (sort keys %domains)
++        foreach $domain ( $ddb->domains)
+         {
+-            next unless db_get_type(\%domains, $domain) eq "domain";
+-
+-            if ($domain_component eq $domain)
++            if ($domain_component eq $domain->key)
+             {
+                 $OUT .= $default;
+                 return;
+             }
+         }
+ 
++	use esmith::HostsDB;
++	my $hdb = esmith::HostsDB->open_ro();
++
+         # Handle each defined host
+ 
+-        foreach $host (sort keys %hosts)
++        foreach $host ( $hdb->hosts )
+         {
+-            my $ip = (defined db_get_prop(\%hosts, $host, 'ExternalIP')) ?
+-                      db_get_prop (\%hosts, $host, 'ExternalIP') : '';
+-
+-            my $hosttype = db_get_prop (\%hosts, $host, 'HostType');
++            my $ip = $host->prop('ExternalIP') || '';
++            my $hosttype = $host->prop('HostType') || '';
+ 
+-            if ($host =~ /\./)
++            if ($host->key =~ /\./)
+             {
+                 # Host is fully qualified
+ 
+-                my ($tempHost, $tempDomain) = split /\./, $host, 2;
++                my ($tempHost, $tempDomain) = split /\./, $host->key, 2;
+ 
+                 if ($domain_component eq $tempDomain)
+                 {
+@@ -155,7 +150,7 @@
+ 
+                 # Handle the host within the local domain and sub domain
+ 
+-                if ($domain_component eq "${host}.${DomainName}")
++                if ($domain_component eq $host->key . ".$DomainName")
+                 {
+                     if ($hosttype eq 'Self' || $ip eq $ExternalIP)
+                     {
+@@ -171,13 +166,11 @@
+ 
+                 # Handle the host for all of the virtual domains
+ 
+-                foreach $domain (sort keys %domains)
++                foreach $domain ( $ddb->domains )
+                 {
+-                    next unless db_get_type(\%domains, $domain) eq "domain";
+-
+-                    if ($domain_component eq "${host}.${domain}")
++                    if ($domain_component eq $host->key . "." . $domain->key)
+                     {
+-                        if ($hosttype eq 'Self' || $ip eq '$ExternalIP')
++                        if ($hosttype eq 'Self' || $ip eq $ExternalIP)
+                         {
+                             $OUT .= $default;
+                             return;
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/control/smtproutes/10delegateMailServer mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/control/smtproutes/10delegateMailServer
+--- e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/control/smtproutes/10delegateMailServer	2004-02-09 19:12:28.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/control/smtproutes/10delegateMailServer	2005-07-17 23:44:55.084001920 -0600
+@@ -12,17 +12,12 @@
+     {
+         $OUT .= "$DomainName:[$DelegateMailServer]\n";
+ 
+-        my %domains;
+-        tie %domains, 'esmith::config', '/home/e-smith/domains';
++	use esmith::DomainsDB;
++	my $ddb = esmith::DomainsDB->open_ro();
+ 
+-        my $key;
+-
+-        foreach $key (db_get(\%domains))
++	foreach $domain ( $ddb->domains )
+         {
+-            if (db_get_type(\%domains, $key) eq 'domain')
+-            {
+-                $OUT .= "$key:[$DelegateMailServer]\n";
+-            }
++            $OUT .= $domain->key . ":[$DelegateMailServer]\n";
+         }
+     }
+ }
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/30admin mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/30admin
+--- e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/30admin	2002-03-15 15:08:20.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/30admin	2005-07-17 23:45:25.968581520 -0600
+@@ -7,9 +7,6 @@
+     # Generate qmail user assignments for the admin user. This will be
+     # handled by ~admin/.qmail.
+ 
+-    my %accounts;
+-    tie %accounts, 'esmith::config', "/home/e-smith/accounts";
+-
+     my (undef, undef, $uid, $gid, undef, undef, undef, $dir, undef)
+ 	= getpwnam("admin");
+ 
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/40alias mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/40alias
+--- e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/40alias	2002-03-15 15:08:20.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/40alias	2005-07-17 23:45:28.014222224 -0600
+@@ -7,9 +7,6 @@
+     # Generate qmail user assignments for the alias user. This will be
+     # handled by ~alias/.qmail.
+ 
+-    my %accounts;
+-    tie %accounts, 'esmith::config', "/home/e-smith/accounts";
+-
+     my (undef, undef, $uid, $gid, undef, undef, undef, $dir, undef)
+ 	= getpwnam("alias");
+ 
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/45shared mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/45shared
+--- e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/45shared	2002-03-15 15:08:20.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/45shared	2005-07-17 23:45:30.529321488 -0600
+@@ -7,9 +7,6 @@
+     # Generate qmail user assignments for the shared group. This will
+     # be handled by ~alias/.qmail-shared and ~alias/.qmail-shared-ext.
+ 
+-    my %accounts;
+-    tie %accounts, 'esmith::config', "/home/e-smith/accounts";
+-
+     my (undef, undef, $uid, $gid, undef, undef, undef, $dir, undef)
+ 	= getpwnam("alias");
+ 
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/50system mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/50system
+--- e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/50system	2002-03-15 15:08:20.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/50system	2005-07-17 23:47:56.431199264 -0600
+@@ -8,9 +8,6 @@
+     # be handled by admin. Make sure we DON'T reassign the admin or
+     # alias users!
+ 
+-    my %accounts;
+-    tie %accounts, 'esmith::config', "/home/e-smith/accounts";
+-
+     my (undef, undef, $uid, $gid, undef, undef, undef, $dir, undef)
+ 	= getpwnam("admin");
+ 
+@@ -33,19 +30,20 @@
+ 
+     my $admin_assign = "admin:${uid}:${gid}:${dir}";
+ 
+-    foreach (db_get(\%accounts))
+-    {
+-	next if ($_ eq "admin");
+-	next if ($_ eq "alias");
+-	next if ($_ eq "shared");
++    use esmith::AccountsDB;
++    my $adb = esmith::AccountsDB->open_ro();
+ 
+-	next unless db_get_type(\%accounts, $_) eq "system";
++    foreach $user ( $adb->get_all_type_prop( type => system ) || () )
++    {
++	next if ($user->key eq "admin");
++	next if ($user->key eq "alias");
++	next if ($user->key eq "shared");
+ 
+ 	# Assign mail for system_account@
+-	$OUT .= "=${_}:${admin_assign}:::\n";
++	$OUT .= "=" . $user->key . ":${admin_assign}:::\n";
+ 
+ 	# Assign mail for system_account-ext@
+-	$OUT .= "+${_}-:${admin_assign}:-::\n";
++	$OUT .= "+" . $user->key . "-:${admin_assign}:-::\n";
+     }
+ 
+     # Need to remove the final newline character. Blank lines in
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/60users mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/60users
+--- e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/60users	2002-03-15 15:08:20.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/60users	2005-07-17 23:49:56.047307864 -0600
+@@ -7,15 +7,13 @@
+     # Generate qmail user assignments for users. These will be handled by
+     # ~user/.qmail.
+ 
+-    my %accounts;
+-    tie %accounts, 'esmith::config', "/home/e-smith/accounts";
++    use esmith::AccountsDB;
++    my $adb = esmith::AccountsDB->open_ro();
+ 
+-    foreach (db_get(\%accounts))
++    foreach $user ( $adb->users )
+     {
+-	next unless db_get_type(\%accounts, $_) eq "user";
+-
+ 	my (undef, undef, $uid, $gid, undef, undef, undef, $dir, undef)
+-	    = getpwnam($_);
++	    = getpwnam($user->key);
+ 
+ 	# It is almost impossible to get Text::Template to output nothing
+ 	# on failure. It can be done by removing the newline at the end of
+@@ -34,13 +32,13 @@
+ 	    return;
+ 	}
+ 
+-	$user_assign = "${_}:${uid}:${gid}:${dir}";
++	$user_assign = $user->key . ":${uid}:${gid}:${dir}";
+ 
+ 	# Assign mail for user@
+-	$OUT .= "=${_}:${user_assign}:::\n";
++	$OUT .= "=" . $user->key . ":${user_assign}:::\n";
+ 
+ 	# Assign mail for user-ext@
+-	$OUT .= "+${_}-:${user_assign}:-::\n";
++	$OUT .= "+" . $user->key . "-:${user_assign}:-::\n";
+     }
+ 
+     # Need to remove the final newline character. Blank lines in
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/70pseudonyms mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/70pseudonyms
+--- e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/70pseudonyms	2005-07-18 00:09:23.496044512 -0600
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/70pseudonyms	2005-07-18 00:08:28.925739632 -0600
+@@ -9,9 +9,6 @@
+     # or by ~admin/.qmail in the case of a system pseudonym or by
+     # alias/.qmail-groupname in the case of a group pseudonym.
+ 
+-    my %accounts;
+-    tie %accounts, 'esmith::config', "/home/e-smith/accounts";
+-
+     my (undef, undef, $uid, $gid, undef, undef, undef, $dir, undef)
+ 	= getpwnam("alias");
+ 
+@@ -56,36 +53,32 @@
+ 
+     # Create assignments for each pseudonym.
+ 
+-    foreach (db_get(\%accounts))
++    use esmith::AccountsDB;
++    my $adb = esmith::AccountsDB->open_ro();
++
++    foreach $pseudonym ( $adb->pseudonyms )
+     {
+-	next unless db_get_type(\%accounts, $_) eq "pseudonym";
++	next if ( $pseudonym->key =~ /@/ );	# user@domain goes in virtualdomains
+ 
+-	next if ( /@/ );	# user@domain goes in virtualdomains
++	my $account = $adb->get($pseudonym->prop('Account'));
+ 
+-	my $account = db_get_prop(\%accounts, $_, "Account");
++	$account = $adb->get($account->prop('Account')) if ($account->prop('type') eq "pseudonym");
+ 
+-        if (db_get_type(\%accounts, $account) eq "pseudonym")
++	if ($account->prop('type') eq "pseudonym")
+         {
+-            my ($type, %props) = db_get(\%accounts, $account);
+-     
+-            $account = $props{Account};
+-        }
+-
+-        if (db_get_type(\%accounts, $account) eq "pseudonym")
+-        {
+-            warn "users/assign: Skipping $_ - too many pseudonym levels\n";
++            warn "users/assign: Skipping " . $pseudonym->key . " - too many pseudonym levels\n";
+             next;
+         }
+ 
+-	if (db_get_type(\%accounts, $account) eq "user")
++        if ($account->prop('type') eq "user")
+ 	{
+ 	    my (undef, undef, $uid, $gid, undef, undef, undef, $dir, undef)
+-		= getpwnam($account);
++		= getpwnam($account->key);
+ 
+ 	    unless (defined $uid && defined $gid && defined $dir)
+ 	    {
+ 		my $msg =
+-		    "Failed to obtain user details for \'$account\' "
++		    "Failed to obtain user details for \'" . $account->key . "\' "
+ 		    . "while processing pseudonym assignments.";
+ 
+ 		warn "$msg\n";
+@@ -93,35 +86,22 @@
+ 		return;
+ 	    }
+ 
+-	    $assign = "${account}:${uid}:${gid}:${dir}";
+-
+-	    # Assign mail for user_pseudonym@
+-	    $OUT .= "=${_}:${assign}:::\n";
+-
+-	    next;
+-	}
++	    $assign = $account->key . ":${uid}:${gid}:${dir}";
+ 
+-	if (db_get_type(\%accounts, $account) eq "group")
+-	{
+ 	    # Assign mail for user_pseudonym@
+-	    $OUT .= "=${_}:${alias_assign}:-:${account}:\n";
+-
++	    $OUT .= "=" . $pseudonym->key . ":${assign}:::\n";
+ 	    next;
+ 	}
+ 
+-	if ($account eq "shared")
++        if ($account->prop('type') eq "group" || $account->key eq "shared")
+ 	{
+-	    # Assign mail for the special shared account
+-	    $OUT .= "=${_}:${alias_assign}:-:${account}:\n";
+-
++	    $OUT .= "=" . $pseudonym->key . ":${alias_assign}:-:" . $account->key . ":\n";
+ 	    next;
+ 	}
+ 
+-	if (db_get_type(\%accounts, $account) eq "system")
++        if ($account->prop('type') eq "system" )
+ 	{
+-	    # Assign mail for system_pseudonym@
+-	    $OUT .= "=${_}:${admin_assign}:::\n";
+-
++	    $OUT .= "=" . $pseudonym->key . ":${admin_assign}:::\n";
+ 	    next;
+ 	}
+     }
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/80groups mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/80groups
+--- e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/80groups	2002-03-15 15:08:20.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/80groups	2005-07-18 00:04:22.482877600 -0600
+@@ -7,9 +7,6 @@
+     # Generate qmail user assignments for groups. These will be handled
+     # by ~alias/.qmail-groupname and ~alias/.qmail-groupname-ext.
+ 
+-    my %accounts;
+-    tie %accounts, 'esmith::config', "/home/e-smith/accounts";
+-
+     my (undef, undef, $uid, $gid, undef, undef, undef, $dir, undef)
+ 	= getpwnam("alias");
+ 
+@@ -32,15 +29,16 @@
+ 
+     my $alias_assign = "alias:${uid}:${gid}:${dir}";
+ 
+-    foreach (db_get(\%accounts))
+-    {
+-	next unless db_get_type(\%accounts, $_) eq "group";
++    use esmith::AccountsDB;
++    my $adb = esmith::AccountsDB->open_ro();
+ 
++    foreach $group ( $adb->groups )
++    {
+ 	# Assign mail for group@
+-	$OUT .= "=${_}:${alias_assign}:-:${_}:\n";
++	$OUT .= "=" . $group->key . ":${alias_assign}:-:" . $group->key . ":\n";
+ 
+ 	# Assign mail for group-ext@
+-	$OUT .= "+${_}-:${alias_assign}:-${_}-::\n";
++	$OUT .= "+" . $group->key . "-:${alias_assign}:-" . $group->key . "-::\n";
+     }
+ 
+     # Need to remove the final newline character. Blank lines in
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm mezzanine_patched_e-smith-email-4.15.2/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm
+--- e-smith-email-4.15.2/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm	2005-07-18 00:09:24.140946472 -0600
++++ mezzanine_patched_e-smith-email-4.15.2/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm	2005-07-17 23:17:33.324435208 -0600
+@@ -28,7 +28,7 @@
+ our $VERSION = sprintf '%d.%03d', q$Revision: 1.11 $ =~ /: (\d+).(\d+)/;
+ 
+ our $db = esmith::ConfigDB->open;
+-our $pattern_db = esmith::ConfigDB->open("/home/e-smith/mailpatterns");
++our $pattern_db = esmith::ConfigDB->open("mailpatterns");
+ 
+ # {{{ header
+ 
