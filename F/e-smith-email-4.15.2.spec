@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.2
-%define release 22sme04
+%define release 24
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -27,11 +27,8 @@ Patch14: e-smith-email-4.15.2-18.mitel_patch
 Patch15: e-smith-email-4.15.2-19.mitel_patch
 Patch16: e-smith-email-4.15.2-21.mitel_patch
 Patch17: e-smith-email-4.15.2-22.mitel_patch
-Patch18: e-smith-email-4.15.2-muttfolder.patch
-Patch19: e-smith-email-4.15.2-checkpassword.patch
-Patch20: e-smith-email-4.15.2-muttbracket.patch
-Patch21: e-smith-email-4.15.2-dbmoved.patch
-Patch22: e-smith-email-4.15.2-readonly.patch
+Patch18: e-smith-email-4.15.2-23.mitel_patch
+Patch19: e-smith-email-4.15.2-24.mitel_patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -60,25 +57,19 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
-* Mon Jul 18 2005 Shad L. Lords <slords@mail.com>
-- [4.15.2-22sme04]
-- Remove readonly so pseudonyms are created
+* Mon Jul 18 2005 Charlie Brady <charlieb@e-smith.com>
+- [4.15.2-24]
+- Update all db access APIs to current standards. [SF: 1216546]
 
-* Sun Jul 17 2005 Shad L. Lords <slords@mail.com>
-- [4.15.2-22sme03]
-- Update for moving db
-
-* Sun Jul 17 2005 Shad L. Lords <slords@mail.com>
-- [4.15.2-22sme02]
-- Adjust paths to checkpassword for popd and pop3s run scripts
-- Fix braces in Muttrc template
-
-* Sat Jul 16 2005 Shad L. Lords <slords@mail.com>
-- [4.15.2-22sme01]
-- And configure mutt "folder" to use IMAP as well, so we see all IMAP
-  folders [SF: 1235454]
-- Change Muttrc to use URLs instead of PINE style folder names, and
-  use imaps directly
+* Mon Jul 18 2005 Charlie Brady <charlieb@e-smith.com>
+- [4.15.2-23]
+- Fix pop* run scripts to find checkpassword binary via
+  PATH search.  [SF: 1239720]
+- Various further muttrc configuration changes (from Shad) [SF: 1235454]
+  . Fix braces
+  . Configure "folder" to use IMAP as well, so we see all IMAP
+    folders
+  . use URLs instead of PINE style folder names, and use imaps directly
 
 * Thu Jul 14 2005 Charlie Brady <charlieb@e-smith.com>
 - [4.15.2-22]
@@ -1119,9 +1110,6 @@ mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
 %patch17 -p1
 %patch18 -p1
 %patch19 -p1
-%patch20 -p1
-%patch21 -p1
-%patch22 -p1
 
 %build
 perl createlinks

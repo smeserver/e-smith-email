@@ -1,6 +1,7 @@
-diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/events/actions/email-delete-group mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/events/actions/email-delete-group
---- e-smith-email-4.15.2/root/etc/e-smith/events/actions/email-delete-group	2002-03-15 15:08:20.000000000 -0700
-+++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/events/actions/email-delete-group	2005-07-17 23:17:45.571812184 -0600
+Index: e-smith-email/e-smith-email.spec
+diff -u e-smith-email/root/etc/e-smith/events/actions/email-delete-group:1.1.1.1 e-smith-email/root/etc/e-smith/events/actions/email-delete-group:1.2
+--- e-smith-email/root/etc/e-smith/events/actions/email-delete-group:1.1.1.1	Fri Mar 15 17:08:20 2002
++++ e-smith-email/root/etc/e-smith/events/actions/email-delete-group	Mon Jul 18 17:07:45 2005
 @@ -32,9 +32,6 @@
  my %conf;
  tie %conf, 'esmith::config';
@@ -11,9 +12,10 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/events/ac
  my $event = $ARGV [0];
  my $groupName = $ARGV [1];
  
-diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/events/actions/update-user-pseudonyms mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/events/actions/update-user-pseudonyms
---- e-smith-email-4.15.2/root/etc/e-smith/events/actions/update-user-pseudonyms	2002-03-15 15:08:20.000000000 -0700
-+++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/events/actions/update-user-pseudonyms	2005-07-17 23:27:54.112296192 -0600
+Index: e-smith-email/root/etc/e-smith/events/actions/update-user-pseudonyms
+diff -u e-smith-email/root/etc/e-smith/events/actions/update-user-pseudonyms:1.1.1.1 e-smith-email/root/etc/e-smith/events/actions/update-user-pseudonyms:1.2
+--- e-smith-email/root/etc/e-smith/events/actions/update-user-pseudonyms:1.1.1.1	Fri Mar 15 17:08:20 2002
++++ e-smith-email/root/etc/e-smith/events/actions/update-user-pseudonyms	Mon Jul 18 17:07:45 2005
 @@ -32,8 +32,8 @@
  my %conf;
  tie %conf, 'esmith::config';
@@ -21,7 +23,7 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/events/ac
 -my %accounts;
 -tie %accounts, 'esmith::config', '/home/e-smith/accounts';
 +use esmith::AccountsDB;
-+my $adb = esmith::AccountsDB->open_ro();
++my $adb = esmith::AccountsDB->open();
  
  #------------------------------------------------------------
  # This program should be called by the post-upgrade or post-restore
@@ -107,9 +109,10 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/events/ac
  }
  
  exit (0);
-diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates/etc/fetchmail/50multi-drop mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/etc/fetchmail/50multi-drop
---- e-smith-email-4.15.2/root/etc/e-smith/templates/etc/fetchmail/50multi-drop	2005-03-09 18:41:09.000000000 -0700
-+++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/etc/fetchmail/50multi-drop	2005-07-17 23:31:27.837144680 -0600
+Index: e-smith-email/root/etc/e-smith/templates/etc/fetchmail/50multi-drop
+diff -u e-smith-email/root/etc/e-smith/templates/etc/fetchmail/50multi-drop:1.11 e-smith-email/root/etc/e-smith/templates/etc/fetchmail/50multi-drop:1.12
+--- e-smith-email/root/etc/e-smith/templates/etc/fetchmail/50multi-drop:1.11	Wed Mar  9 20:41:09 2005
++++ e-smith-email/root/etc/e-smith/templates/etc/fetchmail/50multi-drop	Mon Jul 18 17:07:45 2005
 @@ -35,11 +35,10 @@
  	my $ssl = db_get_prop($confref, "fetchmail", "SSL")
  		    || "disabled";
@@ -125,9 +128,10 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates
  
  	$OUT .= "# multi-drop configuration; fetchmail ";
  	$OUT .= "retrieves all mail from a remote POP mailbox:\n";
-diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates/home/e-smith/.qmail mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/home/e-smith/.qmail
---- e-smith-email-4.15.2/root/etc/e-smith/templates/home/e-smith/.qmail	2004-05-10 12:29:56.000000000 -0600
-+++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/home/e-smith/.qmail	2005-07-17 23:41:45.061072824 -0600
+Index: e-smith-email/root/etc/e-smith/templates/home/e-smith/.qmail
+diff -u e-smith-email/root/etc/e-smith/templates/home/e-smith/.qmail:1.7 e-smith-email/root/etc/e-smith/templates/home/e-smith/.qmail:1.8
+--- e-smith-email/root/etc/e-smith/templates/home/e-smith/.qmail:1.7	Mon May 10 14:29:56 2004
++++ e-smith-email/root/etc/e-smith/templates/home/e-smith/.qmail	Mon Jul 18 17:07:45 2005
 @@ -70,14 +70,13 @@
          $user_component = pop @addr;
      }
@@ -228,9 +232,10 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates
                          {
                              $OUT .= $default;
                              return;
-diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/control/smtproutes/10delegateMailServer mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/control/smtproutes/10delegateMailServer
---- e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/control/smtproutes/10delegateMailServer	2004-02-09 19:12:28.000000000 -0700
-+++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/control/smtproutes/10delegateMailServer	2005-07-17 23:44:55.084001920 -0600
+Index: e-smith-email/root/etc/e-smith/templates/var/qmail/control/smtproutes/10delegateMailServer
+diff -u e-smith-email/root/etc/e-smith/templates/var/qmail/control/smtproutes/10delegateMailServer:1.2 e-smith-email/root/etc/e-smith/templates/var/qmail/control/smtproutes/10delegateMailServer:1.3
+--- e-smith-email/root/etc/e-smith/templates/var/qmail/control/smtproutes/10delegateMailServer:1.2	Mon Feb  9 21:12:28 2004
++++ e-smith-email/root/etc/e-smith/templates/var/qmail/control/smtproutes/10delegateMailServer	Mon Jul 18 17:07:45 2005
 @@ -12,17 +12,12 @@
      {
          $OUT .= "$DomainName:[$DelegateMailServer]\n";
@@ -253,9 +258,10 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates
          }
      }
  }
-diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/30admin mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/30admin
---- e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/30admin	2002-03-15 15:08:20.000000000 -0700
-+++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/30admin	2005-07-17 23:45:25.968581520 -0600
+Index: e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/30admin
+diff -u e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/30admin:1.1.1.1 e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/30admin:1.2
+--- e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/30admin:1.1.1.1	Fri Mar 15 17:08:20 2002
++++ e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/30admin	Mon Jul 18 17:07:45 2005
 @@ -7,9 +7,6 @@
      # Generate qmail user assignments for the admin user. This will be
      # handled by ~admin/.qmail.
@@ -266,9 +272,10 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates
      my (undef, undef, $uid, $gid, undef, undef, undef, $dir, undef)
  	= getpwnam("admin");
  
-diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/40alias mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/40alias
---- e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/40alias	2002-03-15 15:08:20.000000000 -0700
-+++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/40alias	2005-07-17 23:45:28.014222224 -0600
+Index: e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/40alias
+diff -u e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/40alias:1.1.1.1 e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/40alias:1.2
+--- e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/40alias:1.1.1.1	Fri Mar 15 17:08:20 2002
++++ e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/40alias	Mon Jul 18 17:07:45 2005
 @@ -7,9 +7,6 @@
      # Generate qmail user assignments for the alias user. This will be
      # handled by ~alias/.qmail.
@@ -279,9 +286,10 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates
      my (undef, undef, $uid, $gid, undef, undef, undef, $dir, undef)
  	= getpwnam("alias");
  
-diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/45shared mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/45shared
---- e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/45shared	2002-03-15 15:08:20.000000000 -0700
-+++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/45shared	2005-07-17 23:45:30.529321488 -0600
+Index: e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/45shared
+diff -u e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/45shared:1.1.1.1 e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/45shared:1.2
+--- e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/45shared:1.1.1.1	Fri Mar 15 17:08:20 2002
++++ e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/45shared	Mon Jul 18 17:07:45 2005
 @@ -7,9 +7,6 @@
      # Generate qmail user assignments for the shared group. This will
      # be handled by ~alias/.qmail-shared and ~alias/.qmail-shared-ext.
@@ -292,9 +300,10 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates
      my (undef, undef, $uid, $gid, undef, undef, undef, $dir, undef)
  	= getpwnam("alias");
  
-diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/50system mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/50system
---- e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/50system	2002-03-15 15:08:20.000000000 -0700
-+++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/50system	2005-07-17 23:47:56.431199264 -0600
+Index: e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/50system
+diff -u e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/50system:1.1.1.1 e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/50system:1.2
+--- e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/50system:1.1.1.1	Fri Mar 15 17:08:20 2002
++++ e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/50system	Mon Jul 18 17:07:45 2005
 @@ -8,9 +8,6 @@
      # be handled by admin. Make sure we DON'T reassign the admin or
      # alias users!
@@ -334,9 +343,10 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates
      }
  
      # Need to remove the final newline character. Blank lines in
-diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/60users mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/60users
---- e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/60users	2002-03-15 15:08:20.000000000 -0700
-+++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/60users	2005-07-17 23:49:56.047307864 -0600
+Index: e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/60users
+diff -u e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/60users:1.1.1.1 e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/60users:1.2
+--- e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/60users:1.1.1.1	Fri Mar 15 17:08:20 2002
++++ e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/60users	Mon Jul 18 17:07:45 2005
 @@ -7,15 +7,13 @@
      # Generate qmail user assignments for users. These will be handled by
      # ~user/.qmail.
@@ -374,9 +384,10 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates
      }
  
      # Need to remove the final newline character. Blank lines in
-diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/70pseudonyms mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/70pseudonyms
---- e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/70pseudonyms	2005-07-18 00:09:23.496044512 -0600
-+++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/70pseudonyms	2005-07-18 00:08:28.925739632 -0600
+Index: e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/70pseudonyms
+diff -u e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/70pseudonyms:1.3 e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/70pseudonyms:1.4
+--- e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/70pseudonyms:1.3	Sun May  1 12:38:54 2005
++++ e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/70pseudonyms	Mon Jul 18 17:07:45 2005
 @@ -9,9 +9,6 @@
      # or by ~admin/.qmail in the case of a system pseudonym or by
      # alias/.qmail-groupname in the case of a group pseudonym.
@@ -478,9 +489,10 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates
  	    next;
  	}
      }
-diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/80groups mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/80groups
---- e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/80groups	2002-03-15 15:08:20.000000000 -0700
-+++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/var/qmail/users/assign/80groups	2005-07-18 00:04:22.482877600 -0600
+Index: e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/80groups
+diff -u e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/80groups:1.1.1.1 e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/80groups:1.2
+--- e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/80groups:1.1.1.1	Fri Mar 15 17:08:20 2002
++++ e-smith-email/root/etc/e-smith/templates/var/qmail/users/assign/80groups	Mon Jul 18 17:07:45 2005
 @@ -7,9 +7,6 @@
      # Generate qmail user assignments for groups. These will be handled
      # by ~alias/.qmail-groupname and ~alias/.qmail-groupname-ext.
@@ -513,11 +525,25 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates
      }
  
      # Need to remove the final newline character. Blank lines in
-diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm mezzanine_patched_e-smith-email-4.15.2/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm
---- e-smith-email-4.15.2/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm	2005-07-18 00:09:24.140946472 -0600
-+++ mezzanine_patched_e-smith-email-4.15.2/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm	2005-07-17 23:17:33.324435208 -0600
-@@ -28,7 +28,7 @@
- our $VERSION = sprintf '%d.%03d', q$Revision: 1.11 $ =~ /: (\d+).(\d+)/;
+Index: e-smith-email/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm
+diff -u e-smith-email/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm:1.12 e-smith-email/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm:1.13
+--- e-smith-email/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm:1.12	Thu May  5 11:17:21 2005
++++ e-smith-email/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm	Mon Jul 18 17:07:45 2005
+@@ -1,7 +1,7 @@
+ #!/usr/bin/perl -w 
+ 
+ #
+-# $Id: emailsettings.pm,v 1.11 2005/05/01 16:38:54 charlieb Exp $
++# $Id: emailsettings.pm,v 1.12 2005/05/05 15:17:21 charlieb Exp $
+ #
+ 
+ package    esmith::FormMagick::Panel::emailsettings;
+@@ -25,10 +25,10 @@
+   get_prop get_value validate_admin_email
+ );
+ 
+-our $VERSION = sprintf '%d.%03d', q$Revision: 1.11 $ =~ /: (\d+).(\d+)/;
++our $VERSION = sprintf '%d.%03d', q$Revision: 1.12 $ =~ /: (\d+).(\d+)/;
  
  our $db = esmith::ConfigDB->open;
 -our $pattern_db = esmith::ConfigDB->open("/home/e-smith/mailpatterns");

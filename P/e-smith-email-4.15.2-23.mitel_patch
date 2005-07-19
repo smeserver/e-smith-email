@@ -1,0 +1,106 @@
+Index: e-smith-email/e-smith-email.spec
+diff -u e-smith-email/root/etc/e-smith/templates/etc/Muttrc/10Muttrc.proto:1.1 e-smith-email/root/etc/e-smith/templates/etc/Muttrc/10Muttrc.proto:1.2
+--- e-smith-email/root/etc/e-smith/templates/etc/Muttrc/10Muttrc.proto:1.1	Thu Jul 14 18:05:08 2005
++++ e-smith-email/root/etc/e-smith/templates/etc/Muttrc/10Muttrc.proto	Mon Jul 18 16:58:49 2005
+@@ -1140,11 +1140,11 @@
+ # change this value, as it tends to agitate the more fanatical netizens.
+ # 
+ # 
+-# set index_format="%4C %Z %{%b %d} %-15.15L (%4l) %s"
++# set index_format="%4C %Z %\{%b %d\} %-15.15L (%4l) %s"
+ #
+ # Name: index_format
+ # Type: string
+-# Default: "%4C %Z %{%b %d} %-15.15L (%4l) %s"
++# Default: "%4C %Z %\{%b %d\} %-15.15L (%4l) %s"
+ # 
+ # 
+ # This variable allows you to customize the message index display to
+@@ -1189,7 +1189,7 @@
+ #         (2) at the top of a thread, or (3) `x-label' is different from
+ #         preceding message's `x-label'.
+ # %Z      message status flags
+-# %{fmt}  the date and time of the message is converted to sender's
++# %\{fmt\}  the date and time of the message is converted to sender's
+ #         time zone, and ``fmt'' is expanded by the library function
+ #         ``strftime''; a leading bang disables locales
+ # %[fmt]  the date and time of the message is converted to the local
+@@ -2313,7 +2313,7 @@
+ # sleep 20 < /dev/null > /dev/null"
+ # 
+ # Mailbox 'foo' on mailhost.net can now be reached
+-# as '{localhost:1234}foo'.
++# as '\{localhost:1234\}foo'.
+ # 
+ # NOTE: For this example to work, you must be able to log in to the
+ # remote machine without having to enter a password.
+@@ -2413,11 +2413,11 @@
+ # prompted for confirmation when you try to quit.
+ # 
+ # 
+-# set quote_regexp="^([ \t]*[|>:}#])+"
++# set quote_regexp="^([ \t]*[|>:\}#])+"
+ #
+ # Name: quote_regexp
+ # Type: regular expression
+-# Default: "^([ \t]*[|>:}#])+"
++# Default: "^([ \t]*[|>:\}#])+"
+ # 
+ # 
+ # A regular expression used in the internal-pager to determine quoted
+@@ -2854,11 +2854,11 @@
+ # ``$markers'' variable.
+ # 
+ # 
+-# set smileys="(>From )|(:[-^]?[][)(><}{|/DP])"
++# set smileys="(>From )|(:[-^]?[][)(><\}\{|/DP])"
+ #
+ # Name: smileys
+ # Type: regular expression
+-# Default: "(>From )|(:[-^]?[][)(><}{|/DP])"
++# Default: "(>From )|(:[-^]?[][)(><\}\{|/DP])"
+ # 
+ # 
+ # The pager uses this variable to catch some common false
+@@ -3386,7 +3386,7 @@
+ # This version uses gpg-2comp from 
+ #   http://muppet.faveve.uni-stuttgart.de/~gero/gpg-2comp.tar.gz
+ #
+-# $Id: gpg.rc,v 1.12 2001/12/11 09:33:57 roessler Exp $
++# $Id: 10Muttrc.proto,v 1.1 2005/07/14 22:05:08 charlieb Exp $
+ #
+ # %p    The empty string when no passphrase is needed,
+ #       the string "PGPPASSFD=0" if one is needed.
+Index: e-smith-email/root/etc/e-smith/templates/etc/Muttrc/50folder
+diff -u /dev/null e-smith-email/root/etc/e-smith/templates/etc/Muttrc/50folder:1.1
+--- /dev/null	Mon Jul 18 16:59:54 2005
++++ e-smith-email/root/etc/e-smith/templates/etc/Muttrc/50folder	Mon Jul 18 16:58:49 2005
+@@ -0,0 +1 @@
++set folder=imaps://localhost/
+Index: e-smith-email/root/etc/e-smith/templates/etc/Muttrc/50spoolfile
+diff -u e-smith-email/root/etc/e-smith/templates/etc/Muttrc/50spoolfile:1.1 e-smith-email/root/etc/e-smith/templates/etc/Muttrc/50spoolfile:1.2
+--- e-smith-email/root/etc/e-smith/templates/etc/Muttrc/50spoolfile:1.1	Thu Jul 14 18:05:08 2005
++++ e-smith-email/root/etc/e-smith/templates/etc/Muttrc/50spoolfile	Mon Jul 18 16:58:49 2005
+@@ -1 +1 @@
+-set spoolfile={localhost}INBOX
++set spoolfile=imaps://localhost/INBOX
+Index: e-smith-email/root/var/service/pop3s/run
+diff -u e-smith-email/root/var/service/pop3s/run:1.6 e-smith-email/root/var/service/pop3s/run:1.7
+--- e-smith-email/root/var/service/pop3s/run:1.6	Tue May 24 15:03:03 2005
++++ e-smith-email/root/var/service/pop3s/run	Mon Jul 18 16:58:49 2005
+@@ -16,4 +16,4 @@
+ 	${PORT:-pop3s} \
+ 	    sslio -vv -/ /service/imap/ssl -u stunnel -C imapd.pem \
+ 		    /var/qmail/bin/qmail-popup $fqdn \
+-			/bin/checkpassword /var/qmail/bin/qmail-pop3d Maildir
++			checkpassword /var/qmail/bin/qmail-pop3d Maildir
+Index: e-smith-email/root/var/service/popd/run
+diff -u e-smith-email/root/var/service/popd/run:1.7 e-smith-email/root/var/service/popd/run:1.8
+--- e-smith-email/root/var/service/popd/run:1.7	Tue Mar 29 12:16:24 2005
++++ e-smith-email/root/var/service/popd/run	Mon Jul 18 16:58:49 2005
+@@ -17,4 +17,4 @@
+ 	${LISTENIP:-0} \
+ 	${PORT:-pop} \
+ 	    /var/qmail/bin/qmail-popup $fqdn \
+-		/bin/checkpassword /var/qmail/bin/qmail-pop3d Maildir
++		checkpassword /var/qmail/bin/qmail-pop3d Maildir
