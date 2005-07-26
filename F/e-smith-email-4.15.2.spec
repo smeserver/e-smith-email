@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.2
-%define release 24
+%define release 25
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -29,6 +29,7 @@ Patch16: e-smith-email-4.15.2-21.mitel_patch
 Patch17: e-smith-email-4.15.2-22.mitel_patch
 Patch18: e-smith-email-4.15.2-23.mitel_patch
 Patch19: e-smith-email-4.15.2-24.mitel_patch
+Patch20: e-smith-email-4.15.2-25.mitel_patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -57,6 +58,11 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Fri Jul 22 2005 Charlie Brady <charlieb@e-smith.com>
+- [4.15.2-25]
+- Complete the update to current db access APIs - a few esmith::db and
+  esmith::config calls were found hiding.  [SF: 1216546, 1242331]
+
 * Mon Jul 18 2005 Charlie Brady <charlieb@e-smith.com>
 - [4.15.2-24]
 - Update all db access APIs to current standards. [SF: 1216546]
@@ -1110,6 +1116,7 @@ mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
 %patch17 -p1
 %patch18 -p1
 %patch19 -p1
+%patch20 -p1
 
 %build
 perl createlinks
