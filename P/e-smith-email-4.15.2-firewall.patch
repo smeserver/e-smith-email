@@ -1,0 +1,5 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/smtpd/TCPProxyPort mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/smtpd/TCPProxyPort
+--- e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/smtpd/TCPProxyPort	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/smtpd/TCPProxyPort	2005-07-28 12:26:33.472563192 -0600
+@@ -0,0 +1 @@
++25

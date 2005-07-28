@@ -78,3 +78,9 @@ Wed Jul 27 01:16:52 2005                       Gordon Rowell (gordonr)
 Remove 30 (28) group limit
 
 ----------------------------------------------------------------------
+Thu Jul 28 12:35:33 2005                           Shad Lords (slords)
+
+- Add TCPProxyPort to specify which port to proxy [SF: 1246986]
+
+
+----------------------------------------------------------------------
