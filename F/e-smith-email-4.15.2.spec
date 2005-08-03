@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.2
-%define release 25sme01
+%define release 26
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -30,7 +30,7 @@ Patch17: e-smith-email-4.15.2-22.mitel_patch
 Patch18: e-smith-email-4.15.2-23.mitel_patch
 Patch19: e-smith-email-4.15.2-24.mitel_patch
 Patch20: e-smith-email-4.15.2-25.mitel_patch
-Patch21: e-smith-email-4.15.2-firewall.patch
+Patch21: e-smith-email-4.15.2-26.mitel_patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -59,8 +59,8 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
-* Thu Jul 28 2005 Shad L. Lords <slords@mail.com>
-- [4.15.2-25sme01]
+* Tue Aug  2 2005 Shad Lords <slords@email.com>
+- [4.15.2-26]
 - Add TCPProxyPort to specify which port to proxy [SF: 1246986]
 
 * Fri Jul 22 2005 Charlie Brady <charlieb@e-smith.com>
