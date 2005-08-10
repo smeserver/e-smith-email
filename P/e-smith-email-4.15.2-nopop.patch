@@ -1,0 +1,419 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/createlinks mezzanine_patched_e-smith-email-4.15.2/createlinks
+--- e-smith-email-4.15.2/createlinks	2005-08-10 14:45:29.412947688 -0600
++++ mezzanine_patched_e-smith-email-4.15.2/createlinks	2005-08-10 14:12:28.519089328 -0600
+@@ -131,31 +131,11 @@
+ {
+ }
+ 
+-foreach my $event (qw(bootstrap-console-save network-delete network-create email-update))
++foreach my $event (qw(post-upgrade))
+ {
+-    foreach (qw(popd/peers/0 popd/peers/local pop3s/peers/0 pop3s/peers/local))
+-    {
+-	templates2events("/var/service/$_", $event);
+-    }
++    event_link("imap-relocate-maildirs", $event, "05");
+ }
+ 
+-foreach my $event (qw(network-delete network-create))
+-{
+-    safe_symlink("sigusr1", "root/etc/e-smith/events/$event/services2adjust/popd");
+-}
+-
+-safe_symlink("daemontools", "root/etc/rc.d/init.d/popd");
+-service_link_enhanced("popd", "S55", "7");
+-service_link_enhanced("popd", "K45", "6");
+-service_link_enhanced("popd", "K45", "0");
+-service_link_enhanced("popd", "K45", "1");
+-
+-safe_symlink("daemontools", "root/etc/rc.d/init.d/pop3s");
+-service_link_enhanced("pop3s", "S55", "7");
+-service_link_enhanced("pop3s", "K45", "6");
+-service_link_enhanced("pop3s", "K45", "0");
+-service_link_enhanced("pop3s", "K45", "1");
+-
+ safe_symlink("daemontools", "root/etc/rc.d/init.d/smtp-auth-proxy");
+ service_link_enhanced("smtp-auth-proxy", "S75", "7");
+ service_link_enhanced("smtp-auth-proxy", "K50", "6");
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imap/access mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imap/access
+--- e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imap/access	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imap/access	2005-08-10 14:12:28.527088112 -0600
+@@ -0,0 +1 @@
++private
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imap/status mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imap/status
+--- e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imap/status	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imap/status	2005-08-10 14:12:28.533087200 -0600
+@@ -0,0 +1 @@
++enabled
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imap/TCPPort mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imap/TCPPort
+--- e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imap/TCPPort	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imap/TCPPort	2005-08-10 14:12:28.537086592 -0600
+@@ -0,0 +1 @@
++143
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imap/type mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imap/type
+--- e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imap/type	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imap/type	2005-08-10 14:12:28.540086136 -0600
+@@ -0,0 +1 @@
++service
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imaps/access mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imaps/access
+--- e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imaps/access	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imaps/access	2005-08-10 14:12:28.544085528 -0600
+@@ -0,0 +1 @@
++private
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imaps/status mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imaps/status
+--- e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imaps/status	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imaps/status	2005-08-10 14:12:28.549084768 -0600
+@@ -0,0 +1 @@
++enabled
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imaps/TCPPort mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imaps/TCPPort
+--- e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imaps/TCPPort	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imaps/TCPPort	2005-08-10 14:12:28.553084160 -0600
+@@ -0,0 +1 @@
++993
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imaps/type mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imaps/type
+--- e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imaps/type	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/db/configuration/defaults/imaps/type	2005-08-10 14:12:28.555083856 -0600
+@@ -0,0 +1 @@
++service
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/events/actions/imap-relocate-maildirs mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/events/actions/imap-relocate-maildirs
+--- e-smith-email-4.15.2/root/etc/e-smith/events/actions/imap-relocate-maildirs	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/events/actions/imap-relocate-maildirs	2005-08-10 14:12:28.561082944 -0600
+@@ -0,0 +1,164 @@
++#!/usr/bin/perl -w
++
++#----------------------------------------------------------------------
++# copyright (C) 1999-2005 Mitel Networks Corporation
++# 
++# This program is free software; you can redistribute it and/or modify
++# it under the terms of the GNU General Public License as published by
++# the Free Software Foundation; either version 2 of the License, or
++# (at your option) any later version.
++# 		
++# This program is distributed in the hope that it will be useful,
++# but WITHOUT ANY WARRANTY; without even the implied warranty of
++# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++# GNU General Public License for more details.
++# 		
++# You should have received a copy of the GNU General Public License
++# along with this program; if not, write to the Free Software
++# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307  USA
++# 
++# Technical support for this program is available from Mitel Networks 
++# Please visit our web site www.mitel.com/sme/ for details.
++#----------------------------------------------------------------------
++use strict;
++
++use esmith::AccountsDB;
++use User::pwent;
++use File::Find;
++use File::Glob;
++
++my $event = $ARGV[0] || 'Unknown';
++
++my $adb = esmith::AccountsDB->open;
++
++die "Couldn't open AccountsDB\n" unless $adb;
++
++my @users = ('admin', map { $_->key } $adb->users);
++
++foreach my $user ( @users )
++{
++    my $pwent = getpwnam($user) 
++	or die "Couldn't get password entry for $user\n";
++
++    chdir $pwent->dir or die "Couldn't chdir $pwent->dir:$!\n";
++
++    %::maildirs = ();
++    # Go and find maildirs we wish to relocate
++    find({ wanted => \&wanted, no_chdir => 1 }, '.');
++
++    # We do a reverse sort here so that we are doing a depth first
++    # move of directories
++    foreach my $here (reverse sort keys %::maildirs)
++    {
++	my $there = $::maildirs{$here};
++	if (-e "$there")
++	{
++	    $there .= "-" . time if (-e "$there");
++	    if (-e "$there")
++	    {
++		warn "Conflict for $user: Can't determine new name for $here\n";
++		next;
++	    }
++	}
++	warn "Moving $here to $there\n";
++	rename $here, $there
++	    or warn("Could not rename $here to $there: $!\n");
++    }
++
++    # Now make sure that we have a junkmail mailbox
++    my $prefix = "Maildir/.junkmail";
++    unless (-d "$prefix" &&
++	    -d "$prefix/tmp" &&
++	    -d "$prefix/new" &&
++	    -d "$prefix/cur")
++    {
++	# We'd better make them then ...
++	my $pid = fork;
++	die "Could not fork in $ARGV[0]" unless defined $pid;
++	if ($pid)
++	{
++	    waitpid($pid, 0);
++	}
++	else
++	{
++	    $) = $pwent->gid;
++	    $> = $pwent->uid;
++	    umask 077;
++	    foreach my $suffix ("", qw(/tmp /cur /new))
++	    {
++		my $dir = "$prefix$suffix";
++		unless (-d "$dir")
++		{
++		    mkdir("$dir", 0700) or warn("Error creating $dir: $!\n");
++		}
++	    }
++	    exit 0;
++	    # NOTREACHED
++	}
++    }
++    if (-f ".mailboxlist" || -f "Maildir/.subscriptions")
++    {
++	my $pid = fork;
++	die "Could not fork in $ARGV[0]" unless defined $pid;
++	if ($pid)
++	{
++	    waitpid($pid, 0);
++	}
++	else
++	{
++	    $) = $pwent->gid;
++	    $> = $pwent->uid;
++	    umask 077;
++	    if (-f ".mailboxlist")
++	    {
++		open (OSUBS, "<.mailboxlist") or
++		    die "Could not open mailboxlist file: $!\n";
++	    }
++	    else
++	    {
++		open (OSUBS, "<Maildir/.subscriptions") or
++		    die "Could not open mailboxlist file: $!\n";
++	    }
++	    my @subs = <OSUBS>;
++	    close OSUBS;
++	    open (NSUBS, ">Maildir/.subscriptions") or
++		die "Could not open subscriptions file: $!\n";
++	    foreach (@subs)
++	    {
++		s/^Mail\///;
++		s/[\/;]/./g;
++		print NSUBS;
++	    }
++	    close NSUBS;
++	    unlink ".mailboxlist";
++	    exit 0;
++	    # NOTREACHED
++	}
++    }
++}
++
++
++sub wanted
++{
++    my $here = $_;
++    # Don't follow symlinks or descend into ./files
++    if (-l $here || $here eq "./files")
++    {
++	#print "Pruning at $here\n";
++	$File::Find::prune = 1;
++	return;
++    }
++    return if ($here eq "./Maildir");
++
++    # We only care about directories, and they must be maildirs
++    return unless (-d $here && -d "$here/cur" && -d "$here/tmp" && -d "$here/new");
++
++    # We won't touch anything which already looks correct
++    return if ($here =~ m:^\./Maildir/\.:o);
++
++    my $there = $here;
++    $there =~ s:^\./::;
++    $there =~ s:^Mail(/|dir/;)::o;
++    $there =~ s:[/;]:.:og;
++    $::maildirs{$here} = "./Maildir/.$there";
++}
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates/etc/hosts.allow/pop3s mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/etc/hosts.allow/pop3s
+--- e-smith-email-4.15.2/root/etc/e-smith/templates/etc/hosts.allow/pop3s	2005-03-09 18:41:09.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/etc/hosts.allow/pop3s	1969-12-31 17:00:00.000000000 -0700
+@@ -1,3 +0,0 @@
+-{
+-    $DB->hosts_allow_spec('pop3s', 'pop3s');
+-}
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates/etc/hosts.allow/qmail-popup mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/etc/hosts.allow/qmail-popup
+--- e-smith-email-4.15.2/root/etc/e-smith/templates/etc/hosts.allow/qmail-popup	2005-03-09 19:00:30.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates/etc/hosts.allow/qmail-popup	1969-12-31 17:00:00.000000000 -0700
+@@ -1,3 +0,0 @@
+-{
+-    $DB->hosts_allow_spec('popd', 'qmail-popup');
+-}
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates.metadata/var/service/pop3s/peers/0 mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates.metadata/var/service/pop3s/peers/0
+--- e-smith-email-4.15.2/root/etc/e-smith/templates.metadata/var/service/pop3s/peers/0	2005-03-18 13:44:36.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates.metadata/var/service/pop3s/peers/0	1969-12-31 17:00:00.000000000 -0700
+@@ -1 +0,0 @@
+-PERMS=use esmith::ConfigDB; (esmith::ConfigDB->open_ro->get('pop3s')->prop('access') eq "private") ? "000" : "0644"
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates.metadata/var/service/pop3s/peers/local mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates.metadata/var/service/pop3s/peers/local
+--- e-smith-email-4.15.2/root/etc/e-smith/templates.metadata/var/service/pop3s/peers/local	2005-03-18 13:44:36.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates.metadata/var/service/pop3s/peers/local	1969-12-31 17:00:00.000000000 -0700
+@@ -1 +0,0 @@
+-PERMS=use esmith::ConfigDB; (esmith::ConfigDB->open_ro->get('pop3s')->prop('status') eq "enabled") ? "0644" : "0000"
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates.metadata/var/service/popd/peers/0 mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates.metadata/var/service/popd/peers/0
+--- e-smith-email-4.15.2/root/etc/e-smith/templates.metadata/var/service/popd/peers/0	2005-03-18 13:44:36.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates.metadata/var/service/popd/peers/0	1969-12-31 17:00:00.000000000 -0700
+@@ -1 +0,0 @@
+-PERMS=use esmith::ConfigDB; (esmith::ConfigDB->open_ro->get('popd')->prop('access') eq "private") ? "000" : "0644"
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/templates.metadata/var/service/popd/peers/local mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates.metadata/var/service/popd/peers/local
+--- e-smith-email-4.15.2/root/etc/e-smith/templates.metadata/var/service/popd/peers/local	2005-03-18 13:44:36.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/templates.metadata/var/service/popd/peers/local	1969-12-31 17:00:00.000000000 -0700
+@@ -1 +0,0 @@
+-PERMS=use esmith::ConfigDB; (esmith::ConfigDB->open_ro->get('popd')->prop('status') eq "enabled") ? "0644" : "0000"
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/var/service/pop3s/log/run mezzanine_patched_e-smith-email-4.15.2/root/var/service/pop3s/log/run
+--- e-smith-email-4.15.2/root/var/service/pop3s/log/run	2005-03-09 18:41:10.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/var/service/pop3s/log/run	1969-12-31 17:00:00.000000000 -0700
+@@ -1,27 +0,0 @@
+-#!/bin/sh
+-
+-#----------------------------------------------------------------------
+-# copyright (C) 2005 Mitel Networks Corporation
+-# 
+-# This program is free software; you can redistribute it and/or modify
+-# it under the terms of the GNU General Public License as published by
+-# the Free Software Foundation; either version 2 of the License, or
+-# (at your option) any later version.
+-# 		
+-# This program is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU General Public License for more details.
+-# 		
+-# You should have received a copy of the GNU General Public License
+-# along with this program; if not, write to the Free Software
+-# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307  USA
+-# 
+-# Technical support for this program is available from Mitel Networks 
+-# Please visit our web site www.mitel.com/sme/ for details.
+-#----------------------------------------------------------------------
+-exec					\
+-    /usr/local/bin/setuidgid smelog	\
+-    /usr/local/bin/multilog t s5000000	\
+-    /var/log/pop3s
+-
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/var/service/pop3s/run mezzanine_patched_e-smith-email-4.15.2/root/var/service/pop3s/run
+--- e-smith-email-4.15.2/root/var/service/pop3s/run	2005-08-10 14:45:28.784043296 -0600
++++ mezzanine_patched_e-smith-email-4.15.2/root/var/service/pop3s/run	1969-12-31 17:00:00.000000000 -0700
+@@ -1,19 +0,0 @@
+-#!/bin/sh
+-
+-hostname=$(/sbin/e-smith/config get SystemName)
+-domain=$(/sbin/e-smith/config get DomainName)
+-fqdn="$hostname.$domain"
+-
+-exec 2>&1
+-exec /usr/local/bin/softlimit -m 5000000 \
+-    tcpsvd \
+-	-v \
+-	-i ./peers \
+-	-c ${CONCURRENCYREMOTE:-40} \
+-	-C ${PER_IP_INSTANCES:-4}:'421 per host concurrency limit reached\r\n' \
+-	-l ${LOCALNAME:-0} \
+-	${LISTENIP:-0} \
+-	${PORT:-pop3s} \
+-	    sslio -vv -/ /service/imap/ssl -u stunnel -C imapd.pem \
+-		    /var/qmail/bin/qmail-popup $fqdn \
+-			checkpassword /var/qmail/bin/qmail-pop3d Maildir
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/var/service/popd/control/1 mezzanine_patched_e-smith-email-4.15.2/root/var/service/popd/control/1
+--- e-smith-email-4.15.2/root/var/service/popd/control/1	2005-03-18 13:44:36.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.15.2/root/var/service/popd/control/1	1969-12-31 17:00:00.000000000 -0700
+@@ -1,27 +0,0 @@
+-#!/usr/bin/perl -w
+-
+-#----------------------------------------------------------------------
+-# copyright (C) 2005 Mitel Networks Corporation
+-# 
+-# This program is free software; you can redistribute it and/or modify
+-# it under the terms of the GNU General Public License as published by
+-# the Free Software Foundation; either version 2 of the License, or
+-# (at your option) any later version.
+-# 		
+-# This program is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU General Public License for more details.
+-# 		
+-# You should have received a copy of the GNU General Public License
+-# along with this program; if not, write to the Free Software
+-# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307  USA
+-# 
+-# Technical support for this program is available from Mitel Networks 
+-# Please visit our web site www.mitel.com/sme/ for details.
+-#----------------------------------------------------------------------
+-
+-use esmith::tcpsvd;
+-
+-esmith::tcpsvd::configure_peers('popd');
+-esmith::tcpsvd::configure_peers('pop3s');
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/var/service/popd/log/run mezzanine_patched_e-smith-email-4.15.2/root/var/service/popd/log/run
+--- e-smith-email-4.15.2/root/var/service/popd/log/run	2003-06-11 15:11:30.000000000 -0600
++++ mezzanine_patched_e-smith-email-4.15.2/root/var/service/popd/log/run	1969-12-31 17:00:00.000000000 -0700
+@@ -1,27 +0,0 @@
+-#!/bin/sh
+-
+-#----------------------------------------------------------------------
+-# copyright (C) 2002 Mitel Networks Corporation
+-# 
+-# This program is free software; you can redistribute it and/or modify
+-# it under the terms of the GNU General Public License as published by
+-# the Free Software Foundation; either version 2 of the License, or
+-# (at your option) any later version.
+-# 		
+-# This program is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU General Public License for more details.
+-# 		
+-# You should have received a copy of the GNU General Public License
+-# along with this program; if not, write to the Free Software
+-# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307  USA
+-# 
+-# Technical support for this program is available from Mitel Networks 
+-# Please visit our web site www.mitel.com/sme/ for details.
+-#----------------------------------------------------------------------
+-exec					\
+-    /usr/local/bin/setuidgid smelog	\
+-    /usr/local/bin/multilog t s5000000	\
+-    /var/log/popd
+-
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/var/service/popd/run mezzanine_patched_e-smith-email-4.15.2/root/var/service/popd/run
+--- e-smith-email-4.15.2/root/var/service/popd/run	2005-08-10 14:45:28.788042688 -0600
++++ mezzanine_patched_e-smith-email-4.15.2/root/var/service/popd/run	1969-12-31 17:00:00.000000000 -0700
+@@ -1,20 +0,0 @@
+-#!/bin/sh
+-
+-hostname=$(/sbin/e-smith/config get SystemName)
+-domain=$(/sbin/e-smith/config get DomainName)
+-fqdn="$hostname.$domain"
+-
+-exec 2>&1
+-# Generate ACL files in ./peers
+-./control/1
+-exec /usr/local/bin/softlimit -m 5000000 \
+-    tcpsvd \
+-	-v \
+-	-i ./peers \
+-	-c ${CONCURRENCYREMOTE:-40} \
+-	-C ${PER_IP_INSTANCES:-4}:'421 per host concurrency limit reached\r\n' \
+-	-l ${LOCALNAME:-0} \
+-	${LISTENIP:-0} \
+-	${PORT:-pop} \
+-	    /var/qmail/bin/qmail-popup $fqdn \
+-		checkpassword /var/qmail/bin/qmail-pop3d Maildir

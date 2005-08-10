@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.2
-%define release 27
+%define release 27sme01
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -32,20 +32,20 @@ Patch19: e-smith-email-4.15.2-24.mitel_patch
 Patch20: e-smith-email-4.15.2-25.mitel_patch
 Patch21: e-smith-email-4.15.2-26.mitel_patch
 Patch22: e-smith-email-4.15.2-27.mitel_patch
+Patch23: e-smith-email-4.15.2-nopop.patch
+Patch24: e-smith-email-4.15.2-nopop.patch2
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-smtpd
-Requires: checkpassword
-Requires: ipsvd
+Requires: e-smith-mta
+Requires: e-smith-pop3
+Requires: e-smith-imap
 Requires: e-smith-lib >= 1.15.1-19
 Requires: perl(Net::Server::Fork)
 Requires: perl(Net::SMTP)
-Requires: perl(Net::LDAP) >= 0.31
 Requires: perl(Net::Server) >= 0.85
-Requires: perl(Authen::SASL) >= 2.06
 Requires: runit
-Obsoletes: e-smith-ssl-popd
 Obsoletes: e-smith-smtp-authentication
 Obsoletes: e-smith-securemail
 BuildRequires: e-smith-devtools >= 1.13.0-03
@@ -56,6 +56,13 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Wed Aug 10 2005 Shad L. Lords <slords@mail.com>
+- [4.15.2-27sme01]
+- Remove last qmail stuff [SF: 1255261]
+- Break out pop3 into its own package [SF: 1256055]
+- Rename popd service to pop3 [SF: 1256055]
+- Include imap database stuff [SF: 1256055]
+
 * Tue Aug  9 2005 Charlie Brady <charlieb@e-smith.com>
 - [4.15.2-27]
 - Remove "Obsoletes: e-smith-qmail", and split out all qmail specific stuff.
@@ -1102,6 +1109,8 @@ mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
 %patch20 -p1
 %patch21 -p1
 %patch22 -p1
+%patch23 -p1
+%patch24 -p1
 
 %build
 perl createlinks
@@ -1115,13 +1124,6 @@ ln -s /etc/e-smith/templates-default/template-begin-shell \
       root/etc/e-smith/templates/etc/startmail/template-begin
 
 mkdir -p root/service
-ln -s /var/service/popd root/service/popd
-touch root/var/service/popd/down
-ln -s /var/service/pop3s root/service/pop3s
-touch root/var/service/pop3s/down
-
-mkdir -p root/var/log/popd
-mkdir -p root/var/log/pop3s
 
 # smtp-auth-proxy supervision
 mkdir -p root/var/service/smtp-auth-proxy
@@ -1130,13 +1132,7 @@ mkdir -p root/var/service/smtp-auth-proxy/supervise
 mkdir -p root/var/service/smtp-auth-proxy/log/supervise
 mkdir -p root/var/log/smtp-auth-proxy
 
-for i in popd pop3s
-do
-  mkdir -p root/var/service/$i/peers
-  mkdir -p root/etc/e-smith/templates/var/service/$i/peers
-  mkdir -p root/etc/e-smith/templates/var/service/$i/peers/{0,local}
-  touch root/etc/e-smith/templates/var/service/$i/peers/{0,local}/template-begin
-done
+rm -rf root/etc/e-smith/templates/var
 
 %postun
 
@@ -1146,15 +1142,6 @@ rm -rf $RPM_BUILD_ROOT
 rm -f %{name}-%{version}-%{release}-filelist
 /sbin/e-smith/genfilelist $RPM_BUILD_ROOT	\
     --dir /var/lock/fetchmail 'attr(755,qmailr,qmail)' \
-    --dir /var/log/popd 'attr(0750,smelog,smelog)' \
-    --dir /var/service/popd 'attr(01755,root,root)' \
-    --dir /var/service/popd/control 'attr(01755,root,root)' \
-    --file /var/service/popd/control/1 'attr(0750,root,root)' \
-    --file /var/service/pop3s/run 'attr(0750,root,root)' \
-    --file /var/service/pop3s/log/run 'attr(0750,root,root)' \
-    --dir '/var/log/pop3s' 'attr(2750,smelog,smelog)' \
-    --file /var/service/popd/run 'attr(0750,root,root)' \
-    --file /var/service/popd/log/run 'attr(0750,root,root)' \
     --dir '/var/service/smtp-auth-proxy' 'attr(1755,root,root)' \
     --file '/var/service/smtp-auth-proxy/down' 'attr(0644,root,root)' \
     --file '/var/service/smtp-auth-proxy/run' 'attr(0755,root,root)' \

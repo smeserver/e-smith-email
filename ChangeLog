@@ -94,3 +94,12 @@ Wed Aug 10 14:05:59 2005                           Shad Lords (slords)
 Sync with mitel
 
 ----------------------------------------------------------------------
+Wed Aug 10 15:40:37 2005                           Shad Lords (slords)
+
+- Remove last qmail stuff [SF: 1255261]
+- Break out pop3 into its own package [SF: 1256055]
+- Rename popd service to pop3 [SF: 1256055]
+- Include imap database stuff [SF: 1256055]
+
+
+----------------------------------------------------------------------
