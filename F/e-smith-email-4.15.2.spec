@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.2
-%define release 26
+%define release 27
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -31,14 +31,12 @@ Patch18: e-smith-email-4.15.2-23.mitel_patch
 Patch19: e-smith-email-4.15.2-24.mitel_patch
 Patch20: e-smith-email-4.15.2-25.mitel_patch
 Patch21: e-smith-email-4.15.2-26.mitel_patch
+Patch22: e-smith-email-4.15.2-27.mitel_patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-smtpd
-Requires: qmail
-Requires: dot-forward
 Requires: checkpassword
-Requires: fastforward
 Requires: ipsvd
 Requires: e-smith-lib >= 1.15.1-19
 Requires: perl(Net::Server::Fork)
@@ -47,7 +45,6 @@ Requires: perl(Net::LDAP) >= 0.31
 Requires: perl(Net::Server) >= 0.85
 Requires: perl(Authen::SASL) >= 2.06
 Requires: runit
-Obsoletes: e-smith-qmail
 Obsoletes: e-smith-ssl-popd
 Obsoletes: e-smith-smtp-authentication
 Obsoletes: e-smith-securemail
@@ -59,6 +56,11 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Tue Aug  9 2005 Charlie Brady <charlieb@e-smith.com>
+- [4.15.2-27]
+- Remove "Obsoletes: e-smith-qmail", and split out all qmail specific stuff.
+  [SF: 1255261]
+
 * Tue Aug  2 2005 Shad Lords <slords@email.com>
 - [4.15.2-26]
 - Add TCPProxyPort to specify which port to proxy [SF: 1246986]
@@ -1075,30 +1077,6 @@ e-smith server and gateway software - email module.
 
 %prep
 %setup
-mkdir -p root/etc/e-smith/web/panels/manager/cgi-bin
-mkdir -p root/etc/e-smith/events/pseudonym-modify
-mkdir -p root/etc/e-smith/events/host-modify
-mkdir -p root/etc/e-smith/events/ip-up
-mkdir -p root/etc/e-smith/events/user-delete
-mkdir -p root/etc/e-smith/events/user-create
-mkdir -p root/etc/e-smith/events/domain-delete
-mkdir -p root/etc/e-smith/events/domain-create
-mkdir -p root/etc/e-smith/events/group-delete
-mkdir -p root/etc/e-smith/events/group-create
-mkdir -p root/etc/e-smith/events/post-upgrade
-mkdir -p root/etc/e-smith/events/user-modify
-mkdir -p root/etc/e-smith/events/group-modify
-mkdir -p root/etc/e-smith/events/post-install
-mkdir -p root/etc/e-smith/events/console-save
-mkdir -p root/etc/e-smith/events/email-update
-mkdir -p root/etc/e-smith/events/pseudonym-delete
-mkdir -p root/etc/e-smith/events/pseudonym-create
-mkdir -p root/etc/e-smith/events/host-delete
-mkdir -p root/etc/e-smith/events/host-create
-mkdir -p root/etc/e-smith/events/bootstrap-console-save
-mkdir -p root/etc/e-smith/events/ip-change
-mkdir -p root/etc/e-smith/events/network-delete
-mkdir -p root/etc/e-smith/events/network-create
 mkdir -p root/var/lock/fetchmail
 mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
 %patch0 -p1
@@ -1123,6 +1101,7 @@ mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
 %patch19 -p1
 %patch20 -p1
 %patch21 -p1
+%patch22 -p1
 
 %build
 perl createlinks
@@ -1151,12 +1130,6 @@ mkdir -p root/var/service/smtp-auth-proxy/supervise
 mkdir -p root/var/service/smtp-auth-proxy/log/supervise
 mkdir -p root/var/log/smtp-auth-proxy
 
-ln -s ../var/service/qmail root/service/qmail
-mkdir -p root/var/service/qmail/supervise
-touch root/var/service/qmail/down
-mkdir -p root/var/service/qmail/log/supervise
-mkdir -p root/var/log/qmail
-
 for i in popd pop3s
 do
   mkdir -p root/var/service/$i/peers
@@ -1172,7 +1145,6 @@ rm -rf $RPM_BUILD_ROOT
 (cd root ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
 rm -f %{name}-%{version}-%{release}-filelist
 /sbin/e-smith/genfilelist $RPM_BUILD_ROOT	\
-    --dir /var/qmail/queue 'attr(02755,alias,qmail)' \
     --dir /var/lock/fetchmail 'attr(755,qmailr,qmail)' \
     --dir /var/log/popd 'attr(0750,smelog,smelog)' \
     --dir /var/service/popd 'attr(01755,root,root)' \
@@ -1192,15 +1164,6 @@ rm -f %{name}-%{version}-%{release}-filelist
     --file '/var/service/smtp-auth-proxy/log/supervise' 'attr(0700,root,root)' \
     --dir '/var/log/smtp-auth-proxy' 'attr(2750,smelog,nofiles)' \
     --file '/usr/local/sbin/smtp-auth-proxy.pl' 'attr(0755,root,root)' \
-    --dir '/var/service/qmail' 'attr(1755,root,root)' \
-    --file '/var/service/qmail/down' 'attr(0644,root,root)' \
-    --file '/var/service/qmail/run' 'attr(0755,root,root)' \
-    --file '/var/service/qmail/control/1' 'attr(0750,root,root)' \
-    --dir '/var/service/qmail/supervise' 'attr(0700,root,root)' \
-    --dir '/var/service/qmail/log' 'attr(0755,root,root)' \
-    --file '/var/service/qmail/log/run' 'attr(0755,root,root)' \
-    --dir '/var/service/qmail/log/supervise' 'attr(0700,root,root)' \
-    --dir '/var/log/qmail' 'attr(2750,qmaill,nofiles)' \
     > %{name}-%{version}-%{release}-filelist
 echo "%doc COPYING" >> %{name}-%{version}-%{release}-filelist
 
