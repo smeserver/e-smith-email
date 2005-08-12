@@ -1,0 +1,17 @@
+Index: e-smith-email/createlinks
+diff -u e-smith-email/createlinks:1.42 e-smith-email/createlinks:1.43
+--- e-smith-email/createlinks:1.42	Wed Aug 10 14:55:14 2005
++++ e-smith-email/createlinks	Wed Aug 10 15:16:23 2005
+@@ -131,11 +131,6 @@
+ {
+ }
+ 
+-foreach my $event (qw(post-upgrade))
+-{
+-    event_link("imap-relocate-maildirs", $event, "05");
+-}
+-
+ safe_symlink("daemontools", "root/etc/rc.d/init.d/smtp-auth-proxy");
+ service_link_enhanced("smtp-auth-proxy", "S75", "7");
+ service_link_enhanced("smtp-auth-proxy", "K50", "6");
+Index: e-smith-email/e-smith-email.spec

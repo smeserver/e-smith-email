@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.2
-%define release 27sme01
+%define release 29
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -32,8 +32,8 @@ Patch19: e-smith-email-4.15.2-24.mitel_patch
 Patch20: e-smith-email-4.15.2-25.mitel_patch
 Patch21: e-smith-email-4.15.2-26.mitel_patch
 Patch22: e-smith-email-4.15.2-27.mitel_patch
-Patch23: e-smith-email-4.15.2-nopop.patch
-Patch24: e-smith-email-4.15.2-nopop.patch2
+Patch23: e-smith-email-4.15.2-28.mitel_patch
+Patch24: e-smith-email-4.15.2-29.mitel_patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -56,8 +56,12 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
-* Wed Aug 10 2005 Shad L. Lords <slords@mail.com>
-- [4.15.2-27sme01]
+* Wed Aug 10 2005 Charlie Brady <charlieb@e-smith.com>
+- [4.15.2-29]
+- Remove stray symlink from last patch.
+
+* Wed Aug 10 2005 Shad Lords <slords@mail.com>
+- [4.15.2-28]
 - Remove last qmail stuff [SF: 1255261]
 - Break out pop3 into its own package [SF: 1256055]
 - Rename popd service to pop3 [SF: 1256055]
