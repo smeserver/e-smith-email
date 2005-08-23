@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.2
-%define release 29
+%define release 30
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -34,6 +34,7 @@ Patch21: e-smith-email-4.15.2-26.mitel_patch
 Patch22: e-smith-email-4.15.2-27.mitel_patch
 Patch23: e-smith-email-4.15.2-28.mitel_patch
 Patch24: e-smith-email-4.15.2-29.mitel_patch
+Patch25: e-smith-email-4.15.2-30.mitel_patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -56,6 +57,10 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Tue Aug 23 2005 Charlie Brady <charlieb@e-smith.com>
+- [4.15.2-30]
+- Fix typo in fetchmail settings save part of panel code. [SF: 1265400]
+
 * Wed Aug 10 2005 Charlie Brady <charlieb@e-smith.com>
 - [4.15.2-29]
 - Remove stray symlink from last patch.
@@ -1115,6 +1120,7 @@ mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
 %patch22 -p1
 %patch23 -p1
 %patch24 -p1
+%patch25 -p1
 
 %build
 perl createlinks
