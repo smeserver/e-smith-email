@@ -1,0 +1,238 @@
+Index: e-smith-email/e-smith-email.spec
+diff -u e-smith-email/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings:1.23 e-smith-email/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings:1.24
+--- e-smith-email/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings:1.23	Thu May  5 11:17:21 2005
++++ e-smith-email/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings	Fri Sep  2 11:14:18 2005
+@@ -204,16 +204,24 @@
+         <trans>Allow both POP3 and POP3S</trans>
+     </entry>
+     <entry>
++        <base>PRIVATE_POP3</base>
++        <trans>Allow private</trans>
++    </entry>
++    <entry>
+         <base>SECURE_POP3</base>
+-        <trans>Allow POP3S (secure)</trans>
++        <trans>Allow private and public (secure POP3S)</trans>
+     </entry>
+     <entry>
+         <base>INSECURE_IMAP</base>
+         <trans>Allow both IMAP and IMAPS</trans>
+     </entry>
+     <entry>
++        <base>PRIVATE_IMAP</base>
++        <trans>Allow private</trans>
++    </entry>
++    <entry>
+         <base>SECURE_IMAP</base>
+-        <trans>Allow IMAPS (secure)</trans>
++        <trans>Allow private and public (secure IMAPS)</trans>
+     </entry>
+     <entry>
+         <base>INSECURE_SMTP</base>
+@@ -225,11 +233,11 @@
+     </entry>
+     <entry>
+         <base>LABEL_POP_ACCESS_CONTROL</base>
+-        <trans>Public POP3 server access</trans>
++        <trans>POP3 server access</trans>
+     </entry>
+     <entry>
+         <base>LABEL_IMAP_ACCESS_CONTROL</base>
+-        <trans>Public IMAP server access</trans>
++        <trans>IMAP server access</trans>
+     </entry>
+     <entry>
+         <base>LABEL_SMTP_AUTH_CONTROL</base>
+@@ -302,21 +310,21 @@
+     <entry>
+         <base>DESC_POP_ACCESS_CONTROL</base>
+         <trans>
+-            You can control public POP3 server access. The POP3S
+-            setting can be used to provide encrypted external access
+-            to your POP3 server.  POP3 access is always available on
+-            the internal inteface.  We recommend leaving this setting
+-            Disabled unless you have a specific reason to do otherwise.
++            You can control POP3 server access. The setting 'Allow private'
++            allows POP3 access only from your local network(s). The POP3S
++            setting can be used to provide encrypted external access to your
++            POP3 server. We recommend leaving this setting 'Allow private'
++            unless you have a specific reason to do otherwise.
+         </trans>
+     </entry>
+     <entry>
+         <base>DESC_IMAP_ACCESS_CONTROL</base>
+         <trans>
+-            You can control public IMAP server access. The IMAPS
+-            setting can be used to provide encrypted external access
+-            to your IMAP server.  IMAP access is always available on
+-            the internal inteface.  We recommend leaving this setting
+-            Disabled unless you have a specific reason to do otherwise.
++            You can control IMAP server access. The setting 'Allow private'
++            allows IMAP access only from your local network(s). The IMAPS
++            setting can be used to provide encrypted external access to your
++            IMAP server. We recommend leaving this setting 'Allow private'
++            unless you have a specific reason to do otherwise.
+         </trans>
+     </entry>
+     <entry>
+Index: e-smith-email/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/emailsettings
+diff -u e-smith-email/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/emailsettings:1.15 e-smith-email/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/emailsettings:1.16
+--- e-smith-email/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/emailsettings:1.15	Tue Jul 12 14:07:31 2005
++++ e-smith-email/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/emailsettings	Fri Sep  2 11:14:18 2005
+@@ -222,16 +222,24 @@
+         <trans>Autorise POP3 et POP3S</trans>
+     </entry>
+     <entry>
++        <base>PRIVATE_POP3</base>
++        <trans>PRIVATE_POP3 needs translation</trans>
++    </entry>
++    <entry>
+         <base>SECURE_POP3</base>
+-        <trans>Autorise uniquement POP3S (securisé)</trans>
++        <trans>SECURE_POP3 needs translation</trans>
+     </entry>
+     <entry>
+         <base>INSECURE_IMAP</base>
+         <trans>Autorise IMAP et IMAPS</trans>
+     </entry>
+     <entry>
++        <base>PRIVATE_IMAP</base>
++        <trans>PRIVATE_IMAP needs translation</trans>
++    </entry>
++    <entry>
+         <base>SECURE_IMAP</base>
+-        <trans>Autorise uniquement IMAPS (securisé)</trans>
++        <trans>SECURE_IMAP needs translation</trans>
+     </entry>
+     <entry>
+         <base>INSECURE_SMTP</base>
+@@ -243,11 +251,11 @@
+     </entry>
+     <entry>
+         <base>LABEL_POP_ACCESS_CONTROL</base>
+-        <trans>Accès public au serveur POP3</trans>
++        <trans>Accès public au serveur POP3 needs translation</trans>
+     </entry>
+     <entry>
+         <base>LABEL_IMAP_ACCESS_CONTROL</base>
+-        <trans>Accès public au serveur IMAP</trans>
++        <trans>Accès public au serveur IMAP needs translation</trans>
+     </entry>
+     <entry>
+         <base>LABEL_SMTP_AUTH_CONTROL</base>
+@@ -334,6 +342,7 @@
+             L'accès POP3 est toujours disponible en local.
+             Nous vous recommandons de laisser ce réglage &quot;Désactivé&quot; à moins
+             que vous n'ayez une raison particulière de procéder différemment.
++needs translation
+             ]]>
+         </trans>
+     </entry>
+@@ -346,6 +355,7 @@
+             L'accès IMAP3 est toujours disponible en local.
+             Nous vous recommandons de laisser ce réglage &quot;Désactivé&quot; à moins
+             que vous n'ayez une raison particulière de procéder différemment.
++needs translation
+             ]]>
+         </trans>
+     </entry>
+Index: e-smith-email/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm
+diff -u e-smith-email/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm:1.15 e-smith-email/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm:1.16
+--- e-smith-email/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm:1.15	Tue Aug 23 10:37:21 2005
++++ e-smith-email/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm	Fri Sep  2 11:14:18 2005
+@@ -1,7 +1,7 @@
+ #!/usr/bin/perl -w 
+ 
+ #
+-# $Id: emailsettings.pm,v 1.14 2005/08/10 18:55:15 charlieb Exp $
++# $Id: emailsettings.pm,v 1.15 2005/08/23 14:37:21 charlieb Exp $
+ #
+ 
+ package    esmith::FormMagick::Panel::emailsettings;
+@@ -25,7 +25,7 @@
+   get_prop get_value validate_admin_email
+ );
+ 
+-our $VERSION = sprintf '%d.%03d', q$Revision: 1.14 $ =~ /: (\d+).(\d+)/;
++our $VERSION = sprintf '%d.%03d', q$Revision: 1.15 $ =~ /: (\d+).(\d+)/;
+ 
+ our $db = esmith::ConfigDB->open;
+ our $pattern_db = esmith::ConfigDB->open("mailpatterns");
+@@ -275,6 +275,13 @@
+     my $q = $fm->{'cgi'};
+ 
+     my $pop3Access = ($q->param('POPAccess') || 'private');
++    if ($pop3Access eq 'disabled') {
++        $db->set_prop('pop3', "status", "disabled" );
++        $db->set_prop('pop3s', "status", "disabled" );
++    } else {
++        $db->set_prop('pop3', "status", "enabled" );
++        $db->set_prop('pop3s', "status", "enabled" );
++    }
+     if ($pop3Access eq 'public') {
+         $db->set_prop('pop3', "access", "public" );
+         $db->set_prop('pop3s', "access", "public" );
+@@ -287,6 +294,13 @@
+     }
+ 
+     my $imapAccess = ($q->param('IMAPAccess') || 'private');
++    if ($imapAccess eq 'disabled') {
++        $db->set_prop('imap', "status", "disabled" );
++        $db->set_prop('imaps', "status", "disabled" );
++    } else {
++        $db->set_prop('imap', "status", "enabled" );
++        $db->set_prop('imaps', "status", "enabled" );
++    }
+     if ($imapAccess eq 'public') {
+         $db->set_prop('imap', "access", "public" );
+         $db->set_prop('imaps', "access", "public" );
+@@ -437,7 +451,11 @@
+ 
+     my $options = get_pop_options();
+ 
+-    if ($pop3Status eq 'enabled' && $pop3Access eq 'public')
++    if ($pop3Status ne 'enabled' && $pop3sStatus ne 'enabled')
++    {
++        return $localise ? $fm->localise($options->{disabled}) : 'disabled';
++    }
++    elsif ($pop3Status eq 'enabled' && $pop3Access eq 'public')
+     {
+         return $localise ? $fm->localise($options->{public}) : 'public';
+     }
+@@ -466,6 +484,10 @@
+ 
+     my $options = get_imap_options();
+ 
++    if ($imapStatus ne 'enabled' && $imapsStatus ne 'enabled')
++    {
++        return $localise ? $fm->localise($options->{disabled}) : 'disabled';
++    }
+     if ($imapStatus eq 'enabled' && $imapAccess eq 'public')
+     {
+         return $localise ? $fm->localise($options->{public}) : 'public';
+@@ -700,7 +722,11 @@
+ 
+ sub get_pop_options
+ {
+-    my %options = ( private => 'DISABLED', publicSSL  => 'SECURE_POP3' );
++    my %options = (
++	disabled => 'DISABLED',
++	private => 'PRIVATE_POP3',
++	publicSSL  => 'SECURE_POP3'
++    );
+ 
+     my $access = $db->get_prop('pop3', 'access') || 'private';
+ 
+@@ -711,7 +737,11 @@
+ 
+ sub get_imap_options
+ {
+-    my %options = ( private => 'DISABLED', publicSSL  => 'SECURE_IMAP' );
++    my %options = (
++	disabled => 'DISABLED',
++	private => 'PRIVATE_IMAP',
++	publicSSL  => 'SECURE_IMAP'
++    );
+ 
+     my $access = $db->get_prop('imap', 'access') || 'private';
+ 

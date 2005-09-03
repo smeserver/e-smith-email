@@ -1,0 +1,133 @@
+Index: e-smith-email/e-smith-email.spec
+diff -u e-smith-email/root/etc/e-smith/locale/es/etc/e-smith/web/functions/emailsettings:1.5 e-smith-email/root/etc/e-smith/locale/es/etc/e-smith/web/functions/emailsettings:1.6
+--- e-smith-email/root/etc/e-smith/locale/es/etc/e-smith/web/functions/emailsettings:1.5	Wed Mar  9 20:41:09 2005
++++ e-smith-email/root/etc/e-smith/locale/es/etc/e-smith/web/functions/emailsettings	Fri Sep  2 11:44:26 2005
+@@ -201,8 +201,48 @@
+         <trans>Permitir acceso sólo desde redes locales</trans>
+     </entry>
+     <entry>
+-        <base>LABEL_ACCESS_CONTROL</base>
+-        <trans>Acceso de servidores POP e IMAP</trans>
++        <base>INSECURE_POP3</base>
++        <trans>Allow both POP3 and POP3S</trans>
++    </entry>
++    <entry>
++        <base>PRIVATE_POP3</base>
++        <trans>Allow private</trans>
++    </entry>
++    <entry>
++        <base>SECURE_POP3</base>
++        <trans>Allow private and public (secure POP3S)</trans>
++    </entry>
++    <entry>
++        <base>INSECURE_IMAP</base>
++        <trans>Allow both IMAP and IMAPS</trans>
++    </entry>
++    <entry>
++        <base>PRIVATE_IMAP</base>
++        <trans>Allow private</trans>
++    </entry>
++    <entry>
++        <base>SECURE_IMAP</base>
++        <trans>Allow private and public (secure IMAPS)</trans>
++    </entry>
++    <entry>
++        <base>INSECURE_SMTP</base>
++        <trans>Allow both SMTP and SSMTP</trans>
++    </entry>
++    <entry>
++        <base>SECURE_SMTP</base>
++        <trans>Allow SSMTP (secure)</trans>
++    </entry>
++    <entry>
++        <base>LABEL_POP_ACCESS_CONTROL</base>
++        <trans>POP3 server access</trans>
++    </entry>
++    <entry>
++        <base>LABEL_IMAP_ACCESS_CONTROL</base>
++        <trans>IMAP server access</trans>
++    </entry>
++    <entry>
++        <base>LABEL_SMTP_AUTH_CONTROL</base>
++        <trans>SMTP authentication</trans>
+     </entry>
+     <entry>
+         <base>FORWARD_TO_ADMIN</base>
+Index: e-smith-email/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/emailsettings
+diff -u e-smith-email/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/emailsettings:1.16 e-smith-email/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/emailsettings:1.17
+--- e-smith-email/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/emailsettings:1.16	Fri Sep  2 11:14:18 2005
++++ e-smith-email/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/emailsettings	Fri Sep  2 11:44:27 2005
+@@ -223,11 +223,11 @@
+     </entry>
+     <entry>
+         <base>PRIVATE_POP3</base>
+-        <trans>PRIVATE_POP3 needs translation</trans>
++        <trans>PRIVATE_POP3</trans>
+     </entry>
+     <entry>
+         <base>SECURE_POP3</base>
+-        <trans>SECURE_POP3 needs translation</trans>
++        <trans>Autorise uniquement POPS (securisé)</trans>
+     </entry>
+     <entry>
+         <base>INSECURE_IMAP</base>
+@@ -235,11 +235,11 @@
+     </entry>
+     <entry>
+         <base>PRIVATE_IMAP</base>
+-        <trans>PRIVATE_IMAP needs translation</trans>
++        <trans>PRIVATE_IMAP</trans>
+     </entry>
+     <entry>
+         <base>SECURE_IMAP</base>
+-        <trans>SECURE_IMAP needs translation</trans>
++        <trans>Autorise uniquement IMAPS (securisé)</trans>
+     </entry>
+     <entry>
+         <base>INSECURE_SMTP</base>
+@@ -251,21 +251,17 @@
+     </entry>
+     <entry>
+         <base>LABEL_POP_ACCESS_CONTROL</base>
+-        <trans>Accès public au serveur POP3 needs translation</trans>
++        <trans>Accès public au serveur POP3</trans>
+     </entry>
+     <entry>
+         <base>LABEL_IMAP_ACCESS_CONTROL</base>
+-        <trans>Accès public au serveur IMAP needs translation</trans>
++        <trans>Accès public au serveur IMAP</trans>
+     </entry>
+     <entry>
+         <base>LABEL_SMTP_AUTH_CONTROL</base>
+         <trans>Authentication SMTP</trans>
+     </entry>
+     <entry>
+-        <base>LABEL_ACCESS_CONTROL</base>
+-        <trans>Accès serveurs POP et IMAP</trans>
+-    </entry>
+-    <entry>
+         <base>FORWARD_TO_ADMIN</base>
+         <trans>Envoyer à l'administrateur</trans>
+     </entry>
+@@ -342,7 +338,6 @@
+             L'accès POP3 est toujours disponible en local.
+             Nous vous recommandons de laisser ce réglage &quot;Désactivé&quot; à moins
+             que vous n'ayez une raison particulière de procéder différemment.
+-needs translation
+             ]]>
+         </trans>
+     </entry>
+@@ -351,11 +346,10 @@
+         <trans><![CDATA[
+             Vous pouvez contrôler les accès publics au serveur IMAP.
+             Le réglage IMAPS (recommandé quand disponible) peut être utilisé
+-            pour fournir un accès externe crypté à votre serveur IMAP3.
+-            L'accès IMAP3 est toujours disponible en local.
++            pour fournir un accès externe crypté à votre serveur IMAP.
++            L'accès IMAP est toujours disponible en local.
+             Nous vous recommandons de laisser ce réglage &quot;Désactivé&quot; à moins
+             que vous n'ayez une raison particulière de procéder différemment.
+-needs translation
+             ]]>
+         </trans>
+     </entry>

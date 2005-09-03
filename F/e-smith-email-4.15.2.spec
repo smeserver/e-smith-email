@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.2
-%define release 32
+%define release 34
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -37,6 +37,8 @@ Patch24: e-smith-email-4.15.2-29.mitel_patch
 Patch25: e-smith-email-4.15.2-30.mitel_patch
 Patch26: e-smith-email-4.15.2-31.mitel_patch
 Patch27: e-smith-email-4.15.2-32.mitel_patch
+Patch28: e-smith-email-4.15.2-33.mitel_patch
+Patch29: e-smith-email-4.15.2-34.mitel_patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -59,6 +61,16 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Fri Sep  2 2005 Charlie Brady <charlieb@e-smith.com>
+- [4.15.2-34]
+- Lexicon updates. Still need more French and Spanish translation
+  done. [SF: 1280024]
+
+* Fri Sep  2 2005 Charlie Brady <charlieb@e-smith.com>
+- [4.15.2-33]
+- Add UI toggles for private/public IMAP/IMAPS/POP/POPS. Thanks for
+  patch go to Michael Weinberger! [SF: 1280024]
+
 * Wed Aug 24 2005 Charlie Brady <charlieb@e-smith.com>
 - [4.15.2-32]
 - Handle upstream disconnect in smtp-auth-proxy. Use more concise
@@ -1135,6 +1147,8 @@ mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
 %patch25 -p1
 %patch26 -p1
 %patch27 -p1
+%patch28 -p1
+%patch29 -p1
 
 %build
 perl createlinks
