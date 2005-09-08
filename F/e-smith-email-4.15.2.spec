@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.2
-%define release 34
+%define release 35
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -49,6 +49,7 @@ Requires: e-smith-imap
 Requires: e-smith-lib >= 1.15.1-19
 Requires: perl(Net::Server::Fork)
 Requires: perl(Net::SMTP)
+Requires: perl(Authen::SASL)
 Requires: perl(Net::Server) >= 0.85
 Requires: runit
 Obsoletes: e-smith-smtp-authentication
@@ -61,6 +62,11 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Wed Sep  7 2005 Charlie Brady <charlieb@e-smith.com>
+- [4.15.2-35]
+- Add requires header for Authen::SASL module, needed by SMTP auth
+  proxy. [SF: 1269111]
+
 * Fri Sep  2 2005 Charlie Brady <charlieb@e-smith.com>
 - [4.15.2-34]
 - Lexicon updates. Still need more French and Spanish translation
