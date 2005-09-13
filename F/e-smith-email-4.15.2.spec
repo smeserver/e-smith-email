@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.2
-%define release 35
+%define release 35sme01
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -39,6 +39,7 @@ Patch26: e-smith-email-4.15.2-31.mitel_patch
 Patch27: e-smith-email-4.15.2-32.mitel_patch
 Patch28: e-smith-email-4.15.2-33.mitel_patch
 Patch29: e-smith-email-4.15.2-34.mitel_patch
+Patch30: e-smith-email-4.15.2-smtpauthgui.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -62,6 +63,11 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Mon Sep 12 2005 Gordon Rowell <gordonr@gormand.com.au>
+- [4.15.2-35sme01]
+- Add configuration options for ISP SMTP AUTH to Email delivery page
+  [SF: 1236748]
+
 * Wed Sep  7 2005 Charlie Brady <charlieb@e-smith.com>
 - [4.15.2-35]
 - Add requires header for Authen::SASL module, needed by SMTP auth
@@ -1155,6 +1161,7 @@ mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
 %patch27 -p1
 %patch28 -p1
 %patch29 -p1
+%patch30 -p1
 
 %build
 perl createlinks

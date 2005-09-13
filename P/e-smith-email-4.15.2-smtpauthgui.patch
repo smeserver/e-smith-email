@@ -1,0 +1,106 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings
+--- e-smith-email-4.15.2/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings	2005-09-12 22:03:29.988240248 -0600
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings	2005-09-12 21:59:25.483410632 -0600
+@@ -559,4 +559,25 @@
+         <trans>Save</trans>
+     </entry>
+ 
++    <entry>
++        <base>LABEL_SMARTHOST_SMTPAUTH_STATUS</base>
++        <trans>SMTP Authentication for Internet provider</trans>
++    </entry>
++
++    <entry>
++        <base>LABEL_SMARTHOST_SMTPAUTH_USERID</base>
++        <trans>Mail server user id</trans>
++    </entry>
++
++    <entry>
++        <base>LABEL_SMARTHOST_SMTPAUTH_PASSWD</base>
++        <trans>Mail server password</trans>
++    </entry>
++
++    <entry>
++        <base>VALIDATION_SMTPAUTH_NONBLANK</base>
++        <trans>This field cannot be left blank if SMTP Authentication is
++            enabled.</trans>
++    </entry>
++
+ </lexicon>
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/etc/e-smith/web/functions/emailsettings mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/web/functions/emailsettings
+--- e-smith-email-4.15.2/root/etc/e-smith/web/functions/emailsettings	2005-09-12 22:03:29.961244352 -0600
++++ mezzanine_patched_e-smith-email-4.15.2/root/etc/e-smith/web/functions/emailsettings	2005-09-12 21:58:17.095807128 -0600
+@@ -473,12 +473,36 @@
+         <field 
+             type="text" 
+             id="SMTPSmartHost" 
+-            validation="validate_smarthost()"
++            validation="validate_smarthost(), nonblank_if_smtpauth()"
+             value="get_value('SMTPSmartHost')">
+             <label>LABEL_SMARTHOST</label>
+             <description>DESC_SMARTHOST</description>
+         </field>
+ 
++        <field 
++            type="select" 
++            id="SMTPAUTHPROXY_status" 
++            options="'enabled' => 'ENABLED', 'disabled' => 'DISABLED'"
++            value="get_prop('smtp-auth-proxy', 'status')">
++            <label>LABEL_SMARTHOST_SMTPAUTH_STATUS</label>
++        </field>
++
++        <field 
++            type="text" 
++            id="SMTPAUTHPROXY_Userid" 
++            validation="nonblank_if_smtpauth()" 
++            value="get_prop('smtp-auth-proxy', 'Userid')">
++            <label>LABEL_SMARTHOST_SMTPAUTH_USERID</label>
++        </field>
++
++        <field 
++            type="text" 
++            id="SMTPAUTHPROXY_Passwd" 
++            validation="nonblank_if_smtpauth()" 
++            value="get_prop('smtp-auth-proxy', 'Passwd')">
++            <label>LABEL_SMARTHOST_SMTPAUTH_PASSWD</label>
++        </field>
++
+         <subroutine src="print_button('SAVE')" />
+     </page>
+ 
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.2/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm mezzanine_patched_e-smith-email-4.15.2/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm
+--- e-smith-email-4.15.2/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm	2005-09-12 22:03:29.992239640 -0600
++++ mezzanine_patched_e-smith-email-4.15.2/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm	2005-09-12 22:02:39.836864416 -0600
+@@ -261,6 +261,16 @@
+     $db->set_value('EmailUnknownUser', $EmailUnknownUser);
+     $db->set_value('AdminEmail', $q->param('AdminEmail'));
+ 
++    my $proxy = $db->get('smtp-auth-proxy');
++    my %props = $proxy->props;
++
++    for ( qw(Userid Passwd status) )
++    {
++        $props{$_} = $q->param("SMTPAUTHPROXY_$_");
++    }
++
++    $proxy->merge_props(%props);
++
+     unless ( system( "/sbin/e-smith/signal-event", "email-update" ) == 0 )
+     {
+ 	$fm->error('ERROR_UPDATING');
+@@ -805,4 +815,15 @@
+     return $self->localise($status eq 'enabled' ? 'ENABLED' : 'DISABLED');
+ }
+ 
++sub nonblank_if_smtpauth
++{
++    my ($fm, $value) = @_;
++
++    my $q = $fm->{'cgi'};
++
++    return "OK" unless ($q->param("SMTPAUTHPROXY_status") eq 'enabled');
++
++    return ($value =~ /\S+/) ? "OK" : "VALIDATION_SMTPAUTH_NONBLANK";
++}
++
+ 1;
