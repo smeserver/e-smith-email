@@ -1,45 +1,14 @@
 Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
-%define version 4.15.2
-%define release 36
+%define version 4.15.4
+%define release 02
 Version: %{version}
 Release: %{release}
 License: GPL
 Vendor: Mitel Networks Corporation
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
-Patch0: e-smith-email-4.15.2-02.mitel_patch
-Patch1: e-smith-email-4.15.2-04.mitel_patch
-Patch2: e-smith-email-4.15.2-05.mitel_patch
-Patch3: e-smith-email-4.15.2-06.mitel_patch
-Patch4: e-smith-email-4.15.2-07.mitel_patch
-Patch5: e-smith-email-4.15.2-08.mitel_patch
-Patch6: e-smith-email-4.15.2-10.mitel_patch
-Patch7: e-smith-email-4.15.2-11.mitel_patch
-Patch8: e-smith-email-4.15.2-12.mitel_patch
-Patch9: e-smith-email-4.15.2-13.mitel_patch
-Patch10: e-smith-email-4.15.2-14.mitel_patch
-Patch11: e-smith-email-4.15.2-15.mitel_patch
-Patch12: e-smith-email-4.15.2-16.mitel_patch
-Patch13: e-smith-email-4.15.2-17.mitel_patch
-Patch14: e-smith-email-4.15.2-18.mitel_patch
-Patch15: e-smith-email-4.15.2-19.mitel_patch
-Patch16: e-smith-email-4.15.2-21.mitel_patch
-Patch17: e-smith-email-4.15.2-22.mitel_patch
-Patch18: e-smith-email-4.15.2-23.mitel_patch
-Patch19: e-smith-email-4.15.2-24.mitel_patch
-Patch20: e-smith-email-4.15.2-25.mitel_patch
-Patch21: e-smith-email-4.15.2-26.mitel_patch
-Patch22: e-smith-email-4.15.2-27.mitel_patch
-Patch23: e-smith-email-4.15.2-28.mitel_patch
-Patch24: e-smith-email-4.15.2-29.mitel_patch
-Patch25: e-smith-email-4.15.2-30.mitel_patch
-Patch26: e-smith-email-4.15.2-31.mitel_patch
-Patch27: e-smith-email-4.15.2-32.mitel_patch
-Patch28: e-smith-email-4.15.2-33.mitel_patch
-Patch29: e-smith-email-4.15.2-34.mitel_patch
-Patch30: e-smith-email-4.15.2-36.mitel_patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -63,6 +32,38 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Wed Nov 30 2005 Gordon Rowell <gordonr@gormand.com.au> 4.15.4-02
+- Bump release number only
+
+* Fri Oct 14 2005 Gordon Rowell <gordonr@e-smith.com>
+- [4.15.4-01]
+- Remove L10Ns from base packages [SF: 1309520]
+
+* Fri Oct 14 2005 Gordon Rowell <gordonr@e-smith.com>
+- [4.15.3-01]
+- New dev stream before relocating L10Ns
+
+* Fri Sep 30 2005 Gordon Rowell <gordonr@e-smith.com>
+- [4.15.2-41]
+- Change French translation of "Weekend" to the more
+  universally acceptable "samedi et dimanche" [SF: 1293855]
+
+* Fri Sep 30 2005 Gordon Rowell <gordonr@e-smith.com>
+- [4.15.2-40]
+- Added Italian L10N - Thanks Filippo Carletti [SF: 1309266]
+
+* Mon Sep 26 2005 Gordon Rowell <gordonr@e-smith.com>
+- [4.15.2-39]
+- Cleanups to French L10N - Thanks Didier Rambeau [SF: 1293855]
+
+* Sun Sep 25 2005 Gordon Rowell <gordonr@e-smith.com>
+- [4.15.2-38]
+- Actually add German L10N to correct package [SF: 1293325]
+
+* Sun Sep 25 2005 Gordon Rowell <gordonr@e-smith.com>
+- [4.15.2-37]
+- Added German L10N - Thanks Dietmar Berteld [SF: 1293325]
+
 * Tue Sep 13 2005 Gordon Rowell <gordonr@gormand.com.au>
 - [4.15.2-36]
 - Add configuration options for ISP SMTP AUTH to Email delivery page
@@ -1131,37 +1132,6 @@ e-smith server and gateway software - email module.
 %setup
 mkdir -p root/var/lock/fetchmail
 mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
-%patch11 -p1
-%patch12 -p1
-%patch13 -p1
-%patch14 -p1
-%patch15 -p1
-%patch16 -p1
-%patch17 -p1
-%patch18 -p1
-%patch19 -p1
-%patch20 -p1
-%patch21 -p1
-%patch22 -p1
-%patch23 -p1
-%patch24 -p1
-%patch25 -p1
-%patch26 -p1
-%patch27 -p1
-%patch28 -p1
-%patch29 -p1
-%patch30 -p1
 
 %build
 perl createlinks

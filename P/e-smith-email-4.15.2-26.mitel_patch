@@ -1,6 +1,0 @@
-Index: e-smith-email/e-smith-email.spec
-diff -u /dev/null e-smith-email/root/etc/e-smith/db/configuration/defaults/smtpd/TCPProxyPort:1.1
---- /dev/null	Tue Aug  2 17:14:41 2005
-+++ e-smith-email/root/etc/e-smith/db/configuration/defaults/smtpd/TCPProxyPort	Tue Aug  2 17:13:38 2005
-@@ -0,0 +1 @@
-+25
