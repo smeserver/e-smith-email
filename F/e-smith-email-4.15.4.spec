@@ -2,13 +2,14 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.4
-%define release 02
+%define release 03
 Version: %{version}
 Release: %{release}
 License: GPL
 Vendor: Mitel Networks Corporation
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
+Patch0: e-smith-email-4.15.4-Muttrc.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -32,6 +33,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Wed Jan 4 2006 Gordon Rowell <gordonr@gormand.com.au> 4.15.4-03
+- Add 'set hostname=$DomainName' to /etc/Muttrc [SME: 398]
+
 * Wed Nov 30 2005 Gordon Rowell <gordonr@gormand.com.au> 4.15.4-02
 - Bump release number only
 
@@ -1130,6 +1134,7 @@ e-smith server and gateway software - email module.
 
 %prep
 %setup
+%patch0 -p1
 mkdir -p root/var/lock/fetchmail
 mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
 
