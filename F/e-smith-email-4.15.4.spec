@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.4
-%define release 03
+%define release 04
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -10,6 +10,7 @@ Vendor: Mitel Networks Corporation
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
 Patch0: e-smith-email-4.15.4-Muttrc.patch
+Patch1: e-smith-email-4.15.4-DontRecreatePseudonyms.patch 
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -33,6 +34,11 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Fri Jan 6 2006 Gordon Rowell <gordonr@gormand.com.au> 4.15.4-04
+- Don't attempt to recreate first.last and first_last pseudonyms
+  in bootstrap-console-save. We create them when we create the user,
+  and if someone deletes them, that's their choice. [SME: 387]
+
 * Wed Jan 4 2006 Gordon Rowell <gordonr@gormand.com.au> 4.15.4-03
 - Add 'set hostname=$DomainName' to /etc/Muttrc [SME: 398]
 
@@ -1135,6 +1141,7 @@ e-smith server and gateway software - email module.
 %prep
 %setup
 %patch0 -p1
+%patch1 -p1
 mkdir -p root/var/lock/fetchmail
 mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
 
