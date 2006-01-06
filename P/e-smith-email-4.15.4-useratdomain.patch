@@ -1,0 +1,14 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.4/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm mezzanine_patched_e-smith-email-4.15.4/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm
+--- e-smith-email-4.15.4/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm	2005-05-02 02:38:54.000000000 +1000
++++ mezzanine_patched_e-smith-email-4.15.4/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm	2006-01-07 01:01:44.293108368 +1100
+@@ -458,10 +458,6 @@
+ 
+         return ('PSEUDONYM_INVALID_DOMAIN') unless ($ddb->get($rhs));
+ 
+-        my $lhs_acct = $accounts->get($lhs);
+-
+-        return ('PSEUDONYM_INVALID_NOACCT') unless ($lhs_acct);
+-
+         return ('PSEUDONYM_INVALID_SAMEACCT')
+             if ($lhs eq $fm->{'cgi'}->param('account'));
+ 

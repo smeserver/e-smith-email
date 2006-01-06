@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.4
-%define release 04
+%define release 05
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -11,6 +11,7 @@ Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
 Patch0: e-smith-email-4.15.4-Muttrc.patch
 Patch1: e-smith-email-4.15.4-DontRecreatePseudonyms.patch 
+Patch2: e-smith-email-4.15.4-useratdomain.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -34,6 +35,11 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Fri Jan 6 2006 Gordon Rowell <gordonr@gormand.com.au> 4.15.4-05
+- Don't check whether the user exists when creating user@domain
+  pseudonyms - i.e. allow support@dom.ain even if support itself
+  hasn't been defined. Of course, dom.ain must exist. [SME: 368]
+
 * Fri Jan 6 2006 Gordon Rowell <gordonr@gormand.com.au> 4.15.4-04
 - Don't attempt to recreate first.last and first_last pseudonyms
   in bootstrap-console-save. We create them when we create the user,
@@ -1142,6 +1148,7 @@ e-smith server and gateway software - email module.
 %setup
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 mkdir -p root/var/lock/fetchmail
 mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
 
