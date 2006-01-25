@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.4
-%define release 05
+%define release 06
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -12,6 +12,7 @@ Source: %{name}-%{version}.tar.gz
 Patch0: e-smith-email-4.15.4-Muttrc.patch
 Patch1: e-smith-email-4.15.4-DontRecreatePseudonyms.patch 
 Patch2: e-smith-email-4.15.4-useratdomain.patch
+Patch3: e-smith-email-4.15.4-hidesections.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -35,6 +36,11 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Wed Jan 25 2006 Gordon Rowell <gordonr@gormand.com.au> 4.15.4-06
+- Hide webmail sections if imp isn't installed
+- Hide Spam filtering sections if spamassassin isn't installed
+- Hide Virus scan sections if clamav isn't installed [SME: 561]
+
 * Fri Jan 6 2006 Gordon Rowell <gordonr@gormand.com.au> 4.15.4-05
 - Don't check whether the user exists when creating user@domain
   pseudonyms - i.e. allow support@dom.ain even if support itself
@@ -1149,6 +1155,7 @@ e-smith server and gateway software - email module.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 mkdir -p root/var/lock/fetchmail
 mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
 
