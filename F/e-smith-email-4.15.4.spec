@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.4
-%define release 06
+%define release 07
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -13,6 +13,7 @@ Patch0: e-smith-email-4.15.4-Muttrc.patch
 Patch1: e-smith-email-4.15.4-DontRecreatePseudonyms.patch 
 Patch2: e-smith-email-4.15.4-useratdomain.patch
 Patch3: e-smith-email-4.15.4-hidesections.patch
+Patch4: e-smith-email-4.15.4-hidesections.patch2
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -36,6 +37,10 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Wed Jan 25 2006 Gordon Rowell <gordonr@gormand.com.au> 4.15.4-07
+- Made sectionbar its own item so that it is in the right place
+  when the sections are hidden [SME: 561]
+
 * Wed Jan 25 2006 Gordon Rowell <gordonr@gormand.com.au> 4.15.4-06
 - Hide webmail sections if imp isn't installed
 - Hide Spam filtering sections if spamassassin isn't installed
@@ -1156,6 +1161,7 @@ e-smith server and gateway software - email module.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 mkdir -p root/var/lock/fetchmail
 mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
 
