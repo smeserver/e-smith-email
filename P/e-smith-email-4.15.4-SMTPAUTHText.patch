@@ -1,0 +1,12 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.4/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings mezzanine_patched_e-smith-email-4.15.4/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings
+--- e-smith-email-4.15.4/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings	2005-09-14 00:34:15.000000000 +1000
++++ mezzanine_patched_e-smith-email-4.15.4/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings	2006-01-28 06:26:32.123233476 +1100
+@@ -336,7 +336,7 @@
+ 	    external authenticated relay access should only be used by
+ 	    experienced administrators.  Relay access is always available
+ 	    on the internal inteface.  We recommend leaving this setting
+-	    Disabled unless you have a specific reason to do otherwise.
++	    Enabled unless you have a specific reason to do otherwise.
+         </trans>
+     </entry>
+     <entry>
