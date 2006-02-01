@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.4
-%define release 08
+%define release 09
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -15,6 +15,7 @@ Patch2: e-smith-email-4.15.4-useratdomain.patch
 Patch3: e-smith-email-4.15.4-hidesections.patch
 Patch4: e-smith-email-4.15.4-hidesections.patch2
 Patch5: e-smith-email-4.15.4-SMTPAUTHText.patch
+Patch6: e-smith-email-4.15.4-SMTPAUTHProxytypetext.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -38,6 +39,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Wed Feb 01 2006 Gavin Weight <gweight@gmail.com> 4.15.4-09
+- Fixed SMTPAUTHPROXY password field as asterixis  [SME: 623]
+
 * Fri Jan 27 2006 Gavin Weight <gweight@gmail.com> 4.15.4-08
 - Adjusted text to reflect that SSMTP is enabled by default [SME: 419]
 
@@ -1167,6 +1171,7 @@ e-smith server and gateway software - email module.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 mkdir -p root/var/lock/fetchmail
 mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
 
