@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.4
-%define release 11
+%define release 12
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -18,6 +18,7 @@ Patch5: e-smith-email-4.15.4-SMTPAUTHText.patch
 Patch6: e-smith-email-4.15.4-SMTPAUTHProxytypetext.patch
 Patch7: e-smith-email-4.15.4-pseudonymsdescription.patch
 Patch8: e-smith-email-4.15.4-impmigratefragment.patch
+Patch9: e-smith-email-4.15.4-impmigratefragment.patch2
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -41,6 +42,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Sun Feb 05 2006 Gavin Weight <gweight@gmail.com> 4.15.4-12
+- No new line in imp fragment at end   [SME: 563]
+
 * Sat Feb 04 2006 Gavin Weight <gweight@gmail.com> 4.15.4-11
 - Add migrate fragment for imp properties  [SME: 563]
 
@@ -1182,6 +1186,7 @@ e-smith server and gateway software - email module.
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
 mkdir -p root/var/lock/fetchmail
 mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
 
