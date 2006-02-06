@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.4
-%define release 12
+%define release 13
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -19,6 +19,7 @@ Patch6: e-smith-email-4.15.4-SMTPAUTHProxytypetext.patch
 Patch7: e-smith-email-4.15.4-pseudonymsdescription.patch
 Patch8: e-smith-email-4.15.4-impmigratefragment.patch
 Patch9: e-smith-email-4.15.4-impmigratefragment.patch2
+Patch10: e-smith-email-4.15.4-purge_junkmail.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -42,6 +43,10 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Mon Feb  6 2006 Charlie Brady <charlie_brady@mitel.com> 4.15.4-13
+- Add cron job to purge junkmail folders - default retention time is
+  90 days. [SME: 666]
+
 * Sun Feb 05 2006 Gavin Weight <gweight@gmail.com> 4.15.4-12
 - No new line in imp fragment at end   [SME: 563]
 
@@ -1189,6 +1194,7 @@ e-smith server and gateway software - email module.
 %patch9 -p1
 mkdir -p root/var/lock/fetchmail
 mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
+%patch10 -p1
 
 %build
 perl createlinks
