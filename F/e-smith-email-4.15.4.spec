@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.4
-%define release 13
+%define release 14
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -20,6 +20,7 @@ Patch7: e-smith-email-4.15.4-pseudonymsdescription.patch
 Patch8: e-smith-email-4.15.4-impmigratefragment.patch
 Patch9: e-smith-email-4.15.4-impmigratefragment.patch2
 Patch10: e-smith-email-4.15.4-purge_junkmail.patch
+Patch11: e-smith-email-4.15.4-migrateexefiles.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -43,6 +44,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Wed Feb  8 2006 Gavin Weight <gweight@gmail.com> 4.15.4-14
+- Add migrate fragment to delete EXEFILES. [SME: 95]
+  
 * Mon Feb  6 2006 Charlie Brady <charlie_brady@mitel.com> 4.15.4-13
 - Add cron job to purge junkmail folders - default retention time is
   90 days. [SME: 666]
@@ -1195,6 +1199,7 @@ e-smith server and gateway software - email module.
 mkdir -p root/var/lock/fetchmail
 mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
 %patch10 -p1
+%patch11 -p1
 
 %build
 perl createlinks
