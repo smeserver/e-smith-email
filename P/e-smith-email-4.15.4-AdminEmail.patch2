@@ -1,0 +1,21 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.4/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm mezzanine_patched_e-smith-email-4.15.4/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm
+--- e-smith-email-4.15.4/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm	2006-02-17 17:18:54.285459911 +1100
++++ mezzanine_patched_e-smith-email-4.15.4/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm	2006-02-17 17:18:43.459343534 +1100
+@@ -259,7 +259,7 @@
+     $db->set_value('SMTPSmartHost', $q->param('SMTPSmartHost'));
+     $db->set_value('DelegateMailServer', $q->param('DelegateMailServer'));
+     $db->set_value('EmailUnknownUser', $EmailUnknownUser);
+-    my $accounts = esmith::AccountsDB->open_ro();
++    my $accounts = esmith::AccountsDB->open;
+     my $admin_email = $q->param('AdminEmail');
+     my $admin = $accounts->get('admin');
+     if ($admin_email)
+@@ -661,7 +661,7 @@
+     my $self = shift;
+     my $accounts = esmith::AccountsDB->open_ro();
+     my $admin = $accounts->get('admin');
+-    return ($admin->prop('EmailForward') eq 'forward) ?
++    return ($admin->prop('EmailForward') eq 'forward') ?
+ 	$admin->prop('ForwardAddress') : '';
+ }
+ 
