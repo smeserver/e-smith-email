@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.4
-%define release 15
+%define release 16
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -22,6 +22,7 @@ Patch9: e-smith-email-4.15.4-impmigratefragment.patch2
 Patch10: e-smith-email-4.15.4-purge_junkmail.patch
 Patch11: e-smith-email-4.15.4-migrateexefiles.patch
 Patch12: e-smith-email-4.15.4-rm_duplicates.patch
+Patch13: e-smith-email-4.15.4-AdminEmail.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -45,6 +46,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Thu Feb 16 2006 Charlie Brady <charlieb@e-smith.com> 4.15.4-16
+- Use $admin{ForwardAddress} in place of AdminEmail [SME: 818]
+
 * Sun Feb 12 2006 Charlie Brady <charlie_brady@mitel.com> 4.15.4-15
 - Remove some template files duplicated with e-smith-qmail RPM. [SME: 752]
 
@@ -1205,6 +1209,7 @@ mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
 %patch10 -p1
 %patch11 -p1
 %patch12 -p1
+%patch13 -p1
 
 %build
 perl createlinks

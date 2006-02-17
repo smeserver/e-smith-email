@@ -1,0 +1,89 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.4/root/etc/e-smith/web/functions/emailsettings mezzanine_patched_e-smith-email-4.15.4/root/etc/e-smith/web/functions/emailsettings
+--- e-smith-email-4.15.4/root/etc/e-smith/web/functions/emailsettings	2006-02-16 21:47:51.000000000 -0500
++++ mezzanine_patched_e-smith-email-4.15.4/root/etc/e-smith/web/functions/emailsettings	2006-02-16 21:36:15.000000000 -0500
+@@ -139,8 +139,9 @@
+ 
+     # Gotta open this later, so we don't cache stale data
+     my $db = esmith::ConfigDB->open;
++    my $adb = esmith::AccountsDB->open;
+ 
+-    is ($db->get('AdminEmail')->value(), 'bob', "Set the value for Email");
++    is ($adb->get('admin')->prop('ForwardAddress'), 'bob', "Set the value for Email");
+ 
+     is ($db->get('EmailUnknownUser')->value(), 'returntosender', "Set the value for Email");
+     is ($db->get('SMTPSmartHost')->value(), 'foo.example.com', "Set the value for Smarthost");
+@@ -249,7 +250,7 @@
+         <field
+             type="literal"
+             id="state_AdminEmail"
+-            value="get_value('AdminEmail')">
++            value="get_admin_email()">
+             <label>LABEL_ADDRESS</label>
+             <description>DESC_SECTIONBAR</description>
+         </field>
+@@ -462,7 +463,7 @@
+             type="text"
+             id="AdminEmail"
+             validation="validate_admin_email()"
+-            value="get_value('AdminEmail')">
++            value="get_admin_email()">
+             <label>LABEL_ADDRESS</label>
+             <description>DESC_ADDRESS</description>
+         </field>
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.4/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm mezzanine_patched_e-smith-email-4.15.4/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm
+--- e-smith-email-4.15.4/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm	2005-09-13 10:34:15.000000000 -0400
++++ mezzanine_patched_e-smith-email-4.15.4/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm	2006-02-16 21:47:12.000000000 -0500
+@@ -22,7 +22,7 @@
+   blank_or_ip_number
+   get_current_webmail_status validate_smarthost getExtraParams
+   get_current_pop3_access get_current_imap_access get_current_smtp_auth
+-  get_prop get_value validate_admin_email
++  get_prop get_value validate_admin_email get_admin_email
+ );
+ 
+ our $VERSION = sprintf '%d.%03d', q$Revision: 1.16 $ =~ /: (\d+).(\d+)/;
+@@ -259,7 +259,23 @@
+     $db->set_value('SMTPSmartHost', $q->param('SMTPSmartHost'));
+     $db->set_value('DelegateMailServer', $q->param('DelegateMailServer'));
+     $db->set_value('EmailUnknownUser', $EmailUnknownUser);
+-    $db->set_value('AdminEmail', $q->param('AdminEmail'));
++    my $accounts = esmith::AccountsDB->open_ro();
++    my $admin_email = $q->param('AdminEmail');
++    my $admin = $accounts->get('admin');
++    if ($admin_email)
++    {
++	$admin->merge_props(
++		EmailForward => 'forward',
++		ForwardAddress => $admin_email,
++		);
++    }
++    else
++    {
++	$admin->merge_props(
++		EmailForward => 'local',
++		ForwardAddress => '',
++		);
++    }
+ 
+     my $proxy = $db->get('smtp-auth-proxy');
+     my %props = $proxy->props;
+@@ -636,6 +652,19 @@
+     }
+ }
+ 
++=head2 get_admin_email
++
++=cut
++
++sub get_admin_email
++{
++    my $self = shift;
++    my $accounts = esmith::AccountsDB->open_ro();
++    my $admin = $accounts->get('admin');
++    return ($admin->prop('EmailForward') eq 'forward) ?
++	$admin->prop('ForwardAddress') : '';
++}
++
+ =pod
+ 
+ =head2 getExtraParams
