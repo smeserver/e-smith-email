@@ -1,0 +1,15 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.4/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings mezzanine_patched_e-smith-email-4.15.4/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings
+--- e-smith-email-4.15.4/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings	2006-02-22 20:53:04.000000000 -0500
++++ mezzanine_patched_e-smith-email-4.15.4/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings	2006-02-22 20:52:40.000000000 -0500
+@@ -396,8 +396,9 @@
+     <entry>
+         <base>UNACCEPTABLE_CHARS</base>
+         <trans>
+-            This field must contain only letters, numbers, dots, hypens and
+-            underscores and start with a letter
++	    the @ symbol and a domain name.
++            This field requires a valid e-mail address, which must include
++            the @ symbol and a domain name.
+         </trans>
+     </entry>
+ 
