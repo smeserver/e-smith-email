@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.4
-%define release 18
+%define release 19
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -25,6 +25,7 @@ Patch12: e-smith-email-4.15.4-rm_duplicates.patch
 Patch13: e-smith-email-4.15.4-AdminEmail.patch
 Patch14: e-smith-email-4.15.4-AdminEmail.patch2
 Patch15: e-smith-email-4.15.4-address_validation.patch
+Patch16: e-smith-email-4.15.4-smtp-auth.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -48,6 +49,10 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Mon Feb  27 2006 Gavin Weight <gweight@gmail.com> 4.15.4-19
+- Add migrate fragment to get and delete "authentication" and 
+  move to correct "Authentication". [SME: 894]
+
 * Wed Feb 22 2006 Charlie Brady <charlieb@e-smith.com> 4.15.4-18
 - Update forwarding address validation failure text. [SME: 820]
 
@@ -1220,6 +1225,7 @@ mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
 %patch13 -p1
 %patch14 -p1
 %patch15 -p1
+%patch16 -p1
 
 %build
 perl createlinks

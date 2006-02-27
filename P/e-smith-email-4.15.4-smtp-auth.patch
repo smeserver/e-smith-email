@@ -1,0 +1,11 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.4/root/etc/e-smith/db/configuration/migrate/20smtpd-auth mezzanine_patched_e-smith-email-4.15.4/root/etc/e-smith/db/configuration/migrate/20smtpd-auth
+--- e-smith-email-4.15.4/root/etc/e-smith/db/configuration/migrate/20smtpd-auth	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_e-smith-email-4.15.4/root/etc/e-smith/db/configuration/migrate/20smtpd-auth	2006-02-28 08:44:34.000000000 +1100
+@@ -0,0 +1,7 @@
++{
++    my $smtpd = $DB->get('smtpd') or return;
++
++    my $auth = $DB->get_prop_and_delete('smtpd','authentication') or return;
++
++    $smtpd->merge_props('Authentication',$auth);
++}
