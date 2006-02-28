@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.4
-%define release 19
+%define release 20
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -49,6 +49,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Tue Feb 28 2006 Charlie Brady <charlie_brady@mitel.com> 4.15.4-20
+- Pre-create admin's junkmail folder. [SME: 886]
+
 * Mon Feb  27 2006 Gavin Weight <gweight@gmail.com> 4.15.4-19
 - Add migrate fragment to get and delete "authentication" and 
   move to correct "Authentication". [SME: 894]
@@ -1226,6 +1229,7 @@ mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
 %patch14 -p1
 %patch15 -p1
 %patch16 -p1
+mkdir -p root/home/e-smith/Maildir/.junkmail/{tmp,new,cur}
 
 %build
 perl createlinks
@@ -1266,6 +1270,10 @@ rm -f %{name}-%{version}-%{release}-filelist
     --file '/var/service/smtp-auth-proxy/log/supervise' 'attr(0700,root,root)' \
     --dir '/var/log/smtp-auth-proxy' 'attr(2750,smelog,nofiles)' \
     --file '/usr/local/sbin/smtp-auth-proxy.pl' 'attr(0755,root,root)' \
+    --dir '/home/e-smith/Maildir/.junkmail' 'attr(0700,admin,admin)' \
+    --dir '/home/e-smith/Maildir/.junkmail/tmp' 'attr(0700,admin,admin)' \
+    --dir '/home/e-smith/Maildir/.junkmail/new' 'attr(0700,admin,admin)' \
+    --dir '/home/e-smith/Maildir/.junkmail/cur' 'attr(0700,admin,admin)' \
     > %{name}-%{version}-%{release}-filelist
 echo "%doc COPYING" >> %{name}-%{version}-%{release}-filelist
 
