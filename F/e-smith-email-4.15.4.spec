@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.4
-%define release 22
+%define release 23
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -28,6 +28,7 @@ Patch15: e-smith-email-4.15.4-address_validation.patch
 Patch16: e-smith-email-4.15.4-smtp-auth.patch
 Patch17: e-smith-email-4.15.4-RelocateIMAPDefaults.patch
 Patch18: e-smith-email-4.15.4-RelocatePOP3Defaults.patch
+Patch19: e-smith-email-4.15.4-hidesections.patch3
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -51,6 +52,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Mon Mar 13 2006 Gordon Rowell <gordonr@gormand.com.au> 4.15.4-23
+- Hide access settings if pop3/imap/webmail not installed [SME: 561]
+
 * Mon Mar 13 2006 Gordon Rowell <gordonr@gormand.com.au> 4.15.4-22
 - Remove pop3[s] defaults - now in e-smith-pop3 [SME: 561]
 
@@ -1240,6 +1244,7 @@ mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
 mkdir -p root/home/e-smith/Maildir/.junkmail/{tmp,new,cur}
 %patch17 -p1
 %patch18 -p1
+%patch19 -p1
 
 %build
 perl createlinks
