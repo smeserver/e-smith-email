@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.15.4
-%define release 20
+%define release 21
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -26,6 +26,7 @@ Patch13: e-smith-email-4.15.4-AdminEmail.patch
 Patch14: e-smith-email-4.15.4-AdminEmail.patch2
 Patch15: e-smith-email-4.15.4-address_validation.patch
 Patch16: e-smith-email-4.15.4-smtp-auth.patch
+Patch17: e-smith-email-4.15.4-RelocateIMAPDefaults.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -49,6 +50,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Mon Mar 13 2006 Gordon Rowell <gordonr@gormand.com.au> 4.15.4-21
+- Remove imap[s] defaults - now in e-smith-imap [SME: 561]
+
 * Tue Feb 28 2006 Charlie Brady <charlie_brady@mitel.com> 4.15.4-20
 - Pre-create admin's junkmail folder. [SME: 886]
 
@@ -1230,6 +1234,7 @@ mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
 %patch15 -p1
 %patch16 -p1
 mkdir -p root/home/e-smith/Maildir/.junkmail/{tmp,new,cur}
+%patch17 -p1
 
 %build
 perl createlinks

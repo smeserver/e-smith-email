@@ -1,0 +1,40 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imap/access mezzanine_patched_e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imap/access
+--- e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imap/access	2005-08-11 04:55:14.000000000 +1000
++++ mezzanine_patched_e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imap/access	1970-01-01 10:00:00.000000000 +1000
+@@ -1 +0,0 @@
+-private
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imap/status mezzanine_patched_e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imap/status
+--- e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imap/status	2005-08-11 04:55:14.000000000 +1000
++++ mezzanine_patched_e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imap/status	1970-01-01 10:00:00.000000000 +1000
+@@ -1 +0,0 @@
+-enabled
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imap/TCPPort mezzanine_patched_e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imap/TCPPort
+--- e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imap/TCPPort	2005-08-11 04:55:14.000000000 +1000
++++ mezzanine_patched_e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imap/TCPPort	1970-01-01 10:00:00.000000000 +1000
+@@ -1 +0,0 @@
+-143
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imap/type mezzanine_patched_e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imap/type
+--- e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imap/type	2005-08-11 04:55:15.000000000 +1000
++++ mezzanine_patched_e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imap/type	1970-01-01 10:00:00.000000000 +1000
+@@ -1 +0,0 @@
+-service
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imaps/access mezzanine_patched_e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imaps/access
+--- e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imaps/access	2005-08-11 04:55:15.000000000 +1000
++++ mezzanine_patched_e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imaps/access	1970-01-01 10:00:00.000000000 +1000
+@@ -1 +0,0 @@
+-private
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imaps/status mezzanine_patched_e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imaps/status
+--- e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imaps/status	2005-08-11 04:55:15.000000000 +1000
++++ mezzanine_patched_e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imaps/status	1970-01-01 10:00:00.000000000 +1000
+@@ -1 +0,0 @@
+-enabled
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imaps/TCPPort mezzanine_patched_e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imaps/TCPPort
+--- e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imaps/TCPPort	2005-08-11 04:55:15.000000000 +1000
++++ mezzanine_patched_e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imaps/TCPPort	1970-01-01 10:00:00.000000000 +1000
+@@ -1 +0,0 @@
+-993
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imaps/type mezzanine_patched_e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imaps/type
+--- e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imaps/type	2005-08-11 04:55:15.000000000 +1000
++++ mezzanine_patched_e-smith-email-4.15.4/root/etc/e-smith/db/configuration/defaults/imaps/type	1970-01-01 10:00:00.000000000 +1000
+@@ -1 +0,0 @@
+-service
