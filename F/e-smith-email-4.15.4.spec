@@ -1,34 +1,14 @@
 Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
-%define version 4.15.4
-%define release 23
+%define version 4.16.0
+%define release 01
 Version: %{version}
 Release: %{release}
 License: GPL
 Vendor: Mitel Networks Corporation
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
-Patch0: e-smith-email-4.15.4-Muttrc.patch
-Patch1: e-smith-email-4.15.4-DontRecreatePseudonyms.patch 
-Patch2: e-smith-email-4.15.4-useratdomain.patch
-Patch3: e-smith-email-4.15.4-hidesections.patch
-Patch4: e-smith-email-4.15.4-hidesections.patch2
-Patch5: e-smith-email-4.15.4-SMTPAUTHText.patch
-Patch6: e-smith-email-4.15.4-SMTPAUTHProxytypetext.patch
-Patch7: e-smith-email-4.15.4-pseudonymsdescription.patch
-Patch8: e-smith-email-4.15.4-impmigratefragment.patch
-Patch9: e-smith-email-4.15.4-impmigratefragment.patch2
-Patch10: e-smith-email-4.15.4-purge_junkmail.patch
-Patch11: e-smith-email-4.15.4-migrateexefiles.patch
-Patch12: e-smith-email-4.15.4-rm_duplicates.patch
-Patch13: e-smith-email-4.15.4-AdminEmail.patch
-Patch14: e-smith-email-4.15.4-AdminEmail.patch2
-Patch15: e-smith-email-4.15.4-address_validation.patch
-Patch16: e-smith-email-4.15.4-smtp-auth.patch
-Patch17: e-smith-email-4.15.4-RelocateIMAPDefaults.patch
-Patch18: e-smith-email-4.15.4-RelocatePOP3Defaults.patch
-Patch19: e-smith-email-4.15.4-hidesections.patch3
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -52,6 +32,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Tue Mar 14 2006 Charlie Brady <charlie_brady@mitel.com> 4.16.0-01
+- Roll stable stream version. [SME: 1016]
+
 * Mon Mar 13 2006 Gordon Rowell <gordonr@gormand.com.au> 4.15.4-23
 - Hide access settings if pop3/imap/webmail not installed [SME: 561]
 
@@ -1222,29 +1205,6 @@ e-smith server and gateway software - email module.
 
 %prep
 %setup
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-mkdir -p root/var/lock/fetchmail
-mkdir -p root//etc/e-smith/skel/user/Maildir/.junkmail/{tmp,new,cur}
-%patch10 -p1
-%patch11 -p1
-%patch12 -p1
-%patch13 -p1
-%patch14 -p1
-%patch15 -p1
-%patch16 -p1
-mkdir -p root/home/e-smith/Maildir/.junkmail/{tmp,new,cur}
-%patch17 -p1
-%patch18 -p1
-%patch19 -p1
 
 %build
 perl createlinks
