@@ -2,13 +2,14 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.16.0
-%define release 01
+%define release 02
 Version: %{version}
 Release: %{release}
 License: GPL
 Vendor: Mitel Networks Corporation
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
+Patch0: e-smith-email-4.16.0-lexiconfixup.patch 
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -32,6 +33,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Thu Mar 16 2006 Gordon Rowell <gordonr@gormand.com.au> 4.16.0-02
+- Remove stray duplicate line in lexicon [SME: 824]
+
 * Tue Mar 14 2006 Charlie Brady <charlie_brady@mitel.com> 4.16.0-01
 - Roll stable stream version. [SME: 1016]
 
@@ -52,7 +56,7 @@ e-smith server and gateway software - email module.
   move to correct "Authentication". [SME: 894]
 
 * Wed Feb 22 2006 Charlie Brady <charlieb@e-smith.com> 4.15.4-18
-- Update forwarding address validation failure text. [SME: 820]
+- Update forwarding address validation failure text. [SME: 824]
 
 * Fri Feb 17 2006 Gordon Rowell <gordonr@gormand.com.au> 4.15.4-17
 - Fix minor breakage in panel with last change [SME: 818]
@@ -1205,6 +1209,7 @@ e-smith server and gateway software - email module.
 
 %prep
 %setup
+%patch0 -p1
 
 %build
 perl createlinks
