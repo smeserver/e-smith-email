@@ -1,0 +1,27 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.16.0/root/usr/local/sbin/smtp-auth-proxy.pl mezzanine_patched_e-smith-email-4.16.0/root/usr/local/sbin/smtp-auth-proxy.pl
+--- e-smith-email-4.16.0/root/usr/local/sbin/smtp-auth-proxy.pl	2005-08-24 18:20:01.000000000 -0400
++++ mezzanine_patched_e-smith-email-4.16.0/root/usr/local/sbin/smtp-auth-proxy.pl	2006-05-02 14:17:33.000000000 -0400
+@@ -79,6 +79,9 @@
+         warn "No SMTP connection to ISP server\n";
+         exit;
+     }
++
++    my @ehlo = $smtp->message;
++
+     if ($smtp->supports("AUTH"))
+     {
+         unless ($smtp->auth($name, $pass))
+@@ -94,6 +97,13 @@
+         warn "Upstream SMTP server does not support authentication\n";
+     }
+     print "220 ", $smtp->banner;
++
++    my $discard = <STDIN>; # Swallow EHLO
++    while (my $msg = shift @ehlo) {
++	 my $sep = (@messages?"-":" ");
++	 print "250$sep$msg";
++  }
++
+     die "can't fork: $!" unless defined ($kidpid = fork());
+     if ($kidpid)
+     {

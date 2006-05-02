@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.16.0
-%define release 03
+%define release 04
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -11,6 +11,7 @@ Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
 Patch0: e-smith-email-4.16.0-lexiconfixup.patch 
 Patch1: e-smith-email-4.16.0-danglingpseudonyms.patch
+Patch2: e-smith-email-4.16.0-relay_ehlo.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -34,6 +35,10 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Tue May 02 2006 Charlie Brady <charlie_brady@mitel.com> 4.16.0-04
+- In smtp-auth-proxy.pl, don't relay client's HELO/EHLO, as some servers
+  (wrongly) reject more than 1. [SME: 103]
+
 * Wed Apr 5 2006 Gordon Rowell <gordonr@gormand.com.au> 4.16.0-03
 - Detect dangling pseudonyms to avoid white screen of death [SME: 1054]
 - See also [SME: 762] for tools to tell you how to fix them
@@ -1216,6 +1221,7 @@ e-smith server and gateway software - email module.
 %setup
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 perl createlinks
