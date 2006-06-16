@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.16.0
-%define release 05
+%define release 06
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -13,6 +13,7 @@ Patch0: e-smith-email-4.16.0-lexiconfixup.patch
 Patch1: e-smith-email-4.16.0-danglingpseudonyms.patch
 Patch2: e-smith-email-4.16.0-relay_ehlo.patch
 Patch3: e-smith-email-4.16.0-relay_ehlo.patch2
+Patch4: e-smith-email-4.16.0-removeIMPfragment.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -36,6 +37,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Fri Jun 16 2006 Gavin Weight <gweight@gmail.com> 4.16.0-06
+- Removed 35imp migrate fragment. [SME: 563]
+
 * Mon May 15 2006 Gordon Rowell <gordonr@gormand.com.au> 4.16.0-05
 - Fix typo in last change [SME: 1447, SME: 103]
 
@@ -1227,6 +1231,7 @@ e-smith server and gateway software - email module.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 perl createlinks
