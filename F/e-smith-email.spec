@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.16.0
-%define release 07
+%define release 08
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -15,6 +15,7 @@ Patch2: e-smith-email-4.16.0-relay_ehlo.patch
 Patch3: e-smith-email-4.16.0-relay_ehlo.patch2
 Patch4: e-smith-email-4.16.0-removeIMPfragment.patch
 Patch5: e-smith-email-4.16.0-TVp1AQEAAAAE.patch
+Patch6: e-smith-email-4.16.0-virustextupdated.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -38,6 +39,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Tue Sep 20 2006 Gavin Weight <gweight@gmail.com> 4.16.0-08
+- Updated virus description in panel. [SME: 1729]
+
 * Wed Jun 21 2006 Gordon Rowell <gordonr@gormand.com.au> 4.16.0-07
 - Add another EXE pattern TVp1AQEAAAAE - Thanks Hans-Cees Speel [SME: 1623]
 
@@ -1237,6 +1241,7 @@ e-smith server and gateway software - email module.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 perl createlinks
