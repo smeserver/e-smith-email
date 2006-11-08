@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.16.0
-%define release 09
+%define release 10
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -17,6 +17,7 @@ Patch4: e-smith-email-4.16.0-removeIMPfragment.patch
 Patch5: e-smith-email-4.16.0-TVp1AQEAAAAE.patch
 Patch6: e-smith-email-4.16.0-virustextupdated.patch
 Patch7: e-smith-email-4.16.0-purge-junkmail-folders.patch
+Patch8: e-smith-email-4.16.0-TVqgAAEAAAAFAAAA.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
@@ -40,6 +41,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Wed Nov 08 2006 Gavin Weight <gweight@gmail.com> 4.16.0-10
+- Add another EXE pattern TVqgAAEAAAAFAAAA - Thanks Alex Schaft. [SME: 2039]
+
 * Tue Sep 26 2006 Gavin Weight <gweight@gmail.com> 4.16.0-09
 - Incorrect quoting in purge-junkmail-folders diagnostic. [SME: 1936]
 
@@ -1247,6 +1251,7 @@ e-smith server and gateway software - email module.
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
 
 %build
 perl createlinks

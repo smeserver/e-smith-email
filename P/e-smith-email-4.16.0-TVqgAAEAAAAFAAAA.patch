@@ -1,0 +1,30 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.16.0/root/etc/e-smith/db/mailpatterns/defaults/TVqgAAEAAAAFAAAA/Body mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/db/mailpatterns/defaults/TVqgAAEAAAAFAAAA/Body
+--- e-smith-email-4.16.0/root/etc/e-smith/db/mailpatterns/defaults/TVqgAAEAAAAFAAAA/Body	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/db/mailpatterns/defaults/TVqgAAEAAAAFAAAA/Body	2006-11-09 08:53:59.000000000 +1100
+@@ -0,0 +1 @@
++TVqgAAEAAAAFAAAA
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.16.0/root/etc/e-smith/db/mailpatterns/defaults/TVqgAAEAAAAFAAAA/Description mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/db/mailpatterns/defaults/TVqgAAEAAAAFAAAA/Description
+--- e-smith-email-4.16.0/root/etc/e-smith/db/mailpatterns/defaults/TVqgAAEAAAAFAAAA/Description	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/db/mailpatterns/defaults/TVqgAAEAAAAFAAAA/Description	2006-11-09 08:54:27.000000000 +1100
+@@ -0,0 +1 @@
++PC executables (TVqgAAEAAAAFAAAA)
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.16.0/root/etc/e-smith/db/mailpatterns/defaults/TVqgAAEAAAAFAAAA/Glob mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/db/mailpatterns/defaults/TVqgAAEAAAAFAAAA/Glob
+--- e-smith-email-4.16.0/root/etc/e-smith/db/mailpatterns/defaults/TVqgAAEAAAAFAAAA/Glob	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/db/mailpatterns/defaults/TVqgAAEAAAAFAAAA/Glob	2005-06-01 02:02:35.000000000 +1000
+@@ -0,0 +1 @@
++yes
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.16.0/root/etc/e-smith/db/mailpatterns/defaults/TVqgAAEAAAAFAAAA/LineStart mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/db/mailpatterns/defaults/TVqgAAEAAAAFAAAA/LineStart
+--- e-smith-email-4.16.0/root/etc/e-smith/db/mailpatterns/defaults/TVqgAAEAAAAFAAAA/LineStart	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/db/mailpatterns/defaults/TVqgAAEAAAAFAAAA/LineStart	2005-06-01 02:02:35.000000000 +1000
+@@ -0,0 +1 @@
++yes
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.16.0/root/etc/e-smith/db/mailpatterns/defaults/TVqgAAEAAAAFAAAA/Status mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/db/mailpatterns/defaults/TVqgAAEAAAAFAAAA/Status
+--- e-smith-email-4.16.0/root/etc/e-smith/db/mailpatterns/defaults/TVqgAAEAAAAFAAAA/Status	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/db/mailpatterns/defaults/TVqgAAEAAAAFAAAA/Status	2005-06-01 02:02:35.000000000 +1000
+@@ -0,0 +1 @@
++disabled
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.16.0/root/etc/e-smith/db/mailpatterns/defaults/TVqgAAEAAAAFAAAA/type mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/db/mailpatterns/defaults/TVqgAAEAAAAFAAAA/type
+--- e-smith-email-4.16.0/root/etc/e-smith/db/mailpatterns/defaults/TVqgAAEAAAAFAAAA/type	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/db/mailpatterns/defaults/TVqgAAEAAAAFAAAA/type	2005-06-01 02:02:35.000000000 +1000
+@@ -0,0 +1 @@
++pattern
