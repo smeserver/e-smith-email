@@ -4,7 +4,8 @@ Name: %{name}
 %define version 4.16.0
 %define release 10
 Version: %{version}
-Release: %{release}
+Release: %smerelease %{release}
+Packager: %{_packager}
 License: GPL
 Vendor: Mitel Networks Corporation
 Group: Networking/Daemons
@@ -18,7 +19,6 @@ Patch5: e-smith-email-4.16.0-TVp1AQEAAAAE.patch
 Patch6: e-smith-email-4.16.0-virustextupdated.patch
 Patch7: e-smith-email-4.16.0-purge-junkmail-folders.patch
 Patch8: e-smith-email-4.16.0-TVqgAAEAAAAFAAAA.patch
-Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-smtpd
@@ -41,6 +41,10 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Thu Dec 07 2006 Shad L. Lords <slords@mail.com>
+- Update to new release naming.  No functional changes.
+- Make Packager generic
+
 * Wed Nov 08 2006 Gavin Weight <gweight@gmail.com> 4.16.0-10
 - Add another EXE pattern TVqgAAEAAAAFAAAA - Thanks Alex Schaft. [SME: 2039]
 
