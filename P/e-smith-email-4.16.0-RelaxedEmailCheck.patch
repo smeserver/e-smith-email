@@ -1,0 +1,13 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.16.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm mezzanine_patched_e-smith-email-4.16.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm
+--- e-smith-email-4.16.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm	2006-12-12 08:28:21.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.16.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm	2006-12-12 08:26:52.000000000 -0700
+@@ -473,7 +473,8 @@
+ 
+         return ('OK');
+     }
+-    elsif ($pseudonym !~ /^([a-z0-9][a-z0-9\.\-_]*)$/) {
++    elsif ($pseudonym !~ /^([a-z0-9][a-z0-9\.\-_\{!#\?~\}\$\^\+&`%\/\*]*)$/)
++    {
+         return('VALID_PSEUDONYM_NAMES');
+     }
+     else {

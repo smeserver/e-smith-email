@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.16.0
-%define release 10
+%define release 11
 Version: %{version}
 Release: %smerelease %{release}
 Packager: %{_packager}
@@ -19,6 +19,7 @@ Patch5: e-smith-email-4.16.0-TVp1AQEAAAAE.patch
 Patch6: e-smith-email-4.16.0-virustextupdated.patch
 Patch7: e-smith-email-4.16.0-purge-junkmail-folders.patch
 Patch8: e-smith-email-4.16.0-TVqgAAEAAAAFAAAA.patch
+Patch9: e-smith-email-4.16.0-RelaxedEmailCheck.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-smtpd
@@ -41,6 +42,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Tue Dec 12 2006 Federico Simoncelli <federico.simoncelli@gmail.com> 4.16.0-11
+- Relaxed the email address check [SME: 1663]
+
 * Thu Dec 07 2006 Shad L. Lords <slords@mail.com>
 - Update to new release naming.  No functional changes.
 - Make Packager generic
@@ -1256,6 +1260,7 @@ e-smith server and gateway software - email module.
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
 
 %build
 perl createlinks
