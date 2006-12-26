@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.16.0
-%define release 11
+%define release 12
 Version: %{version}
 Release: %smerelease %{release}
 Packager: %{_packager}
@@ -20,6 +20,7 @@ Patch6: e-smith-email-4.16.0-virustextupdated.patch
 Patch7: e-smith-email-4.16.0-purge-junkmail-folders.patch
 Patch8: e-smith-email-4.16.0-TVqgAAEAAAAFAAAA.patch
 Patch9: e-smith-email-4.16.0-RelaxedEmailCheck.patch
+Patch10: e-smith-email-4.16.0-removable.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-smtpd
@@ -42,6 +43,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Tue Dec 26 2006 Shad L. Lords <slords@mail.com> 4.16.0-12
+- Make pseudonyms removable and changeable based on db entries [SME: 2143]
+
 * Tue Dec 12 2006 Federico Simoncelli <federico.simoncelli@gmail.com> 4.16.0-11
 - Relaxed the email address check [SME: 1663]
 
@@ -1261,6 +1265,7 @@ e-smith server and gateway software - email module.
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
+%patch10 -p1
 
 %build
 perl createlinks
