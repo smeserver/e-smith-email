@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.16.0
-%define release 12
+%define release 13
 Version: %{version}
 Release: %smerelease %{release}
 Packager: %{_packager}
@@ -21,6 +21,7 @@ Patch7: e-smith-email-4.16.0-purge-junkmail-folders.patch
 Patch8: e-smith-email-4.16.0-TVqgAAEAAAAFAAAA.patch
 Patch9: e-smith-email-4.16.0-RelaxedEmailCheck.patch
 Patch10: e-smith-email-4.16.0-removable.patch
+Patch11: e-smith-email-4.16.0-Returntosendertextupdated.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-smtpd
@@ -43,6 +44,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Sat Jan 13 2007 Gavin Weight <gweight@gmail.com> 4.16.0-13
+- Update Return to sender text to be more clearer that we reject. [SME: 2291]
+
 * Tue Dec 26 2006 Shad L. Lords <slords@mail.com> 4.16.0-12
 - Make pseudonyms removable and changeable based on db entries [SME: 2143]
 
@@ -1266,6 +1270,7 @@ e-smith server and gateway software - email module.
 %patch8 -p1
 %patch9 -p1
 %patch10 -p1
+%patch11 -p1
 
 %build
 perl createlinks
