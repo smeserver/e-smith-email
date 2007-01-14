@@ -1,0 +1,12 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.16.0/root/etc/e-smith/templates/etc/fetchmail/50multi-drop mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/templates/etc/fetchmail/50multi-drop
+--- e-smith-email-4.16.0/root/etc/e-smith/templates/etc/fetchmail/50multi-drop	2005-07-22 10:27:52.000000000 -0600
++++ mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/templates/etc/fetchmail/50multi-drop	2007-01-14 09:34:40.000000000 -0700
+@@ -61,7 +61,7 @@
+ 	$OUT .= "    localdomains $locals\n";
+ 	$OUT .= "       username \"$SecondaryMailAccount\" ";
+ 	$OUT .= "password \"$SecondaryMailPassword\" to * here\n";
+-	$OUT .= "           smtphost localhost\n";
++	$OUT .= "           smtphost 127.0.0.2\n";
+ 	$OUT .= "           fetchall\n";
+ 	$OUT .= "           forcecr\n";
+ 	$OUT .= "\n";

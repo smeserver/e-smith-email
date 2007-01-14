@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.16.0
-%define release 13
+%define release 14
 Version: %{version}
 Release: %smerelease %{release}
 Packager: %{_packager}
@@ -22,8 +22,10 @@ Patch8: e-smith-email-4.16.0-TVqgAAEAAAAFAAAA.patch
 Patch9: e-smith-email-4.16.0-RelaxedEmailCheck.patch
 Patch10: e-smith-email-4.16.0-removable.patch
 Patch11: e-smith-email-4.16.0-Returntosendertextupdated.patch
+Patch12: e-smith-email-4.16.0-fetchmaildest.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
+Requires: e-smith-tinydns >= 1.0.0-5
 Requires: e-smith-smtpd
 Requires: e-smith-mta
 Requires: e-smith-pop3
@@ -44,6 +46,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Sun Jan 14 2007 Shad L. Lords <slords@mail.com> 4.16.0-14
+- Make fetchmail deliver to 127.0.0.2 to is it treat like external [SME: 2223]
+
 * Sat Jan 13 2007 Gavin Weight <gweight@gmail.com> 4.16.0-13
 - Update Return to sender text to be more clearer that we reject. [SME: 2291]
 
@@ -1271,6 +1276,7 @@ e-smith server and gateway software - email module.
 %patch9 -p1
 %patch10 -p1
 %patch11 -p1
+%patch12 -p1
 
 %build
 perl createlinks
