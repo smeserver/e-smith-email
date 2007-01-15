@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.16.0
-%define release 14
+%define release 15
 Version: %{version}
 Release: %smerelease %{release}
 Packager: %{_packager}
@@ -23,6 +23,7 @@ Patch9: e-smith-email-4.16.0-RelaxedEmailCheck.patch
 Patch10: e-smith-email-4.16.0-removable.patch
 Patch11: e-smith-email-4.16.0-Returntosendertextupdated.patch
 Patch12: e-smith-email-4.16.0-fetchmaildest.patch
+Patch13: e-smith-email-4.16.0-adminemail.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-tinydns >= 1.0.0-5
@@ -46,6 +47,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Sun Jan 14 2007 Shad L. Lords <slords@mail.com> 4.16.0-15
+- Add admin email forwarding to modify user panel [SME: 827]
+
 * Sun Jan 14 2007 Shad L. Lords <slords@mail.com> 4.16.0-14
 - Make fetchmail deliver to 127.0.0.2 to is it treat like external [SME: 2223]
 
@@ -1277,6 +1281,7 @@ e-smith server and gateway software - email module.
 %patch10 -p1
 %patch11 -p1
 %patch12 -p1
+%patch13 -p1
 
 %build
 perl createlinks
