@@ -6,7 +6,7 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.16.0/root/etc/e-smith/templates
  	$OUT .= "       username \"$SecondaryMailAccount\" ";
  	$OUT .= "password \"$SecondaryMailPassword\" to * here\n";
 -	$OUT .= "           smtphost localhost\n";
-+	$OUT .= "           smtphost 127.0.0.2\n";
++	$OUT .= "           smtphost 127.0.0.200\n";
  	$OUT .= "           fetchall\n";
  	$OUT .= "           forcecr\n";
  	$OUT .= "\n";

@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.16.0
-%define release 15
+%define release 16
 Version: %{version}
 Release: %smerelease %{release}
 Packager: %{_packager}
@@ -47,6 +47,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Mon Jan 22 2007 Shad L. Lords <slords@mail.com> 4.16.0-16
+- Change fetchmail dest from 127.0.0 2 to 127.0.0.200 [SME: 2223]
+
 * Sun Jan 14 2007 Shad L. Lords <slords@mail.com> 4.16.0-15
 - Add admin email forwarding to modify user panel [SME: 827]
 
