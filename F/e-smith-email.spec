@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.16.0
-%define release 17
+%define release 18
 Version: %{version}
 Release: %smerelease %{release}
 Packager: %{_packager}
@@ -25,6 +25,7 @@ Patch11: e-smith-email-4.16.0-Returntosendertextupdated.patch
 Patch12: e-smith-email-4.16.0-fetchmaildest.patch
 Patch13: e-smith-email-4.16.0-adminemail.patch
 Patch14: e-smith-email-4.16.0-RelaxedEmailCheck3.patch
+Patch15: e-smith-email-4.16.0-adminemail.patch2
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-tinydns >= 1.0.0-5
@@ -48,6 +49,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Fri Jan 26 2007 Shad L. Lords <slords@mail.com> 4.16.0-18
+- Finish removing admin email forwarding stuff [SME: 827]
+
 * Wed Jan 24 2007 Federico Simoncelli <federico.simoncelli@gmail.com> 4.16.0-17
 - Removed braces from the permitted character in pseudonymous [SME: 2270]
 
@@ -1290,6 +1294,7 @@ e-smith server and gateway software - email module.
 %patch12 -p1
 %patch13 -p1
 %patch14 -p1
+%patch15 -p1
 
 %build
 perl createlinks
