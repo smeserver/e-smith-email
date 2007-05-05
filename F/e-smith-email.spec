@@ -4,10 +4,8 @@ Name: %{name}
 %define version 4.16.0
 %define release 18
 Version: %{version}
-Release: %smerelease %{release}
-Packager: %{_packager}
+Release: %{release}%{?dist}
 License: GPL
-Vendor: Mitel Networks Corporation
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
 Patch0: e-smith-email-4.16.0-lexiconfixup.patch 
@@ -49,6 +47,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Sun Apr 29 2007 Shad L. Lords <slords@mail.com>
+- Clean up spec so package can be built by koji/plague
+
 * Fri Jan 26 2007 Shad L. Lords <slords@mail.com> 4.16.0-18
 - Finish removing admin email forwarding stuff [SME: 827]
 
