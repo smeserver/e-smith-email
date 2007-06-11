@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.16.0
-%define release 18
+%define release 19
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -24,6 +24,7 @@ Patch12: e-smith-email-4.16.0-fetchmaildest.patch
 Patch13: e-smith-email-4.16.0-adminemail.patch
 Patch14: e-smith-email-4.16.0-RelaxedEmailCheck3.patch
 Patch15: e-smith-email-4.16.0-adminemail.patch2
+Patch16: e-smith-email-4.16.0-uriencode.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-tinydns >= 1.0.0-5
@@ -47,6 +48,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Sun Apr 29 2007 Shad L. Lords <slords@mail.com> 4.16.0-19
+- encode parameters so pseudonymn can be modified/deleted [SME: 1782]
+
 * Sun Apr 29 2007 Shad L. Lords <slords@mail.com>
 - Clean up spec so package can be built by koji/plague
 
@@ -1296,6 +1300,7 @@ e-smith server and gateway software - email module.
 %patch13 -p1
 %patch14 -p1
 %patch15 -p1
+%patch16 -p1
 
 %build
 perl createlinks

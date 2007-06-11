@@ -1,0 +1,20 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.16.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm mezzanine_patched_e-smith-email-4.16.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm
+--- e-smith-email-4.16.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm	2007-06-11 12:07:36.000000000 -0600
++++ mezzanine_patched_e-smith-email-4.16.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm	2007-06-11 12:06:59.000000000 -0600
+@@ -14,6 +14,7 @@
+ use File::Basename;
+ use Exporter;
+ use Carp;
++use URI::Escape;
+ 
+ our @ISA = qw(esmith::FormMagick Exporter);
+ 
+@@ -527,7 +528,7 @@
+ 
+ sub print_hidden_pseudonym_field {
+     my $fm = shift;
+-    print "<input type='hidden' name='pseudonym' value='".$fm->{'cgi'}->param('pseudonym')."'>";
++    print "<input type='hidden' name='pseudonym' value=\"".uri_escape($fm->{'cgi'}->param('pseudonym'))."\">";
+     return '';
+ }
+ 
