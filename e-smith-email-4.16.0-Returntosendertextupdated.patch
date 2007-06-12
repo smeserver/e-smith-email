@@ -1,0 +1,25 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.16.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings
+--- e-smith-email-4.16.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings	2007-01-13 07:12:16.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings	2007-01-13 07:10:13.000000000 -0700
+@@ -253,7 +253,7 @@
+     </entry>
+     <entry>
+         <base>RETURN_TO_SENDER</base>
+-        <trans>Return to sender</trans>
++        <trans>Reject</trans>
+     </entry>
+     <entry>
+         <base>LABEL_UNKNOWN</base>
+@@ -276,9 +276,9 @@
+     <entry>
+         <base>DESC_UNKNOWN</base>
+         <trans><![CDATA[
+-            Designate what you'd like the server to do with email messages sent to unknown users. 
+-            Select Return to sender (recommended setting) to return the message to the sender with an error message.
+-            Selecting Send to ... will cause the message to be sent to that user.
++            Selecting Reject (recommended setting) will configure the server to only
++            accept mail for valid email addresses (for example users, groups, pseudonyms).
++            Mail for other addresses will be rejected.
+             ]]>
+         </trans>
+     </entry>

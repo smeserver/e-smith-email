@@ -1,0 +1,20 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.16.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm mezzanine_patched_e-smith-email-4.16.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm
+--- e-smith-email-4.16.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm	2006-03-15 06:23:58.000000000 +1100
++++ mezzanine_patched_e-smith-email-4.16.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm	2006-04-05 14:50:00.862838246 +1000
+@@ -304,6 +304,16 @@
+         if ($account->prop('type') eq "pseudonym") {
+             my $target = $accounts->get($account->prop('Account'));
+ 
++            unless ($target)
++            {
++                warn "WARNING: pseudonym (" 
++			. $account->key 
++			. ") => missing Account(" 
++			. $account->prop('Account') 
++			. ")\n";
++                next;
++            }
++
+             $existingAccounts{$account->key} = $account->key 
+                 unless ($target->prop('type') eq "pseudonym");
+         }

@@ -1,0 +1,27 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.16.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm mezzanine_patched_e-smith-email-4.16.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm
+--- e-smith-email-4.16.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm	2007-01-26 12:47:51.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.16.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm	2007-01-26 12:47:31.000000000 -0700
+@@ -259,23 +259,6 @@
+     $db->set_value('SMTPSmartHost', $q->param('SMTPSmartHost'));
+     $db->set_value('DelegateMailServer', $q->param('DelegateMailServer'));
+     $db->set_value('EmailUnknownUser', $EmailUnknownUser);
+-    my $accounts = esmith::AccountsDB->open;
+-    my $admin_email = $q->param('AdminEmail');
+-    my $admin = $accounts->get('admin');
+-    if ($admin_email)
+-    {
+-	$admin->merge_props(
+-		EmailForward => 'forward',
+-		ForwardAddress => $admin_email,
+-		);
+-    }
+-    else
+-    {
+-	$admin->merge_props(
+-		EmailForward => 'local',
+-		ForwardAddress => '',
+-		);
+-    }
+ 
+     my $proxy = $db->get('smtp-auth-proxy');
+     my %props = $proxy->props;
