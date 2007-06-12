@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.16.0
-%define release 20
+%define release 21
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -26,6 +26,7 @@ Patch14: e-smith-email-4.16.0-RelaxedEmailCheck3.patch
 Patch15: e-smith-email-4.16.0-adminemail.patch2
 Patch16: e-smith-email-4.16.0-uriencode.patch
 Patch17: e-smith-email-4.16.0-uriencode.patch2
+Patch18: e-smith-email-4.16.0-spamreject.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-tinydns >= 1.0.0-5
@@ -49,6 +50,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Tue Jun 12 2007 Shad L. Lords <slords@mail.com> 4.16.0-21
+- Add default to SpamReject to get rid of warnings [SME: 2395]
+
 * Mon Jun 11 2007 Shad L. Lords <slords@mail.com> 4.16.0-20
 - decode parameters so pseudonymn can be modified/deleted [SME: 1782]
 
@@ -1306,6 +1310,7 @@ e-smith server and gateway software - email module.
 %patch15 -p1
 %patch16 -p1
 %patch17 -p1
+%patch18 -p1
 
 %build
 perl createlinks
