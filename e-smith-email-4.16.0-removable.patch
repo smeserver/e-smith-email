@@ -1,0 +1,103 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.16.0/root/etc/e-smith/db/accounts/defaults/abuse/Removable mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/db/accounts/defaults/abuse/Removable
+--- e-smith-email-4.16.0/root/etc/e-smith/db/accounts/defaults/abuse/Removable	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/db/accounts/defaults/abuse/Removable	2006-12-26 14:52:06.000000000 -0700
+@@ -0,0 +1 @@
++no
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.16.0/root/etc/e-smith/db/accounts/defaults/anonymous/Removable mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/db/accounts/defaults/anonymous/Removable
+--- e-smith-email-4.16.0/root/etc/e-smith/db/accounts/defaults/anonymous/Removable	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/db/accounts/defaults/anonymous/Removable	2006-12-26 14:52:34.000000000 -0700
+@@ -0,0 +1 @@
++no
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.16.0/root/etc/e-smith/db/accounts/defaults/everyone/Changeable mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/db/accounts/defaults/everyone/Changeable
+--- e-smith-email-4.16.0/root/etc/e-smith/db/accounts/defaults/everyone/Changeable	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/db/accounts/defaults/everyone/Changeable	2006-12-26 15:13:39.000000000 -0700
+@@ -0,0 +1 @@
++no
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.16.0/root/etc/e-smith/db/accounts/defaults/everyone/Removable mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/db/accounts/defaults/everyone/Removable
+--- e-smith-email-4.16.0/root/etc/e-smith/db/accounts/defaults/everyone/Removable	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/db/accounts/defaults/everyone/Removable	2006-12-26 14:51:46.000000000 -0700
+@@ -0,0 +1 @@
++no
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.16.0/root/etc/e-smith/db/accounts/defaults/mailer-daemon/Removable mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/db/accounts/defaults/mailer-daemon/Removable
+--- e-smith-email-4.16.0/root/etc/e-smith/db/accounts/defaults/mailer-daemon/Removable	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/db/accounts/defaults/mailer-daemon/Removable	2006-12-26 14:51:52.000000000 -0700
+@@ -0,0 +1 @@
++no
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.16.0/root/etc/e-smith/db/accounts/defaults/postmaster/Removable mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/db/accounts/defaults/postmaster/Removable
+--- e-smith-email-4.16.0/root/etc/e-smith/db/accounts/defaults/postmaster/Removable	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.16.0/root/etc/e-smith/db/accounts/defaults/postmaster/Removable	2006-12-26 14:51:57.000000000 -0700
+@@ -0,0 +1 @@
++no
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.16.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm mezzanine_patched_e-smith-email-4.16.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm
+--- e-smith-email-4.16.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm	2006-12-26 15:16:12.000000000 -0700
++++ mezzanine_patched_e-smith-email-4.16.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm	2006-12-26 15:12:25.000000000 -0700
+@@ -338,15 +338,9 @@
+     # Need to untie and re-tie the accounts database to ensure changes
+     # are recognised.
+     foreach my $account ($accounts->get_all()) {
+-        my $type =$account->prop('type');
++        my $type = $account->prop('type');
+         my $key = $account->key();
+-        if ($type eq 'pseudonym') {
+-            next if ($key eq "everyone");
+-            next if ($key eq "mailer-daemon");
+-            next if ($key eq "postmaster");
+-            next if ($key eq "abuse");
+-            push (@emailPseudonyms, $key);
+-        }
++        push (@emailPseudonyms, $key) if ($type eq 'pseudonym');
+     }
+     my $urlprefix = $fm->build_cgi_params($q->param('pseudonym'));    
+     print "  <tr>\n    <td colspan='2'>\n";
+@@ -363,37 +357,33 @@
+             "      <th class=\"sme-border\">".$fm->localise('USER_OR_GROUP') . "</th>\n" .
+             "      <th class=\"sme-border\" colspan=\"2\">".$fm->localise('ACTION') . "</th></tr>\n";
+ 
+-        foreach my $pseudonym ("everyone", "mailer-daemon", "postmaster", "abuse") {
+-            my $account = $accounts->get($pseudonym)->prop('Account');
+-            $account = "Administrator" if (defined $account && $account eq "admin");
+-            $account = $fm->localise("EVERYONE") if (defined $account && $account eq "shared");
+-
+-            my $visible =$accounts->get($pseudonym)->prop('Visible');
+-            $account .= $fm->localise('LOCAL_ONLY')if (defined $visible && $visible eq "internal");
+-            print "    <tr>\n" .
+-                "      <td class=\"sme-border\">$pseudonym</td>\n" .
+-                "      <td class=\"sme-border\">$account</td>\n" .
+-                "      <td class=\"sme-border\">&nbsp;</td>\n" .
+-                "      <td class=\"sme-border\">&nbsp;</td>\n";
+-        }
+-
+         foreach my $pseudonym (sort @emailPseudonyms) {
+             my $account = $accounts->get($pseudonym)->prop('Account');
+ 
+             $account = "Administrator" if ($account eq "admin");
+             $account = $fm->localise("EVERYONE") if ($account eq "shared");
+ 
+-            my $visible = $accounts->get($pseudonym)->prop('Visible');
++            my $removable = $accounts->get($pseudonym)->prop('Removable') || 'yes';
++            my $changeable = $accounts->get($pseudonym)->prop('Changeable') || 'yes';
+ 
++            my $visible = $accounts->get($pseudonym)->prop('Visible');
+             $account .= $fm->localise("LOCAL_ONLY")
+                 if (defined $visible && $visible eq "internal");
+ 
+             my $urlprefix = $fm->build_cgi_params($pseudonym);
+             print "    <tr>\n" .
+                 "      <td class=\"sme-border\">$pseudonym</td>\n" .
+-                "      <td class=\"sme-border\">$account</td>\n" .
+-                "      <td class=\"sme-border\">".$q->a({href => "pseudonyms?$urlprefix&wherenext=Modify"},$fm->localise("MODIFY"))."</td>\n" .
+-                "      <td class=\"sme-border\">".$q->a({href => "pseudonyms?$urlprefix&wherenext=Remove"},$fm->localise("REMOVE"))."</td>\n";
++                "      <td class=\"sme-border\">$account</td>\n";
++            if ($changeable eq 'no') {
++                print "      <td class=\"sme-border\">&nbsp;</td>\n";
++            } else {
++                print "      <td class=\"sme-border\">".$q->a({href => "pseudonyms?$urlprefix&wherenext=Modify"},$fm->localise("MODIFY"))."</td>\n";
++            }
++            if ($removable eq 'no') {
++                print "      <td class=\"sme-border\">&nbsp;</td>\n";
++            } else {
++                print "      <td class=\"sme-border\">".$q->a({href => "pseudonyms?$urlprefix&wherenext=Remove"},$fm->localise("REMOVE"))."</td>\n";
++            }
+             print "</tr>";
+         }
+ 

@@ -1,0 +1,12 @@
+diff -uNr e-smith-email-4.16.0-orig/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm e-smith-email-4.16.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm
+--- e-smith-email-4.16.0-orig/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm	2007-01-24 11:34:14.000000000 +0100
++++ e-smith-email-4.16.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm	2007-01-24 11:37:01.000000000 +0100
+@@ -463,7 +463,7 @@
+ 
+         return ('OK');
+     }
+-    elsif ($pseudonym !~ /^([a-z0-9][a-z0-9\.\-_\{!#\?~\}\$\^\+&`%\/\*]*)$/)
++    elsif ($pseudonym !~ /^([a-z0-9][a-z0-9\.\-_!#\?~\$\^\+&`%\/\*]*)$/)
+     {
+         return('VALID_PSEUDONYM_NAMES');
+     }
