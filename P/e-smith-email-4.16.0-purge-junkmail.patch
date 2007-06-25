@@ -24,7 +24,7 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.16.0/root/etc/e-smith/events/ac
 +	}
 +	else
 +	{
-+	    warn("Somebody has been fiddling - ~$user/Maildir/.junkmail/$cur is missing\n");
++	    warn("Somebody has been fiddling - ~$user/Maildir/.junkmail/$dir is missing\n");
 +	}
 +    }
  }
