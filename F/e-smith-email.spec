@@ -2,12 +2,13 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.17.0
-%define release 01
+%define release 02
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
+Patch0: e-smith-email-4.17.0-SSL_port.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-tinydns >= 1.0.0-5
@@ -18,6 +19,7 @@ Requires: e-smith-imap
 Requires: e-smith-lib >= 1.15.1-19
 Requires: perl(Net::Server::Fork)
 Requires: perl(Net::SMTP)
+Requires: perl(Net::SMTP::SSL)
 Requires: perl(Authen::SASL)
 Requires: perl(Net::Server) >= 0.85
 Requires: runit
@@ -31,6 +33,10 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Wed Dec 26 2007 Charlie Brady <charlie_brady@mitel.com> 4.17.0-02
+- Add support for SMTPS and MSA outbound authenticated SMTP to
+  smarthost. TODO: Add panel support. [SME: 897]
+
 * Wed Dec 26 2007 Charlie Brady <charlie_brady@mitel.com> 4.17.0-01
 - Make new development branch.
 
@@ -1279,6 +1285,7 @@ e-smith server and gateway software - email module.
 
 %prep
 %setup
+%patch0 -p1
 
 %build
 perl createlinks
