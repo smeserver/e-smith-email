@@ -1,33 +1,13 @@
 Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
-%define version 4.16.0
-%define release 22
+%define version 4.17.0
+%define release 01
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
-Patch0: e-smith-email-4.16.0-lexiconfixup.patch 
-Patch1: e-smith-email-4.16.0-danglingpseudonyms.patch
-Patch2: e-smith-email-4.16.0-relay_ehlo.patch
-Patch3: e-smith-email-4.16.0-relay_ehlo.patch2
-Patch4: e-smith-email-4.16.0-removeIMPfragment.patch
-Patch5: e-smith-email-4.16.0-TVp1AQEAAAAE.patch
-Patch6: e-smith-email-4.16.0-virustextupdated.patch
-Patch7: e-smith-email-4.16.0-purge-junkmail-folders.patch
-Patch8: e-smith-email-4.16.0-TVqgAAEAAAAFAAAA.patch
-Patch9: e-smith-email-4.16.0-RelaxedEmailCheck.patch
-Patch10: e-smith-email-4.16.0-removable.patch
-Patch11: e-smith-email-4.16.0-Returntosendertextupdated.patch
-Patch12: e-smith-email-4.16.0-fetchmaildest.patch
-Patch13: e-smith-email-4.16.0-adminemail.patch
-Patch14: e-smith-email-4.16.0-RelaxedEmailCheck3.patch
-Patch15: e-smith-email-4.16.0-adminemail.patch2
-Patch16: e-smith-email-4.16.0-uriencode.patch
-Patch17: e-smith-email-4.16.0-uriencode.patch2
-Patch18: e-smith-email-4.16.0-spamreject.patch
-Patch19: e-smith-email-4.16.0-purge-junkmail.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-tinydns >= 1.0.0-5
@@ -51,6 +31,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Wed Dec 26 2007 Charlie Brady <charlie_brady@mitel.com> 4.17.0-01
+- Make new development branch.
+
 * Mon Jun 25 2007 Charlie Brady <charlie_brady@mitel.com> 4.16.0-22
 - Add diagnostic if .junkmail Maildir is broken. [SME: 2739]
 
@@ -1296,26 +1279,6 @@ e-smith server and gateway software - email module.
 
 %prep
 %setup
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
-%patch11 -p1
-%patch12 -p1
-%patch13 -p1
-%patch14 -p1
-%patch15 -p1
-%patch16 -p1
-%patch17 -p1
-%patch18 -p1
-%patch19 -p1
 
 %build
 perl createlinks
