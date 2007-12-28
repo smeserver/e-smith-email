@@ -1,0 +1,47 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.17.0/root/usr/local/sbin/smtp-auth-proxy.pl mezzanine_patched_e-smith-email-4.17.0/root/usr/local/sbin/smtp-auth-proxy.pl
+--- e-smith-email-4.17.0/root/usr/local/sbin/smtp-auth-proxy.pl	2007-12-26 14:48:39.000000000 -0500
++++ mezzanine_patched_e-smith-email-4.17.0/root/usr/local/sbin/smtp-auth-proxy.pl	2007-12-26 16:00:23.000000000 -0500
+@@ -6,6 +6,7 @@
+ use vars qw(@ISA);
+ use Net::Server::Fork;
+ use Net::SMTP;
++use Net::SMTP::SSL;
+ use esmith::ConfigDB;
+ 
+ @ISA = qw(Net::Server::Fork);
+@@ -27,6 +28,7 @@
+     $prop->{Debug} = $smtp_proxy_rec->prop('Debug');
+     $prop->{SystemName} = $config->get_value('SystemName');
+     $prop->{DomainName} = $config->get_value('DomainName');
++    $prop->{PeerPort} = $smtp_proxy_rec->prop('PeerPort') || 25;
+ }
+ 
+ esmith::SMTPAuthProxy->run(
+@@ -46,6 +48,7 @@
+     my $kidpid;
+ 
+     my $smarthost = $self->get_property('SMTPSmartHost');
++    my $port = $self->get_property('PeerPort');
+     my $user = $self->get_property('user');
+     my $domain_name = $self->get_property('DomainName');
+     my $system_name = $self->get_property('SystemName');
+@@ -69,14 +72,16 @@
+         exit;
+     }
+ 
+-    my $smtp = Net::SMTP->new($smarthost,
++    my $class = ($port == 465) ? 'Net::SMTP::SSL' : 'Net::SMTP';
++    my $smtp = $class->new($smarthost,
+                             Hello => "${system_name}.${domain_name}",
+-                            Debug => $debug
++                            Debug => $debug,
++                            Port => $port,
+                         );
+     unless ($smtp)
+     {
+         print "451 Upstream SMTP server not available\n";
+-        warn "No SMTP connection to ISP server\n";
++        warn "No SMTP connection to server $smarthost on port $port\n";
+         exit;
+     }
+ 
