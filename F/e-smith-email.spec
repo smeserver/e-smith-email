@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.17.0
-%define release 02
+%define release 3
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -33,6 +33,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Thu Dec 27 2007 Shad L. Lords <slords@mail.com> 4.17.0-3
+- Remove leading 0 from release
+
 * Wed Dec 26 2007 Charlie Brady <charlie_brady@mitel.com> 4.17.0-02
 - Add support for SMTPS and MSA outbound authenticated SMTP to
   smarthost. TODO: Add panel support. [SME: 897]
