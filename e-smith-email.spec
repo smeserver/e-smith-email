@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.17.0
-%define release 4
+%define release 5
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -10,6 +10,7 @@ Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
 Patch0: e-smith-email-4.17.0-SSL_port.patch
 Patch1: e-smith-email-4.17.0-VisibleInternal.patch
+Patch2: e-smith-email-4.17.0-rmDuplicates.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-tinydns >= 1.0.0-5
@@ -34,6 +35,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Sun Feb 10 2008 Stephen Noble <support@dungog.net> 4.17.0-5
+- Remove duplicate <base> entries [SME: 3892]
+
 * Wed Jan 09 2008 Stephen Noble <support@dungog.net>4.17.0-4
 - add visible internal toggle to pseudonym panel [SME: 3497]
 
@@ -1294,6 +1298,7 @@ e-smith server and gateway software - email module.
 %setup
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 perl createlinks
