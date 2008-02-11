@@ -1,0 +1,106 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.17.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings mezzanine_patched_e-smith-email-4.17.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings
+--- e-smith-email-4.17.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings	2007-12-27 06:48:39.000000000 +1100
++++ mezzanine_patched_e-smith-email-4.17.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings	2008-02-10 10:36:22.000000000 +1100
+@@ -3,6 +3,10 @@
+     -->
+     <entry>
+         <base>FORM_TITLE</base>
++        <trans>E-mail settings</trans>
++    </entry>
++    <entry>
++        <base>E-mail</base>
+         <trans>E-mail</trans>
+     </entry>
+     <entry>
+@@ -149,20 +153,6 @@
+         <base>LABEL_SORT_HEADER</base>
+         <trans>Select sort header (for multi-drop)</trans>
+     </entry>
+-
+-    <entry>
+-        <base>SAVE</base>
+-        <trans>Save</trans>
+-    </entry>
+-
+-    <entry>
+-        <base>FORM_TITLE</base>
+-        <trans>E-mail settings</trans>
+-    </entry>
+-    <entry>
+-        <base>SUCCESS</base>
+-        <trans>The new e-mail settings have been saved.</trans>
+-    </entry>
+     <entry>
+         <base>ENABLED</base>
+         <trans>Enabled</trans>
+@@ -204,7 +194,7 @@
+         <trans>Allow both POP3 and POP3S</trans>
+     </entry>
+     <entry>
+-        <base>PRIVATE_POP3</base>
++        <base>ALLOW_PRIVATE</base>
+         <trans>Allow private</trans>
+     </entry>
+     <entry>
+@@ -216,10 +206,6 @@
+         <trans>Allow both IMAP and IMAPS</trans>
+     </entry>
+     <entry>
+-        <base>PRIVATE_IMAP</base>
+-        <trans>Allow private</trans>
+-    </entry>
+-    <entry>
+         <base>SECURE_IMAP</base>
+         <trans>Allow private and public (secure IMAPS)</trans>
+     </entry>
+@@ -342,18 +328,6 @@
+         <trans>Webmail access</trans>
+     </entry>
+     <entry>
+-        <base>SAVE</base>
+-        <trans>Save</trans>
+-    </entry>
+-    <entry>
+-        <base>Configuration</base>
+-        <trans>Configuration</trans>
+-    </entry>
+-    <entry>
+-        <base>E-mail</base>
+-        <trans>E-mail</trans>
+-    </entry>
+-    <entry>
+         <base>ERROR_UPDATING</base>
+         <trans>Error occurred while updating system configuration.</trans>
+     </entry>
+@@ -543,10 +517,6 @@
+         <base>CUSTOM</base>
+         <trans>Custom</trans>
+     </entry>
+-    <entry>
+-        <base>SAVE</base>
+-        <trans>Save</trans>
+-    </entry>
+ 
+     <entry>
+         <base>LABEL_SMARTHOST_SMTPAUTH_STATUS</base>
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.17.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm mezzanine_patched_e-smith-email-4.17.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm
+--- e-smith-email-4.17.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm	2007-12-27 06:48:39.000000000 +1100
++++ mezzanine_patched_e-smith-email-4.17.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm	2008-02-10 10:33:10.000000000 +1100
+@@ -708,7 +708,7 @@
+ {
+     my %options = (
+ 	disabled => 'DISABLED',
+-	private => 'PRIVATE_POP3',
++	private => 'ALLOW_PRIVATE',
+ 	publicSSL  => 'SECURE_POP3'
+     );
+ 
+@@ -723,7 +723,7 @@
+ {
+     my %options = (
+ 	disabled => 'DISABLED',
+-	private => 'PRIVATE_IMAP',
++	private => 'ALLOW_PRIVATE',
+ 	publicSSL  => 'SECURE_IMAP'
+     );
+ 
