@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.16.0
-%define release 23
+%define release 24
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -29,6 +29,7 @@ Patch17: e-smith-email-4.16.0-uriencode.patch2
 Patch18: e-smith-email-4.16.0-spamreject.patch
 Patch19: e-smith-email-4.16.0-purge-junkmail.patch
 Patch20: e-smith-email-4.17.0-VisibleInternal.patch
+Patch21: e-smith-email-4.16.0-rmDuplicates.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-tinydns >= 1.0.0-5
@@ -52,6 +53,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Sun Feb 10 2008 Gavin Weight <gweight@gmail.com> 4.16.0-24
+- Backport remove duplicates <base> entries. [SME: 3892]
+
 * Thu Jan 17 2008 Federico Simoncelli <federico.simoncelli@gmail.com> 4.16.0-23
 - add visible internal toggle to pseudonym panel [SME: 3497]
 
@@ -1321,6 +1325,7 @@ e-smith server and gateway software - email module.
 %patch18 -p1
 %patch19 -p1
 %patch20 -p1
+%patch21 -p1
 
 %build
 perl createlinks
