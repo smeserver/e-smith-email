@@ -38,7 +38,7 @@ e-smith server and gateway software - email module.
 
 %changelog
 * Wed Feb 13 2008 Stephen Noble <support@dungog.net> 4.17.0-6
-- Remove <base> tags now in general [SME: 3927]
+- Remove <base> tags now in general [SME: 3917]
 
 * Sun Feb 10 2008 Stephen Noble <support@dungog.net> 4.17.0-5
 - Remove duplicate <base> entries [SME: 3892]
