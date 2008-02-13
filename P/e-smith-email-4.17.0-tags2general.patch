@@ -1,0 +1,100 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.17.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings mezzanine_patched_e-smith-email-4.17.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings
+--- e-smith-email-4.17.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings	2008-02-13 23:35:54.000000000 +1100
++++ mezzanine_patched_e-smith-email-4.17.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings	2008-02-13 23:32:34.000000000 +1100
+@@ -154,14 +154,6 @@
+         <trans>Select sort header (for multi-drop)</trans>
+     </entry>
+     <entry>
+-        <base>ENABLED</base>
+-        <trans>Enabled</trans>
+-    </entry>
+-    <entry>
+-        <base>DISABLED</base>
+-        <trans>Disabled</trans>
+-    </entry>
+-    <entry>
+         <base>LABEL_FETCH_PROTO</base>
+         <trans>Protocol (for multi-drop)</trans>
+     </entry>
+@@ -331,14 +323,6 @@
+         <base>ERROR_UPDATING</base>
+         <trans>Error occurred while updating system configuration.</trans>
+     </entry>
+-    <entry>
+-        <base>NO</base>
+-        <trans>No</trans>
+-     </entry>
+-     <entry>
+-        <base>YES</base>
+-        <trans>Yes</trans>
+-     </entry>
+      <entry>
+         <base>LABEL_BLOCK_EXECUTABLE_CONTENT</base>
+         <trans>Executable content blocking</trans>
+@@ -430,16 +414,6 @@
+                 ]]>
+         </trans>
+     </entry>
+-
+-    <entry>
+-        <base>DESC_SECTIONBAR</base>
+-        <trans>
+-            <![CDATA[
+-            <hr class="sectionbar"/>
+-            ]]>
+-        </trans>
+-    </entry>
+-
+     <entry>
+ 	<base>LABEL_VIRUS_SCAN</base>
+ 	<trans>Virus scanning</trans>
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.17.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/pseudonyms mezzanine_patched_e-smith-email-4.17.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/pseudonyms
+--- e-smith-email-4.17.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/pseudonyms	2008-02-13 23:35:54.000000000 +1100
++++ mezzanine_patched_e-smith-email-4.17.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/pseudonyms	2008-02-13 23:31:06.000000000 +1100
+@@ -92,14 +92,6 @@
+         <trans><![CDATA[<b>Current List of Pseudonyms</b>]]></trans>
+     </entry>
+     <entry>
+-        <base>MODIFY</base>
+-        <trans>Modify</trans>
+-    </entry>
+-    <entry>
+-        <base>SAVE</base>
+-        <trans>Save</trans>
+-    </entry>
+-    <entry>
+         <base>TITLE_CREATE</base>
+         <trans>Create a pseudonym</trans>
+     </entry>
+@@ -156,11 +148,6 @@
+         <base>PSEUDONYM_INVALID_SAMEACCT</base>
+         <trans>A pseudonym cannot point to the same account</trans>
+     </entry>
+-
+-    <entry>
+-        <base>REMOVE</base>
+-        <trans>Remove</trans>
+-    </entry>
+     <entry>
+         <base>CREATE_SUCCEEDED</base>
+         <trans>Successfully created pseudonym</trans>
+@@ -174,19 +161,9 @@
+         <trans>Successfully removed pseudonym</trans>
+     </entry>
+     <entry>
+-      <base>ACTION</base>
+-      <trans>Action</trans>
+-    </entry>
+-    <entry>
+       <base>EVERYONE</base>
+       <trans>Everyone</trans>
+     </entry>
+-
+-      <entry>
+-        <base>Collaboration</base>
+-        <trans>Collaboration</trans>
+-      </entry>
+-
+       <entry>
+         <base>Pseudonyms</base>
+         <trans>Pseudonyms</trans>
