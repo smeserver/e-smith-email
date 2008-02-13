@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.17.0
-%define release 5
+%define release 6
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -11,6 +11,7 @@ Source: %{name}-%{version}.tar.gz
 Patch0: e-smith-email-4.17.0-SSL_port.patch
 Patch1: e-smith-email-4.17.0-VisibleInternal.patch
 Patch2: e-smith-email-4.17.0-rmDuplicates.patch
+Patch3: e-smith-email-4.17.0-tags2general.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-tinydns >= 1.0.0-5
@@ -25,6 +26,7 @@ Requires: perl(Net::SMTP::SSL)
 Requires: perl(Authen::SASL)
 Requires: perl(Net::Server) >= 0.85
 Requires: runit
+Requires: e-smith-formmagick >= 1.4.0-9
 Obsoletes: e-smith-smtp-authentication
 Obsoletes: e-smith-securemail
 BuildRequires: e-smith-devtools >= 1.13.0-03
@@ -35,6 +37,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Wed Feb 13 2008 Stephen Noble <support@dungog.net> 4.17.0-6
+- Remove <base> tags now in general [SME: 3917]
+
 * Sun Feb 10 2008 Stephen Noble <support@dungog.net> 4.17.0-5
 - Remove duplicate <base> entries [SME: 3892]
 
@@ -1299,6 +1304,7 @@ e-smith server and gateway software - email module.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 perl createlinks
