@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.16.0
-%define release 24
+%define release 25
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -30,8 +30,10 @@ Patch18: e-smith-email-4.16.0-spamreject.patch
 Patch19: e-smith-email-4.16.0-purge-junkmail.patch
 Patch20: e-smith-email-4.17.0-VisibleInternal.patch
 Patch21: e-smith-email-4.16.0-rmDuplicates.patch
+Patch22: e-smith-email-4.16.0-tags2general.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
+Requires: e-smith-formmagick >= 1.4.0-9
 Requires: e-smith-tinydns >= 1.0.0-5
 Requires: e-smith-smtpd
 Requires: e-smith-mta
@@ -53,6 +55,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Thu Feb 14 2008 Gavin Weight <gweight@gmail.com> 4.16.0-25
+- Backport remove <base> tags now in general. [SME: 3917]
+
 * Sun Feb 10 2008 Gavin Weight <gweight@gmail.com> 4.16.0-24
 - Backport remove duplicates <base> entries. [SME: 3892]
 
@@ -1326,6 +1331,7 @@ e-smith server and gateway software - email module.
 %patch19 -p1
 %patch20 -p1
 %patch21 -p1
+%patch22 -p1
 
 %build
 perl createlinks
