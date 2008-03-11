@@ -1,17 +1,13 @@
 Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
-%define version 4.17.0
-%define release 6
+%define version 4.18.0
+%define release 1
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
-Patch0: e-smith-email-4.17.0-SSL_port.patch
-Patch1: e-smith-email-4.17.0-VisibleInternal.patch
-Patch2: e-smith-email-4.17.0-rmDuplicates.patch
-Patch3: e-smith-email-4.17.0-tags2general.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-tinydns >= 1.0.0-5
@@ -37,6 +33,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Tue Mar 11 2008 Stephen Noble <support@dungog.net> 4.18.0-1
+- Roll stable stream for release.
+
 * Wed Feb 13 2008 Stephen Noble <support@dungog.net> 4.17.0-6
 - Remove <base> tags now in general [SME: 3917]
 
@@ -1301,10 +1300,6 @@ e-smith server and gateway software - email module.
 
 %prep
 %setup
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
 
 %build
 perl createlinks
