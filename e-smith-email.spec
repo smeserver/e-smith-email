@@ -2,12 +2,13 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.18.0
-%define release 1
+%define release 2
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
+Patch1: e-smith-email-4.18.0-fixADD.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-tinydns >= 1.0.0-5
@@ -33,6 +34,12 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Wed Mar 12 2008 Shad L. Lords <slords@mail.com> 4.18.0-2
+- Cleanup CREATE/ADD tag mixup [SME: 4045]
+
+* Tue Mar 11 2008 Stephen Noble <support@dungog.net> 4.18.0-1
+- Roll stable stream for release.
+
 * Tue Mar 11 2008 Stephen Noble <support@dungog.net> 4.18.0-1
 - Roll stable stream for release.
 
@@ -1300,6 +1307,7 @@ e-smith server and gateway software - email module.
 
 %prep
 %setup
+%patch1 -p1
 
 %build
 perl createlinks

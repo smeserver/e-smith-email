@@ -1,0 +1,26 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.18.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/pseudonyms mezzanine_patched_e-smith-email-4.18.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/pseudonyms
+--- e-smith-email-4.18.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/pseudonyms	2008-03-11 11:03:25.000000000 -0600
++++ mezzanine_patched_e-smith-email-4.18.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/pseudonyms	2008-03-12 09:27:38.000000000 -0600
+@@ -64,10 +64,6 @@
+         <trans>(local network only)</trans>
+     </entry>
+     <entry>
+-        <base>CREATE</base>
+-        <trans>Add</trans>
+-    </entry>
+-    <entry>
+         <base>SELECT_ACCOUNT</base>
+         <trans>Select account or group</trans>
+     </entry>
+diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.18.0/root/etc/e-smith/web/functions/pseudonyms mezzanine_patched_e-smith-email-4.18.0/root/etc/e-smith/web/functions/pseudonyms
+--- e-smith-email-4.18.0/root/etc/e-smith/web/functions/pseudonyms	2008-03-11 11:03:25.000000000 -0600
++++ mezzanine_patched_e-smith-email-4.18.0/root/etc/e-smith/web/functions/pseudonyms	2008-03-12 09:27:44.000000000 -0600
+@@ -129,7 +129,7 @@
+             <label>SELECT_ACCOUNT</label>
+         </field>
+ 
+-        <subroutine src="print_button('CREATE')"/>
++        <subroutine src="print_button('ADD')"/>
+     </page>
+ 
+     <page
