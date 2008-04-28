@@ -2,13 +2,14 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.18.0
-%define release 2
+%define release 3
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
 Patch1: e-smith-email-4.18.0-fixADD.patch
+Patch2: e-smith-email-4.18.0-add2general.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-tinydns >= 1.0.0-5
@@ -23,7 +24,7 @@ Requires: perl(Net::SMTP::SSL)
 Requires: perl(Authen::SASL)
 Requires: perl(Net::Server) >= 0.85
 Requires: runit
-Requires: e-smith-formmagick >= 1.4.0-9
+Requires: e-smith-formmagick >= 1.4.0-12
 Obsoletes: e-smith-smtp-authentication
 Obsoletes: e-smith-securemail
 BuildRequires: e-smith-devtools >= 1.13.0-03
@@ -34,6 +35,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Sun Apr 27 2008 Jonathan Martens <smeserver-contribs@snetram.nl> 4.18.0-3
+- Add common <base> tags to e-smith-formmagick's general [SME: 4285]
+
 * Wed Mar 12 2008 Shad L. Lords <slords@mail.com> 4.18.0-2
 - Cleanup CREATE/ADD tag mixup [SME: 4045]
 
@@ -1308,6 +1312,7 @@ e-smith server and gateway software - email module.
 %prep
 %setup
 %patch1 -p1
+%patch2 -p1
 
 %build
 perl createlinks
