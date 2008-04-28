@@ -24,7 +24,7 @@ Requires: perl(Net::SMTP::SSL)
 Requires: perl(Authen::SASL)
 Requires: perl(Net::Server) >= 0.85
 Requires: runit
-Requires: e-smith-formmagick >= 1.4.0-9
+Requires: e-smith-formmagick >= 1.4.0-12
 Obsoletes: e-smith-smtp-authentication
 Obsoletes: e-smith-securemail
 BuildRequires: e-smith-devtools >= 1.13.0-03
