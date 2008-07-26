@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.18.0
-%define release 3
+%define release 4
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -10,6 +10,7 @@ Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
 Patch1: e-smith-email-4.18.0-fixADD.patch
 Patch2: e-smith-email-4.18.0-add2general.patch
+Patch3: e-smith-email-4.18.0-FixSpecialCharactersPseudonyms.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-tinydns >= 1.0.0-5
@@ -35,6 +36,10 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Sat Jul 26 2008 Gavin Weight <gweight@gmail.com> 4.18.0-4
+- Fix pseudonyms modify if using special characters. Thanks - 
+  Federico Simoncelli. [SME: 4346]
+
 * Sun Apr 27 2008 Jonathan Martens <smeserver-contribs@snetram.nl> 4.18.0-3
 - Add common <base> tags to e-smith-formmagick's general [SME: 4285]
 
@@ -1313,6 +1318,7 @@ e-smith server and gateway software - email module.
 %setup
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 perl createlinks
