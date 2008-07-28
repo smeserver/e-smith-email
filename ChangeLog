@@ -363,3 +363,8 @@ Sat Jul 26 17:55:55 2008                                         gavin
 
 See changelog
 ----------------------------------------------------------------------
+Mon Jul 28 20:17:50 2008                   Jonathan Martens (jonathan)
+
+* Mon Jul 28 2008 Jonathan Martens <smeserver-contribs@snetram.nl> 4.18.0-5
+- Fix patch to be in accordance with conventions in e-smith-formagick's general [SME: 4285]
+----------------------------------------------------------------------
