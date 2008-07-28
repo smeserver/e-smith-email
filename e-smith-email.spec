@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 4.18.0
-%define release 4
+%define release 5
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -36,6 +36,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Mon Jul 28 2008 Jonathan Martens <smeserver-contribs@snetram.nl> 4.18.0-5
+- Fix patch to be in accordance with conventions in e-smith-formagick's general [SME: 4285]
+
 * Sat Jul 26 2008 Gavin Weight <gweight@gmail.com> 4.18.0-4
 - Fix pseudonyms modify if using special characters. Thanks - 
   Federico Simoncelli. [SME: 4346]

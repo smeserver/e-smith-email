@@ -71,7 +71,7 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.18.0/root/usr/lib/perl5/site_pe
      my %options = (
  	disabled => 'DISABLED',
 -	private => 'ALLOW_PRIVATE',
-+	private => 'ALLOW_NETWORKS_ALLOW_LOCAL',
++	private => 'NETWORKS_ALLOW_LOCAL',
  	publicSSL  => 'SECURE_POP3'
      );
  
@@ -80,7 +80,7 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-email-4.18.0/root/usr/lib/perl5/site_pe
      my %options = (
  	disabled => 'DISABLED',
 -	private => 'ALLOW_PRIVATE',
-+	private => 'ALLOW_NETWORKS_ALLOW_LOCAL',
++	private => 'NETWORKS_ALLOW_LOCAL',
  	publicSSL  => 'SECURE_IMAP'
      );
  
