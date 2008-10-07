@@ -1,16 +1,15 @@
+# $Id: e-smith-email.spec,v 1.13 2008/10/07 18:09:47 slords Exp $
+
 Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
-%define version 4.18.0
-%define release 5
+%define version 5.2.0
+%define release 1
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
-Patch1: e-smith-email-4.18.0-fixADD.patch
-Patch2: e-smith-email-4.18.0-add2general.patch
-Patch3: e-smith-email-4.18.0-FixSpecialCharactersPseudonyms.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-tinydns >= 1.0.0-5
@@ -36,6 +35,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Tue Oct 7 2008 Shad L. Lords <slords@mail.com> 5.2.0-1.sme
+- Roll new stream to separate sme7/sme8 trees [SME: 4633]
+
 * Mon Jul 28 2008 Jonathan Martens <smeserver-contribs@snetram.nl> 4.18.0-5
 - Fix patch to be in accordance with conventions in e-smith-formagick's general [SME: 4285]
 
@@ -1319,9 +1321,6 @@ e-smith server and gateway software - email module.
 
 %prep
 %setup
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
 
 %build
 perl createlinks
