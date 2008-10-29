@@ -1,0 +1,33 @@
+--- e-smith-email-5.0.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings.localonly	2008-10-07 11:35:31.000000000 -0600
++++ e-smith-email-5.0.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings	2008-10-29 13:11:34.000000000 -0600
+@@ -269,20 +269,22 @@
+     <entry>
+         <base>DESC_POP_ACCESS_CONTROL</base>
+         <trans>
+-            You can control POP3 server access. The setting 'Allow private'
+-            allows POP3 access only from your local network(s). The POP3S
+-            setting can be used to provide encrypted external access to your
+-            POP3 server. We recommend leaving this setting 'Allow private'
++            You can control POP3 server access. The setting 'Allow access
++            only from local networks' allows POP3 access only from your
++            local network(s). The POP3S setting can be used to provide
++            encrypted external access to your POP3 server. We recommend
++            leaving this setting 'Allow access only from local networks'
+             unless you have a specific reason to do otherwise.
+         </trans>
+     </entry>
+     <entry>
+         <base>DESC_IMAP_ACCESS_CONTROL</base>
+         <trans>
+-            You can control IMAP server access. The setting 'Allow private'
+-            allows IMAP access only from your local network(s). The IMAPS
+-            setting can be used to provide encrypted external access to your
+-            IMAP server. We recommend leaving this setting 'Allow private'
++            You can control IMAP server access. The setting 'Allow access
++            only from local networks' allows IMAP access only from your
++            local network(s). The IMAPS setting can be used to provide
++            encrypted external access to your IMAP server. We recommend
++            leaving this setting 'Allow access only from local networks'
+             unless you have a specific reason to do otherwise.
+         </trans>
+     </entry>
