@@ -1,15 +1,16 @@
-# $Id: e-smith-email.spec,v 1.13 2008/10/07 18:09:47 slords Exp $
+# $Id: e-smith-email.spec,v 1.14 2008/10/29 19:14:50 slords Exp $
 
 Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 5.2.0
-%define release 1
+%define release 2
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
+Patch1: e-smith-email-5.2.0-localonly.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-tinydns >= 1.0.0-5
@@ -35,6 +36,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Wed Oct 29 2008 Shad L. Lords <slords@mail.com> 5.2.0-2.sme
+- Fix 'Allow private' to be correct string [SME: 4731]
+
 * Tue Oct 7 2008 Shad L. Lords <slords@mail.com> 5.2.0-1.sme
 - Roll new stream to separate sme7/sme8 trees [SME: 4633]
 
@@ -1321,6 +1325,7 @@ e-smith server and gateway software - email module.
 
 %prep
 %setup
+%patch1 -p1
 
 %build
 perl createlinks
