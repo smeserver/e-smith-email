@@ -1,16 +1,17 @@
-# $Id: e-smith-email.spec,v 1.14 2008/10/29 19:14:50 slords Exp $
+# $Id: e-smith-email.spec,v 1.15 2009/11/05 18:45:41 snetram Exp $
 
 Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 5.2.0
-%define release 2
+%define release 3
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
 Patch1: e-smith-email-5.2.0-localonly.patch
+Patch2: e-smith-email-5.2.0-spamsubject.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-tinydns >= 1.0.0-5
@@ -36,6 +37,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Wed Nov 4 2009 Jonathan Martens <smeserver-contribs@snetram.nl> 5.2.0-3.sme
+- Allow for changing SPAM subject tag through server-manager
+
 * Wed Oct 29 2008 Shad L. Lords <slords@mail.com> 5.2.0-2.sme
 - Fix 'Allow private' to be correct string [SME: 4731]
 
@@ -1326,6 +1330,7 @@ e-smith server and gateway software - email module.
 %prep
 %setup
 %patch1 -p1
+%patch2 -p1
 
 %build
 perl createlinks

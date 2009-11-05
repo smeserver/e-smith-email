@@ -1,0 +1,54 @@
+diff -up e-smith-email-5.2.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings.spamsubject e-smith-email-5.2.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings
+--- e-smith-email-5.2.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings.spamsubject	2009-11-04 11:20:18.000000000 +0100
++++ e-smith-email-5.2.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/emailsettings	2009-11-04 11:40:16.000000000 +0100
+@@ -437,6 +437,20 @@ sender.
+ 	</trans>
+     </entry>
+
++    <entry>
++	<base>LABEL_SPAM_SUBJECT</base>
++	<trans>SPAM subject prefix</trans>
++    </entry>
++
++    <entry>
++	<base>DESC_SPAM_SUBJECT</base>
++	<trans>
++                You can enable to add a tag to the subject of each
++                message that is classified as SPAM.
++                The value for this tag can be defined below.
++	</trans>
++    </entry>
++
+    <entry>
+         <base>LABEL_SPAM_SENSITIVITY</base>
+         <trans>Spam sensitivity</trans>
+diff -up e-smith-email-5.2.0/root/etc/e-smith/web/functions/emailsettings.spamsubject e-smith-email-5.2.0/root/etc/e-smith/web/functions/emailsettings
+--- e-smith-email-5.2.0/root/etc/e-smith/web/functions/emailsettings.spamsubject	2007-12-26 20:48:39.000000000 +0100
++++ e-smith-email-5.2.0/root/etc/e-smith/web/functions/emailsettings	2009-11-04 11:37:25.000000000 +0100
+@@ -439,6 +439,15 @@ __DATA__
+             options=" 'enabled'=>'ENABLED', 'disabled'=>'DISABLED' "
+             value="get_prop('spamassassin','SubjectTag')">
+             <label>LABEL_SPAM_SUBJECTTAG</label>
++            <description>DESC_SPAM_SUBJECT</description>
++        </field>
++
++        <field
++            type="text"
++            id="SpamSubject"
++            display="get_prop('spamassassin', 'type')"
++            value="get_prop('spamassassin','Subject')">
++            <label>LABEL_SPAM_SUBJECT</label>
+ 	</field>
+ 
+         <field
+diff -up e-smith-email-5.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm.spamsubject e-smith-email-5.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm
+--- e-smith-email-5.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm.spamsubject	2008-10-07 19:35:33.000000000 +0200
++++ e-smith-email-5.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm	2009-11-04 11:23:03.000000000 +0100
+@@ -373,6 +373,7 @@ sub change_settings_filtering
+ 			TagLevel
+ 			RejectLevel
+ 			SortSpam 
++                        Subject
+ 			SubjectTag) )
+     {
+ 	$db->set_prop('spamassassin', $param, $q->param("Spam$param"));
