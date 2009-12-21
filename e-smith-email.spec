@@ -1,16 +1,17 @@
-# $Id: e-smith-email.spec,v 1.16 2008/10/29 19:14:50 slords Exp $
+# $Id: e-smith-email.spec,v 1.17 2009/12/21 16:43:36 filippocarletti Exp $
 
 Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 5.0.0
-%define release 2
+%define release 3
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
 Patch1: e-smith-email-5.0.0-localonly.patch
+Patch2: e-smith-email-5.0.0-HeloHost.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-tinydns >= 1.0.0-5
@@ -36,6 +37,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Mon Dec 21 2009 Filippo Carletti <filippo.carletti@gmail.com> 5.0.0-3.sme
+- Use HeloHost (if present) in smtp-auth-proxy.pl [SME: 5670]
+
 * Wed Oct 29 2008 Shad L. Lords <slords@mail.com> 5.0.0-2.sme
 - Fix 'Allow private' to be correct string [SME: 4731]
 
@@ -1326,6 +1330,7 @@ e-smith server and gateway software - email module.
 %prep
 %setup
 %patch1 -p1
+%patch2 -p1
 
 %build
 perl createlinks
