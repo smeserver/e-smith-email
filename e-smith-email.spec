@@ -1,10 +1,10 @@
-# $Id: e-smith-email.spec,v 1.15 2009/11/05 18:45:41 snetram Exp $
+# $Id: e-smith-email.spec,v 1.16 2009/12/21 16:37:51 filippocarletti Exp $
 
 Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 5.2.0
-%define release 3
+%define release 4
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -12,6 +12,7 @@ Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
 Patch1: e-smith-email-5.2.0-localonly.patch
 Patch2: e-smith-email-5.2.0-spamsubject.patch
+Patch3: e-smith-email-5.2.0-HeloHost.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-tinydns >= 1.0.0-5
@@ -37,6 +38,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Mon Dec 21 2009 Filippo Carletti <filippo.carletti@gmail.com> 5.2.0-4.sme
+- Use HeloHost (if present) in smtp-auth-proxy.pl [SME: 5680]
+
 * Wed Nov 4 2009 Jonathan Martens <smeserver-contribs@snetram.nl> 5.2.0-3.sme
 - Allow for changing SPAM subject tag through server-manager
 
@@ -1331,6 +1335,7 @@ e-smith server and gateway software - email module.
 %setup
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 perl createlinks
