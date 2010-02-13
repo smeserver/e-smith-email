@@ -1,4 +1,4 @@
-# $Id: e-smith-email.spec,v 1.16 2009/12/21 16:37:51 filippocarletti Exp $
+# $Id: e-smith-email.spec,v 1.17 2010/02/13 02:49:20 dungog Exp $
 
 Summary: e-smith server and gateway - email module
 %define name e-smith-email
@@ -42,7 +42,7 @@ e-smith server and gateway software - email module.
 - Use HeloHost (if present) in smtp-auth-proxy.pl [SME: 5680]
 
 * Wed Nov 4 2009 Jonathan Martens <smeserver-contribs@snetram.nl> 5.2.0-3.sme
-- Allow for changing SPAM subject tag through server-manager
+- Allow for changing SPAM subject tag through server-manager [SME: 5559]
 
 * Wed Oct 29 2008 Shad L. Lords <slords@mail.com> 5.2.0-2.sme
 - Fix 'Allow private' to be correct string [SME: 4731]
