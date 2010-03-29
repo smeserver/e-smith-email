@@ -1,0 +1,42 @@
+diff -uNr e-smith-email-5.2.0/root/etc/e-smith/db/configuration/defaults/smtpd/Proxy e-smith-email-5.2.0-blocksmtp/root/etc/e-smith/db/configuration/defaults/smtpd/Proxy
+--- e-smith-email-5.2.0/root/etc/e-smith/db/configuration/defaults/smtpd/Proxy	2005-05-05 17:17:20.000000000 +0200
++++ e-smith-email-5.2.0-blocksmtp/root/etc/e-smith/db/configuration/defaults/smtpd/Proxy	2010-03-25 15:16:40.692970423 +0100
+@@ -1 +1 @@
+-enabled
++blocked
+diff -uNr e-smith-email-5.2.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/40AllowGSMTP e-smith-email-5.2.0-blocksmtp/root/etc/e-smith/templates/etc/rc.d/init.d/masq/40AllowGSMTP
+--- e-smith-email-5.2.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/40AllowGSMTP	1970-01-01 01:00:00.000000000 +0100
++++ e-smith-email-5.2.0-blocksmtp/root/etc/e-smith/templates/etc/rc.d/init.d/masq/40AllowGSMTP	2010-03-25 11:01:49.459002064 +0100
+@@ -0,0 +1,7 @@
++{
++    $OUT .= "\n    # Check outbound SMTP\n";
++
++    $OUT .= "    /sbin/iptables --new-chain SMTPProxy\n";
++    $OUT .= "    /sbin/iptables --append FORWARD \\\n";
++    $OUT .= "\t-p tcp --dport 25 -j SMTPProxy\n";
++}
+diff -uNr e-smith-email-5.2.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90adjustSMTPProxy e-smith-email-5.2.0-blocksmtp/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90adjustSMTPProxy
+--- e-smith-email-5.2.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90adjustSMTPProxy	2005-05-05 17:17:21.000000000 +0200
++++ e-smith-email-5.2.0-blocksmtp/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90adjustSMTPProxy	2010-03-25 15:15:19.100617190 +0100
+@@ -12,11 +12,21 @@
+ 	$rule++;
+     }
+ 
++    $OUT .= "    /sbin/iptables --flush SMTPProxy\n";
++
+     if (${smtpd}{'Proxy'} eq 'enabled')
+     {
+ 	$OUT .= "    /sbin/iptables --table nat --replace SMTPProxy $rule\\\n";
+ 	$OUT .= "\t-p TCP -j DNAT --to $LocalIP:25\n";
+     }
++    elsif (${smtpd}{'Proxy'} eq 'blocked')
++    {
++	# Replace it with nothing, but keep the rule entry as a placeholder
++	# for each re-enabling.
++	$OUT .= "    /sbin/iptables --table nat --replace SMTPProxy $rule\n";
++	$OUT .= "    /sbin/iptables --append SMTPProxy\\\n";
++	$OUT .= "\t-p tcp --dport 25 -i \$INTERNALIF -j denylog\n";
++    }
+     else
+     {
+ 	# Replace it with nothing, but keep the rule entry as a placeholder

@@ -1,10 +1,10 @@
-# $Id: e-smith-email.spec,v 1.17 2010/02/13 02:49:20 dungog Exp $
+# $Id: e-smith-email.spec,v 1.18 2010/03/29 14:45:08 filippocarletti Exp $
 
 Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 5.2.0
-%define release 4
+%define release 5
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -13,6 +13,7 @@ Source: %{name}-%{version}.tar.gz
 Patch1: e-smith-email-5.2.0-localonly.patch
 Patch2: e-smith-email-5.2.0-spamsubject.patch
 Patch3: e-smith-email-5.2.0-HeloHost.patch
+Patch4: e-smith-email-5.2.0-blocksmtp.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-tinydns >= 1.0.0-5
@@ -38,6 +39,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Thu Mar 25 2010 Federico Simoncelli <federico.simoncelli@gmail.com> 5.2.0-2.sme
+- Block by default the SMTP transparent proxy [SME: 5574]
+
 * Mon Dec 21 2009 Filippo Carletti <filippo.carletti@gmail.com> 5.2.0-4.sme
 - Use HeloHost (if present) in smtp-auth-proxy.pl [SME: 5680]
 
@@ -1336,6 +1340,7 @@ e-smith server and gateway software - email module.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 perl createlinks
