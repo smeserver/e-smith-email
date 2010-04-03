@@ -1,0 +1,11 @@
+--- e-smith-email-5.2.0/root/usr/local/sbin/smtp-auth-proxy.pl.HeloHost2	2010-04-03 13:06:19.000000000 -0400
++++ e-smith-email-5.2.0/root/usr/local/sbin/smtp-auth-proxy.pl	2010-04-03 13:06:33.000000000 -0400
+@@ -77,7 +77,7 @@
+ 
+     my $class = ($port == 465) ? 'Net::SMTP::SSL' : 'Net::SMTP';
+     my $smtp = $class->new($smarthost,
+-                            Hello => Hello => $helo,
++                            Hello => $helo,
+                             Debug => $debug,
+                             Port => $port,
+                         );
