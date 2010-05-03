@@ -1,10 +1,10 @@
-# $Id: e-smith-email.spec,v 1.17 2009/12/21 16:43:36 filippocarletti Exp $
+# $Id: e-smith-email.spec,v 1.18 2010/05/03 14:37:06 wellsi Exp $
 
 Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 5.0.0
-%define release 3
+%define release 4
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -12,6 +12,7 @@ Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
 Patch1: e-smith-email-5.0.0-localonly.patch
 Patch2: e-smith-email-5.0.0-HeloHost.patch
+Patch3: e-smith-email-5.0.0-HeloHost2.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-tinydns >= 1.0.0-5
@@ -37,6 +38,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Mon May 3 2010 Ian Wells <esmith@wellsi.com> 5.0.0-4.sme
+- Fix HeloHost patch. [SME: 5670]
+
 * Mon Dec 21 2009 Filippo Carletti <filippo.carletti@gmail.com> 5.0.0-3.sme
 - Use HeloHost (if present) in smtp-auth-proxy.pl [SME: 5670]
 
@@ -1331,6 +1335,7 @@ e-smith server and gateway software - email module.
 %setup
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 perl createlinks
