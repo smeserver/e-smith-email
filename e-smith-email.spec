@@ -1,4 +1,4 @@
-# $Id: e-smith-email.spec,v 1.19 2010/05/04 18:58:58 snetram Exp $
+# $Id: e-smith-email.spec,v 1.20 2010/05/04 19:03:22 snetram Exp $
 
 Summary: e-smith server and gateway - email module
 %define name e-smith-email
@@ -39,7 +39,7 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
-* Tue May 4 2008 Jonathan Martens <smeserver-contribs@snetram.nl> 5.0.0-5.sme
+* Tue May 4 2010 Jonathan Martens <smeserver-contribs@snetram.nl> 5.0.0-5.sme
 - Set smtp-auth-proxy Debug property to disabled instead of 0 [SME: 5921]
 
 * Mon May 3 2010 Ian Wells <esmith@wellsi.com> 5.0.0-4.sme
