@@ -1,12 +1,12 @@
-diff -up e-smith-email-5.0.0/root/etc/e-smith/db/configuration/defaults/smtp-y-proxy/Debug.zero-to-disabled e-smith-email-5.0.0/root/etc/e-smith/db/configuration/defaults/smtp-y-proxy/Debug
---- e-smith-email-5.0.0/root/etc/e-smith/db/configuration/defaults/smtp-y-proxy/Debug.zero-to-disabled	2004-05-04 23:06:41.000000000 +0200
-+++ e-smith-email-5.0.0/root/etc/e-smith/db/configuration/defaults/smtp-y-proxy/Debug	2010-05-04 20:41:54.000000000 +0200
+diff -up e-smith-email-5.0.0/root/etc/e-smith/db/configuration/defaults/smtp-auth-proxy/Debug.zero-to-disabled e-smith-email-5.0.0/root/etc/e-smith/db/configuration/defaults/smtp-auth-proxy/Debug
+--- e-smith-email-5.0.0/root/etc/e-smith/db/configuration/defaults/smtp-auth-proxy/Debug.zero-to-disabled	2004-05-04 23:06:41.000000000 +0200
++++ e-smith-email-5.0.0/root/etc/e-smith/db/configuration/defaults/smtp-auth-proxy/Debug	2010-05-04 20:41:54.000000000 +0200
 @@ -1 +1 @@
 -0
 +disabled
-diff -up e-smith-email-5.0.0/root/etc/e-smith/db/configuration/migrate/20smtp-y-proxy-Debug.zero-to-disabled e-smith-email-5.0.0/root/etc/e-smith/db/configuration/migrate/20smtp-y-proxy-Debug
---- e-smith-email-5.0.0/root/etc/e-smith/db/configuration/migrate/20smtp-y-proxy-Debug.zero-to-disabled	2010-05-04 20:48:27.000000000 +0200
-+++ e-smith-email-5.0.0/root/etc/e-smith/db/configuration/migrate/20smtp-y-proxy-Debug	2010-05-04 20:49:27.000000000 +0200
+diff -up e-smith-email-5.0.0/root/etc/e-smith/db/configuration/migrate/20smtp-auth-proxy-Debug.zero-to-disabled e-smith-email-5.0.0/root/etc/e-smith/db/configuration/migrate/20smtp-auth-proxy-Debug
+--- e-smith-email-5.0.0/root/etc/e-smith/db/configuration/migrate/20smtp-auth-proxy-Debug.zero-to-disabled	2010-05-04 20:48:27.000000000 +0200
++++ e-smith-email-5.0.0/root/etc/e-smith/db/configuration/migrate/20smtp-auth-proxy-Debug	2010-05-04 20:49:27.000000000 +0200
 @@ -0,0 +1,5 @@
 +{
 +    my $debug = $DB->get_prop('smtp-auth-proxy','Debug') or return;
