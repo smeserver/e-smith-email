@@ -1,10 +1,10 @@
-# $Id: e-smith-email.spec,v 1.19 2010/04/03 17:10:07 charliebrady Exp $
+# $Id: e-smith-email.spec,v 1.20 2010/05/04 18:59:39 snetram Exp $
 
 Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 5.2.0
-%define release 6
+%define release 7
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -15,6 +15,7 @@ Patch2: e-smith-email-5.2.0-spamsubject.patch
 Patch3: e-smith-email-5.2.0-HeloHost.patch
 Patch4: e-smith-email-5.2.0-blocksmtp.patch
 Patch5: e-smith-email-5.2.0-HeloHost.patch2
+Patch6: e-smith-email-5.2.0-zero-to-disabled.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-tinydns >= 1.0.0-5
@@ -40,6 +41,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Tue May 4 2008 Jonathan Martens <smeserver-contribs@snetram.nl> 5.2.0-7.sme
+- Set smtp-auth-proxy Debug property to disabled instead of 0 [SME: 5922]
+
 * Sat Apr  3 2010 Charlie Brady <charlie_brady@mitel.com> 5.2.0-6.sme
 - Fix HeloHost patch. [SME: 5854]
 
@@ -1346,6 +1350,7 @@ e-smith server and gateway software - email module.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 perl createlinks
