@@ -9,7 +9,7 @@ diff -up e-smith-email-5.0.0/root/etc/e-smith/db/configuration/migrate/20smtp-au
 +++ e-smith-email-5.0.0/root/etc/e-smith/db/configuration/migrate/20smtp-auth-proxy-Debug	2010-05-04 20:49:27.000000000 +0200
 @@ -0,0 +1,5 @@
 +{
-+    my $debug = $DB->get_prop('smtp-auth-proxy','Debug') or return;
++    my $debug = $DB->get_prop('smtp-auth-proxy','Debug');
 +
 +    $DB->set_prop('smtp-auth-proxy','Debug', 'disabled') if $debug eq 0;
 +}
