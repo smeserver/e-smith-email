@@ -1,10 +1,10 @@
-# $Id: e-smith-email.spec,v 1.23 2010/05/04 20:01:08 snetram Exp $
+# $Id: e-smith-email.spec,v 1.24 2010/05/08 19:20:42 snetram Exp $
 
 Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 5.2.0
-%define release 8
+%define release 9
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -41,6 +41,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Tue May 8 2010 Jonathan Martens <smeserver-contribs@snetram.nl> 5.2.0-9.sme
+- Fix migrate fragment [SME: 5922]
+
 * Tue May 4 2010 Jonathan Martens <smeserver-contribs@snetram.nl> 5.2.0-8.sme
 - Fix errors in previous commit [SME: 5922]
 
