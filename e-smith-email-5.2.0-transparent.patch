@@ -1,0 +1,21 @@
+diff -ruN e-smith-email-5.2.0.old/root/etc/e-smith/db/configuration/migrate/20smtpProxy e-smith-email-5.2.0/root/etc/e-smith/db/configuration/migrate/20smtpProxy
+--- e-smith-email-5.2.0.old/root/etc/e-smith/db/configuration/migrate/20smtpProxy	1969-12-31 17:00:00.000000000 -0700
++++ e-smith-email-5.2.0/root/etc/e-smith/db/configuration/migrate/20smtpProxy	2010-09-26 10:14:36.000000000 -0600
+@@ -0,0 +1,5 @@
++{
++    my $proxy = $DB->get_prop('smtpd','Proxy');
++
++    $DB->set_prop('smtpd','Proxy', 'blocked') if $proxy eq 'enabled';
++}
+diff -ruN e-smith-email-5.2.0.old/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90adjustSMTPProxy e-smith-email-5.2.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90adjustSMTPProxy
+--- e-smith-email-5.2.0.old/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90adjustSMTPProxy	2010-09-26 09:56:50.000000000 -0600
++++ e-smith-email-5.2.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90adjustSMTPProxy	2010-09-26 10:17:29.000000000 -0600
+@@ -14,7 +14,7 @@
+ 
+     $OUT .= "    /sbin/iptables --flush SMTPProxy\n";
+ 
+-    if (${smtpd}{'Proxy'} eq 'enabled')
++    if (${smtpd}{'Proxy'} eq 'transparent')
+     {
+ 	$OUT .= "    /sbin/iptables --table nat --replace SMTPProxy $rule\\\n";
+ 	$OUT .= "\t-p TCP -j DNAT --to $LocalIP:25\n";
