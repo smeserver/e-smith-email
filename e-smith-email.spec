@@ -1,4 +1,4 @@
-# $Id: e-smith-email.spec,v 1.26 2010/10/04 16:36:27 slords Exp $
+# $Id: e-smith-email.spec,v 1.27 2010/10/04 16:40:39 slords Exp $
 
 Summary: e-smith server and gateway - email module
 %define name e-smith-email
@@ -43,7 +43,7 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
-* Sun Sep 25 2010 Shad L. Lords <slords@mail.com> 5.2.0-11.sme
+* Mon Oct 4 2010 Shad L. Lords <slords@mail.com> 5.2.0-11.sme
 - Enable auth for smtp traffic and migrate if necessary [SME: 5575]
 
 * Sun Sep 25 2010 Shad L. Lords <slords@mail.com> 5.2.0-10.sme
