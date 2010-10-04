@@ -1,0 +1,20 @@
+diff -up e-smith-email-5.2.0/root/etc/e-smith/db/configuration/defaults/smtpd/Authentication.force_relay e-smith-email-5.2.0/root/etc/e-smith/db/configuration/defaults/smtpd/Authentication
+--- e-smith-email-5.2.0/root/etc/e-smith/db/configuration/defaults/smtpd/Authentication.force_relay	2005-05-05 09:17:20.000000000 -0600
++++ e-smith-email-5.2.0/root/etc/e-smith/db/configuration/defaults/smtpd/Authentication	2010-10-04 10:32:17.000000000 -0600
+@@ -1 +1 @@
+-disabled
++enabled
+diff -up e-smith-email-5.2.0/root/etc/e-smith/db/configuration/migrate/20smtpProxy.force_relay e-smith-email-5.2.0/root/etc/e-smith/db/configuration/migrate/20smtpProxy
+--- e-smith-email-5.2.0/root/etc/e-smith/db/configuration/migrate/20smtpProxy.force_relay	2010-10-04 09:04:34.000000000 -0600
++++ e-smith-email-5.2.0/root/etc/e-smith/db/configuration/migrate/20smtpProxy	2010-10-04 10:34:41.000000000 -0600
+@@ -1,5 +1,9 @@
+ {
+     my $proxy = $DB->get_prop('smtpd','Proxy');
+ 
+-    $DB->set_prop('smtpd','Proxy', 'blocked') if $proxy eq 'enabled';
++    if ($proxy eq 'enabled')
++    {
++        $DB->set_prop('smtpd','Proxy', 'blocked');
++        $DB->set_prop('smtpd','Authentication', 'enabled');
++    }
+ }

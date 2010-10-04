@@ -1,10 +1,10 @@
-# $Id: e-smith-email.spec,v 1.25 2010/09/26 16:28:36 slords Exp $
+# $Id: e-smith-email.spec,v 1.26 2010/10/04 16:36:27 slords Exp $
 
 Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 5.2.0
-%define release 10
+%define release 11
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -17,6 +17,7 @@ Patch4: e-smith-email-5.2.0-blocksmtp.patch
 Patch5: e-smith-email-5.2.0-HeloHost.patch2
 Patch6: e-smith-email-5.2.0-zero-to-disabled.patch
 Patch7: e-smith-email-5.2.0-transparent.patch
+Patch8: e-smith-email-5.2.0-force_relay.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-tinydns >= 1.0.0-5
@@ -42,6 +43,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Sun Sep 25 2010 Shad L. Lords <slords@mail.com> 5.2.0-11.sme
+- Enable auth for smtp traffic and migrate if necessary [SME: 5575]
+
 * Sun Sep 25 2010 Shad L. Lords <slords@mail.com> 5.2.0-10.sme
 - Change enabled to transparent for mail proxy [SME: 5574]
 
@@ -1362,6 +1366,7 @@ e-smith server and gateway software - email module.
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
 
 %build
 perl createlinks
