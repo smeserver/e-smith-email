@@ -1,0 +1,38 @@
+diff -up e-smith-email-5.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm.smtp-auth e-smith-email-5.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm
+--- e-smith-email-5.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm.smtp-auth	2010-10-31 12:39:36.000000000 -0600
++++ e-smith-email-5.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/emailsettings.pm	2010-10-31 12:47:06.000000000 -0600
+@@ -229,7 +229,7 @@ sub change_settings_reception
+         }
+     }
+ 
+-    my $smtpAuth = ($q->param('SMTPAuth') || 'disabled');
++    my $smtpAuth = ($q->param('SMTPAuth') || 'public');
+     if ($smtpAuth eq 'public') {
+         $db->set_prop("smtpd", "Authentication", "enabled" );
+         $db->set_prop("ssmtpd", "Authentication", "enabled" );
+@@ -521,10 +521,10 @@ sub get_current_smtp_auth {
+     my ($fm, $localise) = @_;
+ 
+     my $smtpStatus = $db->get_prop('smtpd', 'status') || 'enabled';
+-    my $smtpAuth = $db->get_prop('smtpd', 'Authentication') || 'disabled';
++    my $smtpAuth = $db->get_prop('smtpd', 'Authentication') || 'enabled';
+ 
+     my $smtpsStatus = $db->get_prop('ssmtpd', 'status') || 'enabled';
+-    my $smtpsAuth = $db->get_prop('ssmtpd', 'Authentication') || 'disabled';
++    my $smtpsAuth = $db->get_prop('ssmtpd', 'Authentication') || 'enabled';
+ 
+     my $options = get_smtp_auth_options();
+ 
+@@ -696,11 +696,7 @@ sub get_patterns_current_options
+ 
+ sub get_smtp_auth_options
+ {
+-    my %options = ( disabled => 'DISABLED', publicSSL  => 'SECURE_SMTP' );
+-
+-    my $cleartext = $db->get_prop('smtpd', 'Authentication') || 'disabled';
+-
+-    $options{public} = 'INSECURE_SMTP' if ($cleartext eq 'enabled');
++    my %options = ( disabled => 'DISABLED', publicSSL  => 'SECURE_SMTP', public => 'INSECURE_SMTP');
+ 
+     \%options;
+ }

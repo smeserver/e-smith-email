@@ -1,10 +1,10 @@
-# $Id: e-smith-email.spec,v 1.27 2010/10/04 16:40:39 slords Exp $
+# $Id: e-smith-email.spec,v 1.28 2010/10/31 18:49:40 slords Exp $
 
 Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 5.2.0
-%define release 11
+%define release 12
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -18,6 +18,7 @@ Patch5: e-smith-email-5.2.0-HeloHost.patch2
 Patch6: e-smith-email-5.2.0-zero-to-disabled.patch
 Patch7: e-smith-email-5.2.0-transparent.patch
 Patch8: e-smith-email-5.2.0-force_relay.patch
+Patch9: e-smith-email-5.2.0-smtp-auth.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-tinydns >= 1.0.0-5
@@ -43,6 +44,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Sun Oct 31 2010 Shad L. Lords <slords@mail.com> 5.2.0-12.sme
+- Add smtp auth into web interface, not just when enabled [SME: 6318]
+
 * Mon Oct 4 2010 Shad L. Lords <slords@mail.com> 5.2.0-11.sme
 - Enable auth for smtp traffic and migrate if necessary [SME: 5575]
 
@@ -1367,6 +1371,7 @@ e-smith server and gateway software - email module.
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
 
 %build
 perl createlinks
