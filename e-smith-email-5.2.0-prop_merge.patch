@@ -1,0 +1,12 @@
+diff -up e-smith-email-5.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm.prop_merge e-smith-email-5.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm
+--- e-smith-email-5.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm.prop_merge	2008-10-07 11:35:33.000000000 -0600
++++ e-smith-email-5.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/pseudonyms.pm	2010-11-14 16:20:14.000000000 -0700
+@@ -214,7 +214,7 @@ sub performModifyPseudonym {
+         else { $accounts->get($pseudonym)->delete_prop('Visible'); }
+     }
+ 
+-    $accounts->get($pseudonym)->set_prop(%props)
++    $accounts->get($pseudonym)->merge_props(%props)
+         or $msg = "Error occurred while modifying pseudonym in database.";
+ 
+     # Untaint $pseudonym before use in system()

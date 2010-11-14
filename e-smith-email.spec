@@ -1,10 +1,10 @@
-# $Id: e-smith-email.spec,v 1.28 2010/10/31 18:49:40 slords Exp $
+# $Id: e-smith-email.spec,v 1.29 2010/11/14 23:24:28 slords Exp $
 
 Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 5.2.0
-%define release 12
+%define release 13
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -19,6 +19,7 @@ Patch6: e-smith-email-5.2.0-zero-to-disabled.patch
 Patch7: e-smith-email-5.2.0-transparent.patch
 Patch8: e-smith-email-5.2.0-force_relay.patch
 Patch9: e-smith-email-5.2.0-smtp-auth.patch
+Patch10: e-smith-email-5.2.0-prop_merge.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base >= 4.15.0-39
 Requires: e-smith-tinydns >= 1.0.0-5
@@ -44,6 +45,9 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Sun Oct 31 2010 Shad L. Lords <slords@mail.com> 5.2.0-13.sme
+- Fix property merge when local pseudonym is set [SME: 6361]
+
 * Sun Oct 31 2010 Shad L. Lords <slords@mail.com> 5.2.0-12.sme
 - Add smtp auth into web interface, not just when enabled [SME: 6318]
 
@@ -1372,6 +1376,7 @@ e-smith server and gateway software - email module.
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
+%patch10 -p1
 
 %build
 perl createlinks
