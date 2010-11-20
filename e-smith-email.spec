@@ -1,10 +1,10 @@
-# $Id: e-smith-email.spec,v 1.29 2010/11/14 23:24:28 slords Exp $
+# $Id: e-smith-email.spec,v 1.30 2010/11/20 21:04:53 wellsi Exp $
 
 Summary: e-smith server and gateway - email module
 %define name e-smith-email
 Name: %{name}
 %define version 5.2.0
-%define release 13
+%define release 14
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -45,8 +45,11 @@ AutoReqProv: no
 e-smith server and gateway software - email module.
 
 %changelog
+* Sat Nov 20 2010 Ian Wells <esmith@wellsi.com> 5.2.0-14.sme
+- SME 8.0 Changelog Cleanup [SME: 6368]
+
 * Sun Oct 31 2010 Shad L. Lords <slords@mail.com> 5.2.0-13.sme
-- Fix property merge when local pseudonym is set [SME: 6361]
+- Fix property merge when local pseudonym is set [SME: 6370]
 
 * Sun Oct 31 2010 Shad L. Lords <slords@mail.com> 5.2.0-12.sme
 - Add smtp auth into web interface, not just when enabled [SME: 6318]
